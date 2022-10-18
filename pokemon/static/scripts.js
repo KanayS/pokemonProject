@@ -19,9 +19,12 @@ function getPokeCard(){
     fetch('/getPokeCard/' + pokeName)
         .then(pokeParse => pokeParse.json())
         .then(pokeParse => updateCardUI(pokeParse));
-};
+}
 
 function updateCardUI(pokeDict){
+    var element = document.getElementById("cardClass");
+    element.classList.remove("invisible");
+    element.classList.add("visible");
     const typeColor = {
       bug: "#26de81",
       dragon: "#ffeaa7",
@@ -71,13 +74,34 @@ function updateCardUI(pokeDict){
 
     appendTypes(pokeDict.types);
     styleCard(themeColor);
+}
 
+function downloadData(){
+    var element = document.getElementById("cardClass");
+    element.classList.remove("visible");
+    element.classList.add("invisible");
 
-};
-//var pokemonName = '{{pokemon.name}}';
-//var pokeArtURL = '{{pokemon.URL}}';
-//var pokeAttack = '{{pokemon.attack}}';
-//var pokeDefense = '{{pokemon.defense}}';
-//var pokeTypes = {{ pokemon.types|tojson }};
-//var pokeList = {{pokeList|tojson}};
+    element = document.getElementById("loadIcon");
+    element.classList.remove("invisible");
+    element.classList.add("visible");
+//    loading icon visible
+    return fetch('/downloadData')
+        .then(data => getPokeList())
+        .then(data => {
 
+        });
+}
+
+function getPokeList(){
+    fetch('/pokeList')
+    .then(data => data.text())
+    .then(data => {
+            element = document.getElementById("pokeSearch");
+            element.innerHTML = data
+        });
+
+    element = document.getElementById("loadIcon");
+    element.classList.remove("visible");
+    element.classList.add("invisible");
+    console.log("list updated")
+}

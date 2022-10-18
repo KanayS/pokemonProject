@@ -17,7 +17,7 @@ class PokeDatabase:
         self.createTable()
 
     def downloadData(self):
-        truncTable = 'TRUNCATE TABLE Pokemon;'
+        truncTable = 'DELETE FROM Pokemon;'
         self.cursor.execute(truncTable)
         self.conn.commit()
         self.insertPokeData()
@@ -102,6 +102,6 @@ class PokeDatabase:
         listOfPokeNames = []
         if len(list) != 0:
             for name in list:
-                listOfPokeNames.append(name[0].title())
+                listOfPokeNames.append(name[0])
             return listOfPokeNames
         return None

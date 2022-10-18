@@ -14,7 +14,7 @@ class FetchData:
         pokemons = parsedJson["results"]
 
         for pokemon in pokemons:
-            pokemonName = pokemon["name"]
+            pokemonName = pokemon["name"].title()
             pokemonURL = pokemon["url"]
             pokeContent = requests.get(pokemonURL)
             pokeJson = json.loads(pokeContent.text)

@@ -7,8 +7,6 @@ app = Flask(__name__)
 def main():
     pokeDatabase = PokeDatabase()
     pokeList = pokeDatabase.listOfPokeNames()
-
-
     return render_template('pokedex.html', pokeList=pokeList)
 
 
@@ -17,6 +15,7 @@ def getPokeCard(pokeName):
     pokeDatabase = PokeDatabase()
     pokemon = pokeDatabase.getPokeData(pokeName)
     print(pokemon.name.title())
+
     pokeDict = {
         "name": pokemon.name.title(),
         "url": pokemon.url,
@@ -26,8 +25,24 @@ def getPokeCard(pokeName):
     }
     return json.dumps(pokeDict)
 
+@app.route("/downloadData")
+def downloadData():
+    pokeDatabase = PokeDatabase()
+    print("before")
+    pokeDatabase.downloadData()
+    print("after")
+    return ""
+
+
+@app.route("/pokeList")
+def pokeList():
+    pokeDatabase = PokeDatabase()
+    pokeList = pokeDatabase.listOfPokeNames()
+    pokeListHTML =""
+    for pokemon in pokeList:
+       pokeListHTML += f'<option value="{pokemon}">{pokemon}</option>'
+    return pokeListHTML
+
 
 if __name__ == "__main__":
-    pokeDatabase = PokeDatabase()
-    pokeDatabase.insertPokeData()
     app.run()
