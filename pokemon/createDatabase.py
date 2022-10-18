@@ -15,8 +15,12 @@ class PokeDatabase:
 
         self.cursor = self.conn.cursor()
         self.createTable()
+
+    def downloadData(self):
+        truncTable = 'TRUNCATE TABLE Pokemon;'
+        self.cursor.execute(truncTable)
+        self.conn.commit()
         self.insertPokeData()
-        self.listOfPokeNames()
 
     def insertPokeData(self):
         grabData = FetchData()
@@ -62,15 +66,16 @@ class PokeDatabase:
         no_poke = ''
 
         findPoke = f'''
-                SELECT *
-                FROM Pokemon
-                WHERE Name = '{pokeName}';
-                '''
+            SELECT *
+            FROM Pokemon
+            WHERE Name = '{pokeName}';
+            '''
 
         self.cursor.execute(findPoke)
         pokemonDataList = self.cursor.fetchone()
         if pokemonDataList is not None:
-            pokemon = Pokemon(pokeName)
+            pokemon = Pokemon()
+            pokemon.name = pokeName
             pokemon.url = pokemonDataList[1]
             pokemon.attackValue = pokemonDataList[2]
             pokemon.defenseValue = pokemonDataList[3]
@@ -88,18 +93,15 @@ class PokeDatabase:
     def listOfPokeNames(self):
 
         listNames = f'''
-                SELECT Name
-                FROM Pokemon
-                '''
+            SELECT Name
+            FROM Pokemon
+            '''
         self.cursor.execute(listNames)
 
         list = self.cursor.fetchall()
         listOfPokeNames = []
         if len(list) != 0:
             for name in list:
-                listOfPokeNames.append(name[0])
+                listOfPokeNames.append(name[0].title())
             return listOfPokeNames
         return None
-
-pokemon = PokeDatabase()
-pokemon.getPokeData("charmander")
