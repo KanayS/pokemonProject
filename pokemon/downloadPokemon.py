@@ -11,7 +11,6 @@ class FetchData:
 
         dict = {}
 
-
         pokemons = parsedJson["results"]
 
         for pokemon in pokemons:
@@ -26,8 +25,5 @@ class FetchData:
             listTypes = []
             for type in types:
                 listTypes.append(type["type"]["name"])
-            dict[pokemonName] = {"artwork" : artwork, "attack" : attack, "defense" : defense, "types" : listTypes}
+            dict[pokemonName] = {"artwork": artwork, "attack": attack, "defense": defense, "types": listTypes}
         return dict
-
-data = FetchData()
-data.fetchdata()

@@ -60,6 +60,7 @@ class PokeDatabase:
 
         self.cursor.execute(sql_command_poke)
         self.conn.commit()
+
     def getPokeData(self, pokeName):
 
         no_poke = ''
