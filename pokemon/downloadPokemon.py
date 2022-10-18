@@ -21,10 +21,13 @@ class FetchData:
             pokeJson = json.loads(pokeContent.text)
             attack = pokeJson["stats"][1]["base_stat"]
             defense = pokeJson["stats"][2]["base_stat"]
-            artwork = pokeJson["sprites"]["front_default"]
+            artwork = pokeJson["sprites"]["other"]["official-artwork"]["front_default"]  ##CHANGED URL
             types = pokeJson["types"]
             listTypes = []
             for type in types:
                 listTypes.append(type["type"]["name"])
             dict[pokemonName] = {"artwork" : artwork, "attack" : attack, "defense" : defense, "types" : listTypes}
         return dict
+
+data = FetchData()
+data.fetchdata()
