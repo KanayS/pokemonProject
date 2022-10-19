@@ -1,18 +1,20 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, Blueprint
 from createDatabase import PokeDatabase
 import json
 
 app = Flask(__name__)
 
+pokedexBlueprint = Blueprint('urls', __name__, )
 
-@app.route("/")
+
+@pokedexBlueprint.route("/")
 def main():
     pokeDatabase = PokeDatabase()
     pokeList = pokeDatabase.listOfPokeNames()
     return render_template('pokedex.html', pokeList=pokeList)
 
 
-@app.route("/getPokeCard/<pokeName>")
+@pokedexBlueprint.route("/getPokeCard/<pokeName>")
 def getPokeCard(pokeName):
     pokeDatabase = PokeDatabase()
     pokemon = pokeDatabase.getPokeData(pokeName)
@@ -28,7 +30,7 @@ def getPokeCard(pokeName):
     return json.dumps(pokeDict)
 
 
-@app.route("/downloadData")
+@pokedexBlueprint.route("/downloadData")
 def downloadData():
     pokeDatabase = PokeDatabase()
     print("before")
@@ -37,7 +39,7 @@ def downloadData():
     return ""
 
 
-@app.route("/pokeList")
+@pokedexBlueprint.route("/pokeList")
 def pokeList():
     pokeDatabase = PokeDatabase()
     pokeList = pokeDatabase.listOfPokeNames()
@@ -48,4 +50,4 @@ def pokeList():
 
 
 if __name__ == "__main__":
-    app.run()
+    pokedexBlueprint.run()
