@@ -2,6 +2,7 @@ import sqlite3
 from sqlite3 import Error
 from pokeClass import Pokemon
 from downloadPokemon import FetchData
+import logging
 
 
 class PokeDatabase:
@@ -9,7 +10,7 @@ class PokeDatabase:
     def __init__(self):
 
         try:
-            self.conn = sqlite3.connect('pokemon_database.db')
+            self.conn = sqlite3.connect('pokemonDatabase.db')
         except Error as e:
             print(e)
 
@@ -49,7 +50,7 @@ class PokeDatabase:
 
     def createTable(self):
 
-        sql_command_poke = '''
+        SQLCommandPoke = '''
             CREATE TABLE IF NOT EXISTS Pokemon (
                 Name TEXT,
                 Image_URL TEXT,
@@ -58,12 +59,10 @@ class PokeDatabase:
                 Types TEXT             
             )'''
 
-        self.cursor.execute(sql_command_poke)
+        self.cursor.execute(SQLCommandPoke)
         self.conn.commit()
 
-    def getPokeData(self, pokeName):
-
-        no_poke = ''
+    def getPokeData(self, pokeName: str):
 
         findPoke = f'''
             SELECT *
@@ -105,3 +104,49 @@ class PokeDatabase:
                 listOfPokeNames.append(name[0])
             return listOfPokeNames
         return None
+
+
+    def createMainCardDeck(self):
+        Pokemon = f'''
+                    SELECT *
+                    FROM Pokemon
+                    WHERE Name IS NOT NULL;
+                    '''
+        self.cursor.execute(Pokemon)
+        listPoke = self.cursor.fetchall()
+        totalPokeFound = len(listPoke)
+
+        if totalPokeFound != 0:
+
+            if totalPokeFound == len(set(listPoke)):
+                logging.info("No duplicates of pokemon found in deck")
+            else:
+                listDuplicatePokeNames = []
+                for poke in listPoke:
+                    name = poke[0]
+                    listDuplicatePokeNames.append(name)
+                for name in set(listDuplicatePokeNames):
+                    listDuplicatePokeNames.remove(name)
+                for name in listDuplicatePokeNames:
+                    logging.info(f"Duplicate found for {name}")
+
+                listPoke = list(set(listPoke))
+                logging.info("Duplicates removed")
+
+            deck = []
+            for poke in listPoke:
+                pokemon = {
+                    "name": poke[0],
+                    "url": poke[1],
+                    "attack": poke[2],
+                    "defense": poke[3],
+                    "types": poke[4]
+                }
+                if ", " in pokemon["types"]:
+                    type1 = pokemon["types"].split(', ')[0]
+                    type2 = pokemon["types"].split(', ')[1]
+                    pokemon["types"] = [type1, type2]
+                deck.append(pokemon)
+            return deck
+        return None
+

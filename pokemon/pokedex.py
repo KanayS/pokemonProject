@@ -3,7 +3,8 @@ from createDatabase import PokeDatabase
 import json
 
 app = Flask(__name__)
-pokedexBlueprint = Blueprint('urls', __name__,)
+pokedexBlueprint = Blueprint('urls', __name__, )
+
 
 @pokedexBlueprint.route("/")
 def main():
@@ -46,6 +47,3 @@ def pokeList():
         pokeListHTML += f'<option value="{pokemon}">{pokemon}</option>'
     return pokeListHTML
 
-
-if __name__ == "__main__":
-    pokedexBlueprint.run()
