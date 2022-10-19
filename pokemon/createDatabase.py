@@ -105,3 +105,4 @@ class PokeDatabase:
                 listOfPokeNames.append(name[0])
             return listOfPokeNames
         return None
+
