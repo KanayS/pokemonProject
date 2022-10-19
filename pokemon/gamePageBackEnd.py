@@ -4,7 +4,6 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 
-
 class Game:
 
     def __init__(self):
@@ -15,8 +14,8 @@ class Game:
             self.totalCards = len(self.mainDeck)
         else:
             self.totalCards = 0
-        self.firstPlayerDeck = []
-        self.secondPlayerDeck = []
+        self.firstPlayerDeck = None
+        self.secondPlayerDeck = None
 
     def shuffleMainDeck(self):
         if self.mainDeck is not None:
@@ -32,7 +31,11 @@ class Game:
             self.secondPlayerDeck = self.mainDeck[index_split:]
             logging.info(f"First player received {len(self.firstPlayerDeck)} cards. "
                          f"Second player received {len(self.secondPlayerDeck)}")
-            return self.firstPlayerDeck, self.secondPlayerDeck
+        else:
+            self.firstPlayerDeck = None
+            self.secondPlayerDeck = None
+            logging.info("Main deck empty. Players have received no cards")
+        return self.firstPlayerDeck, self.secondPlayerDeck
 
     def divideMainDeckUnevenly(self, split: int):
 
@@ -52,30 +55,41 @@ class Game:
         totalFirstPlayerDeck = 0
         totalSecondPlayerDeck = 0
 
-        if len(self.firstPlayerDeck) > 0:
+        if self.firstPlayerDeck is not None:
             totalFirstPlayerDeck = len(self.firstPlayerDeck)
         else:
             logging.info("Player 1 has no cards")
 
-        if len(self.secondPlayerDeck) > 0:
+        if self.secondPlayerDeck is not None:
             totalSecondPlayerDeck = len(self.secondPlayerDeck)
         else:
             logging.info("Player 2 has no cards")
 
         return totalFirstPlayerDeck, totalSecondPlayerDeck
 
-    # def cyclePlayerDeck(self):
-    #
-    #
+    def cyclePlayerDeck(self, list):
+        if list is not None:
+            topCard = list[0]
+            list.remove(topCard)
+            list.append(topCard)
+        else:
+            logging.info("Player deck is empty and cannot cycle")
+
+    def showTopCard(self, list):
+        if list is not None:
+            topCard = list[0]
+            return topCard
+        else:
+            logging.info("Player has no cards to show")
+
 
 if __name__ == "__main__":
     data = PokeDatabase()
+    data.insertPokeData()
     game = Game()
     game.shuffleMainDeck()
-    game.divideMainDeckEvenly()
-    [firstPlayer, secondPlayer] = game.divideMainDeckEvenly()
-    totalFirstPlayer = game.showNumberOfCardsPlayerDeck()[0]
-    print(totalFirstPlayer)
-    firstPlayer.remove(firstPlayer[0])
-    totalFirstPlayer = game.showNumberOfCardsPlayerDeck()[0]
-    print(totalFirstPlayer)
+    [firstPlayerDeck, secondPlayerDeck] = game.divideMainDeckEvenly()
+    game.cyclePlayerDeck(firstPlayerDeck)
+    topCard = game.showTopCard(firstPlayerDeck)
+    print(topCard)
+

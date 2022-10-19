@@ -62,9 +62,7 @@ class PokeDatabase:
         self.cursor.execute(SQLCommandPoke)
         self.conn.commit()
 
-    def getPokeData(self, pokeName):
-
-        no_poke = ''
+    def getPokeData(self, pokeName: str):
 
         findPoke = f'''
             SELECT *
@@ -116,8 +114,6 @@ class PokeDatabase:
         self.cursor.execute(Pokemon)
         listPoke = self.cursor.fetchall()
         totalPokeFound = len(listPoke)
-        # listUniquePoke = set(listPoke)
-
 
         if totalPokeFound != 0:
 
