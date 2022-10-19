@@ -105,6 +105,7 @@ class PokeDatabase:
             return listOfPokeNames
         return None
 
+
     def createMainCardDeck(self):
         Pokemon = f'''
                     SELECT *
@@ -148,3 +149,4 @@ class PokeDatabase:
                 deck.append(pokemon)
             return deck
         return None
+

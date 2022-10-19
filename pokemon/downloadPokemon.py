@@ -1,13 +1,22 @@
+import logging
+
 import requests
 import json
-
+import logging
 
 class FetchData:
+
+    def __init__(self):
+
+        logging.basicConfig(filename='pokemon.log', filemode='w', level=logging.DEBUG)
     def fetchdata(self):
 
-        DATA_URL = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151"
-        content = requests.get(DATA_URL)
-        parsedJson = json.loads(content.text)
+        try:
+            DATA_URL = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151"
+            content = requests.get(DATA_URL)
+            parsedJson = json.loads(content.text)
+        except requests.exceptions.ConnectionError:
+            logging.error("Error in URL")
 
         dict = {}
 
