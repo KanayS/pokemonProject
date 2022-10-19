@@ -81,15 +81,3 @@ class Game:
             return topCard
         else:
             logging.info("Player has no cards to show")
-
-
-if __name__ == "__main__":
-    data = PokeDatabase()
-    data.insertPokeData()
-    game = Game()
-    game.shuffleMainDeck()
-    [firstPlayerDeck, secondPlayerDeck] = game.divideMainDeckEvenly()
-    game.cyclePlayerDeck(firstPlayerDeck)
-    topCard = game.showTopCard(firstPlayerDeck)
-    print(topCard)
-
