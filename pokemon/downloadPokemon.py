@@ -14,13 +14,13 @@ class FetchData:
         pokemons = parsedJson["results"]
 
         for pokemon in pokemons:
-            pokemonName = pokemon["name"]
+            pokemonName = pokemon["name"].title()
             pokemonURL = pokemon["url"]
             pokeContent = requests.get(pokemonURL)
             pokeJson = json.loads(pokeContent.text)
             attack = pokeJson["stats"][1]["base_stat"]
             defense = pokeJson["stats"][2]["base_stat"]
-            artwork = pokeJson["sprites"]["other"]["official-artwork"]["front_default"]  ##CHANGED URL
+            artwork = pokeJson["sprites"]["other"]["official-artwork"]["front_default"]
             types = pokeJson["types"]
             listTypes = []
             for type in types:
