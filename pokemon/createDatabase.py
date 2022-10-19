@@ -10,7 +10,7 @@ class PokeDatabase:
     def __init__(self):
 
         try:
-            self.conn = sqlite3.connect('pokemon_database.db')
+            self.conn = sqlite3.connect('pokemonDatabase.db')
         except Error as e:
             print(e)
 
@@ -18,7 +18,7 @@ class PokeDatabase:
         self.createTable()
 
     def downloadData(self):
-        truncTable = 'TRUNCATE TABLE Pokemon;'
+        truncTable = 'DELETE FROM Pokemon;'
         self.cursor.execute(truncTable)
         self.conn.commit()
         self.insertPokeData()
@@ -50,7 +50,7 @@ class PokeDatabase:
 
     def createTable(self):
 
-        sql_command_poke = '''
+        SQLCommandPoke = '''
             CREATE TABLE IF NOT EXISTS Pokemon (
                 Name TEXT,
                 Image_URL TEXT,
@@ -59,7 +59,7 @@ class PokeDatabase:
                 Types TEXT             
             )'''
 
-        self.cursor.execute(sql_command_poke)
+        self.cursor.execute(SQLCommandPoke)
         self.conn.commit()
 
     def getPokeData(self, pokeName):

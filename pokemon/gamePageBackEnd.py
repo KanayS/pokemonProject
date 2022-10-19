@@ -64,9 +64,9 @@ class Game:
 
         return totalFirstPlayerDeck, totalSecondPlayerDeck
 
-    def cyclePlayerDeck(self):
-
-
+    # def cyclePlayerDeck(self):
+    #
+    #
 
 if __name__ == "__main__":
     data = PokeDatabase()
