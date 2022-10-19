@@ -4,11 +4,26 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 
+
 class Game:
 
-    def __init__(self):
+    _instance = None
 
-        database = PokeDatabase()
+    def __init__(self):      
+        self.totalCards = None
+        self.mainDeck = None
+        raise RuntimeError('Call instance() instead')       
+
+    @classmethod
+    def instance(cls):
+        if cls._instance is None:
+            print('Creating new instance')
+            cls._instance = Game()
+            cls._instance.initialise()
+        return cls._instance
+
+    def initialise(self):
+        database = PokeDatabase()  # what is this???????
         self.mainDeck = database.createMainCardDeck()
         if self.mainDeck is not None:
             self.totalCards = len(self.mainDeck)

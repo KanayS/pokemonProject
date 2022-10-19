@@ -1,9 +1,9 @@
-from flask import Flask, render_template, Blueprint
+from flask import render_template, Blueprint
 from createDatabase import PokeDatabase
 import json
 
-app = Flask(__name__)
-pokedexBlueprint = Blueprint('urls', __name__, )
+
+pokedexBlueprint = Blueprint('pokedexURLs', __name__, )
 
 
 @pokedexBlueprint.route("/")
