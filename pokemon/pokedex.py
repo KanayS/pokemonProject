@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request
 from createDatabase import PokeDatabase
 import json
+
 app = Flask(__name__)
+
 
 @app.route("/")
 def main():
@@ -25,6 +27,7 @@ def getPokeCard(pokeName):
     }
     return json.dumps(pokeDict)
 
+
 @app.route("/downloadData")
 def downloadData():
     pokeDatabase = PokeDatabase()
@@ -38,9 +41,9 @@ def downloadData():
 def pokeList():
     pokeDatabase = PokeDatabase()
     pokeList = pokeDatabase.listOfPokeNames()
-    pokeListHTML =""
+    pokeListHTML = ""
     for pokemon in pokeList:
-       pokeListHTML += f'<option value="{pokemon}">{pokemon}</option>'
+        pokeListHTML += f'<option value="{pokemon}">{pokemon}</option>'
     return pokeListHTML
 
 

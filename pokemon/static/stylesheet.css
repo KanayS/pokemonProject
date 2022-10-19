@@ -60,9 +60,10 @@ body {
 .stats {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   text-align: center;
   color: #000000;
+
 }
 .stats p {
   color: #404060;
