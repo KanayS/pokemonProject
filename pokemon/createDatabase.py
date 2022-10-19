@@ -2,6 +2,7 @@ import sqlite3
 from sqlite3 import Error
 from pokeClass import Pokemon
 from downloadPokemon import FetchData
+import logging
 
 
 class PokeDatabase:
@@ -102,6 +103,52 @@ class PokeDatabase:
         listOfPokeNames = []
         if len(list) != 0:
             for name in list:
-                listOfPokeNames.append(name[0].title())
+                listOfPokeNames.append(name[0])
             return listOfPokeNames
+        return None
+
+    def createMainCardDeck(self):
+        Pokemon = f'''
+                    SELECT *
+                    FROM Pokemon
+                    WHERE Name IS NOT NULL;
+                    '''
+        self.cursor.execute(Pokemon)
+        listPoke = self.cursor.fetchall()
+        totalPokeFound = len(listPoke)
+        # listUniquePoke = set(listPoke)
+
+
+        if totalPokeFound != 0:
+
+            if totalPokeFound == len(set(listPoke)):
+                logging.info("No duplicates of pokemon found in deck")
+            else:
+                listDuplicatePokeNames = []
+                for poke in listPoke:
+                    name = poke[0]
+                    listDuplicatePokeNames.append(name)
+                for name in set(listDuplicatePokeNames):
+                    listDuplicatePokeNames.remove(name)
+                for name in listDuplicatePokeNames:
+                    logging.info(f"Duplicate found for {name}")
+
+                listPoke = list(set(listPoke))
+                logging.info("Duplicates removed")
+
+            deck = []
+            for poke in listPoke:
+                pokemon = {
+                    "name": poke[0],
+                    "url": poke[1],
+                    "attack": poke[2],
+                    "defense": poke[3],
+                    "types": poke[4]
+                }
+                if ", " in pokemon["types"]:
+                    type1 = pokemon["types"].split(', ')[0]
+                    type2 = pokemon["types"].split(', ')[1]
+                    pokemon["types"] = [type1, type2]
+                deck.append(pokemon)
+            return deck
         return None
