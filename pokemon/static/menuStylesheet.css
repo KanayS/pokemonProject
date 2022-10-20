@@ -1,0 +1,47 @@
+html {
+	margin: 0;
+}
+
+body {
+	background-image: url("pokeBackground.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.stats {
+	float: left;
+	max-width: 40%;
+	margin-left: 10%;
+	padding-left: 50px;
+	padding-top: 50px;
+}
+
+.stats p {
+	font-size: 2rem;
+	color: ivory;
+	text-shadow: 1px 1px 1px black;
+}
+
+#banner:hover {
+	transform: scale(1.1);
+}
+
+#overlay {
+	margin-top: 10%;
+	float: right;
+}
+
+#banner {
+	width: 80%;
+	text-align: center;
+	display: block;
+	height: auto;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+strong {
+	color: red;
+	size: 2.5rem;
+	text-shadow: 2px 2px 2px black;
+}
