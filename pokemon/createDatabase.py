@@ -144,6 +144,4 @@ class PokeDatabase:
             return deck
         return None
 
-database = PokeDatabase()
-database.downloadData()
 

@@ -2,7 +2,7 @@ from pokemon.createDatabase import PokeDatabase
 import random
 import logging
 
-logging.basicConfig(filename='pokeGameBackEnd.log', level=logging.INFO)
+logging.basicConfig(filename='pokeGameBackEnd.log', level=logging.INFO, filemode='w', force=True)
 
 
 class Game:
@@ -97,4 +97,6 @@ class Game:
             logging.info("Player has no cards to show")
 
 if __name__ == "__main__":
-    pass
+    game=Game.instance()
+    game.initialise()
+    game.shuffleMainDeck()

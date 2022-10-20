@@ -8,7 +8,7 @@ class FetchData:
 
     def __init__(self):
 
-        logging.basicConfig(filename='pokemon.log', filemode='w', level=logging.DEBUG)
+        logging.basicConfig(filename='pokemon.log', filemode='w', level=logging.DEBUG, force=True)
     def fetchdata(self):
 
         try:
