@@ -1,16 +1,16 @@
 import sqlite3
 from sqlite3 import Error
-from pokeClass import Pokemon
-from downloadPokemon import FetchData
+from pokemon.pokeClass import Pokemon
+from pokemon.downloadPokemon import FetchData
 import logging
 
 
 class PokeDatabase:
 
-    def __init__(self):
+    def __init__(self, databasePath: str='pokemonDatabase.db'):
 
         try:
-            self.conn = sqlite3.connect('pokemonDatabase.db')
+            self.conn = sqlite3.connect(databasePath)
         except Error as e:
             print(e)
 
@@ -21,9 +21,9 @@ class PokeDatabase:
         truncTable = 'DELETE FROM Pokemon;'
         self.cursor.execute(truncTable)
         self.conn.commit()
-        self.insertPokeData()
+        self.__insertPokeData()
 
-    def insertPokeData(self):
+    def __insertPokeData(self):
         grabData = FetchData()
         pokeDict = grabData.fetchdata()
 
@@ -36,16 +36,10 @@ class PokeDatabase:
             insertPokemon = f'''
                 INSERT INTO Pokemon
                 (Name, Image_URL, Attack, Defense, Types)
-                VALUES (
-                    '{pokemon}',
-                    '{pokeDict[pokemon]["artwork"]}',
-                    '{pokeDict[pokemon]["attack"]}',
-                    '{pokeDict[pokemon]["defense"]}',
-                    '{pokeDict[pokemon]["types"]}'
-                    )
+                VALUES (?, ?, ?, ?, ?)'''
 
-                    '''
-            self.cursor.execute(insertPokemon)
+            self.cursor.execute(insertPokemon, (pokemon, pokeDict[pokemon]["artwork"], pokeDict[pokemon]["attack"],
+                                pokeDict[pokemon]["defense"], pokeDict[pokemon]["types"]))
             self.conn.commit()
 
     def createTable(self):
@@ -67,10 +61,10 @@ class PokeDatabase:
         findPoke = f'''
             SELECT *
             FROM Pokemon
-            WHERE Name = '{pokeName}';
+            WHERE Name = ?;
             '''
 
-        self.cursor.execute(findPoke)
+        self.cursor.execute(findPoke, pokeName)
         pokemonDataList = self.cursor.fetchone()
         if pokemonDataList is not None:
             pokemon = Pokemon()
@@ -89,7 +83,7 @@ class PokeDatabase:
             return pokemon
         return None
 
-    def listOfPokeNames(self):
+    def listOfPokeNames(self): ###REMOVE DUPLICATES FROM LIST
 
         listNames = f'''
             SELECT Name
@@ -149,4 +143,7 @@ class PokeDatabase:
                 deck.append(pokemon)
             return deck
         return None
+
+database = PokeDatabase()
+database.downloadData()
 
