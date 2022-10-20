@@ -17,7 +17,11 @@ def pokeGame():
 @pokeGameBlueprint.route("/showTopCard/<playerDeck>")
 def showCard(playerDeck):
     game = Game.instance()
-    print(playerDeck)
-    topCard = game.showTopCard(playerDeck)
+    deck = getattr(game, f"{playerDeck}")
+    deck1 = game.firstPlayerDeck
+    topCard = game.showTopCard(deck)
+
+    print(topCard)
+
     return json.dumps(topCard)
 

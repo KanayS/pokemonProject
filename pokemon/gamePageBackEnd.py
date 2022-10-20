@@ -18,7 +18,7 @@ class Game:
     def instance(cls):
         if cls._instance is None:
             print('Creating new instance')
-            cls._instance = Game()
+            cls._instance = cls.__new__(cls)
             cls._instance.initialise()
         return cls._instance
 
@@ -84,15 +84,15 @@ class Game:
 
     def cyclePlayerDeck(self, list):
         if list is not None:
-            topCard = list[0]
-            list.remove(topCard)
-            list.append(topCard)
+            self.topCard = list[0]
+            list.remove(self.topCard)
+            list.append(self.topCard)
         else:
             logging.info("Player deck is empty and cannot cycle")
 
     def showTopCard(self, list):
         if list is not None:
-            topCard = list[0]
-            return topCard
+            self.topCard = list[0]
+            return self.topCard
         else:
             logging.info("Player has no cards to show")
