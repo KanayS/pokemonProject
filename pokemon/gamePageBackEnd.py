@@ -3,8 +3,6 @@ import random
 import logging
 
 
-
-
 class Game:
 
     _instance = None

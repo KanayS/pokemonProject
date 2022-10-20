@@ -64,7 +64,7 @@ class PokeDatabase:
             WHERE Name = ?;
             '''
 
-        self.cursor.execute(findPoke, pokeName)
+        self.cursor.execute(findPoke, (pokeName,))
         pokemonDataList = self.cursor.fetchone()
         if pokemonDataList is not None:
             pokemon = Pokemon()
