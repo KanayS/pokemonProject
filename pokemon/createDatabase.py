@@ -1,16 +1,16 @@
 import sqlite3
 from sqlite3 import Error
-from pokeClass import Pokemon
-from downloadPokemon import FetchData
+from pokemon.pokeClass import Pokemon
+from pokemon.downloadPokemon import FetchData
 import logging
 
 
 class PokeDatabase:
 
-    def __init__(self):
+    def __init__(self, databasePath: str='pokemonDatabase.db'):
 
         try:
-            self.conn = sqlite3.connect('pokemonDatabase.db')
+            self.conn = sqlite3.connect(databasePath)
         except Error as e:
             print(e)
 
@@ -89,7 +89,7 @@ class PokeDatabase:
             return pokemon
         return None
 
-    def listOfPokeNames(self):
+    def listOfPokeNames(self): ###REMOVE DUPLICATES FROM LIST
 
         listNames = f'''
             SELECT Name

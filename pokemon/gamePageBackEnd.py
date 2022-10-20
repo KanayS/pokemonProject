@@ -1,14 +1,14 @@
-from createDatabase import PokeDatabase
+from pokemon.createDatabase import PokeDatabase
 import random
 import logging
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(filename='pokeGameBackEnd.log', level=logging.INFO)
 
 class Game:
 
-    def __init__(self):
+    def __init__(self, databasePath: str='pokemonDatabase.db'):
 
-        database = PokeDatabase()
+        database = PokeDatabase(databasePath)
         self.mainDeck = database.createMainCardDeck()
         if self.mainDeck is not None:
             self.totalCards = len(self.mainDeck)
@@ -32,8 +32,6 @@ class Game:
             logging.info(f"First player received {len(self.firstPlayerDeck)} cards. "
                          f"Second player received {len(self.secondPlayerDeck)}")
         else:
-            self.firstPlayerDeck = None
-            self.secondPlayerDeck = None
             logging.info("Main deck empty. Players have received no cards")
         return self.firstPlayerDeck, self.secondPlayerDeck
 
@@ -52,17 +50,16 @@ class Game:
     def showNumberOfCardsPlayerDeck(self):
         ###use in another method so that the number of cards is updated each time card added or removed
 
-        totalFirstPlayerDeck = 0
-        totalSecondPlayerDeck = 0
-
         if self.firstPlayerDeck is not None:
             totalFirstPlayerDeck = len(self.firstPlayerDeck)
         else:
+            totalFirstPlayerDeck = 0
             logging.info("Player 1 has no cards")
 
         if self.secondPlayerDeck is not None:
             totalSecondPlayerDeck = len(self.secondPlayerDeck)
         else:
+            totalSecondPlayerDeck = 0
             logging.info("Player 2 has no cards")
 
         return totalFirstPlayerDeck, totalSecondPlayerDeck
@@ -84,12 +81,10 @@ class Game:
 
 
 if __name__ == "__main__":
-    data = PokeDatabase()
-    data.insertPokeData()
+
     game = Game()
-    game.shuffleMainDeck()
-    [firstPlayerDeck, secondPlayerDeck] = game.divideMainDeckEvenly()
-    game.cyclePlayerDeck(firstPlayerDeck)
-    topCard = game.showTopCard(firstPlayerDeck)
-    print(topCard)
+    game.divideMainDeckUnevenly(180)
+    print()
+
+
 
