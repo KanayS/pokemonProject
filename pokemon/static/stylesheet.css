@@ -5,6 +5,20 @@
 body {
   background-color: #eff3ff;
 }
+.containerPlayerOne {
+  width: 350px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 8%;
+  text-align:left;
+}
+.containerPlayerTwo {
+  width: 350px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 8%;
+  text-align: right;
+}
 .container {
   width: 350px;
   position: absolute;
@@ -12,14 +26,18 @@ body {
   top: 50%;
   left: 50%;
 }
-#card {
+#card,
+#firstPlayerCard,
+#secondPlayerCard {
   position: relative;
   width: 100%;
   padding: 30px 20px;
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
 }
-#card img {
+#card img,
+#firstPlayerCard img,
+#secondPlayerCard img {
   display: block;
   width: 180px;
   max-height: 200px;
@@ -40,19 +58,25 @@ body {
   font-weight: 600;
   color: #000000;
 }
-.types {
+.types,
+.firstPlayerCardTypes,
+.secondPlayerCardTypes{
   display: flex;
   justify-content: space-around;
   margin: 20px 0 40px 0;
 }
 .hp span,
-.types span {
+.types span,
+.firstPlayerCardTypes span,
+.secondPlayerCardTypes span {
   font-size: 12px;
   letter-spacing: 0.4px;
   font-weight: 600;
 }
 
-.types span {
+.types span,
+.firstPlayerCardTypes span,
+.secondPlayerCardTypes span {
   padding: 5px 20px;
   border-radius: 20px;
   color: #ffffff;
@@ -68,16 +92,14 @@ body {
 .stats p {
   color: #404060;
 }
-.btn {
-  display: block;
-  padding: 15px 60px;
+.playerOneCycle {
   font-size: 18px;
-  background-color: #101010;
-  color: #ffffff;
-  position: relative;
+  position: absolute;
   margin: 30px auto;
-  border: none;
   border-radius: 5px;
+  left: 15%;
+  top: 4%;
+
 }
 .pokeSearchForm{
    padding-top: 20px;
@@ -89,7 +111,6 @@ body {
 }
 
 .bg {
-
     background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url("/static/pokeBackground.jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -121,3 +142,11 @@ body {
     width:100%;
 }
 
+.cardGame {
+    transform: scale(0.7);
+}
+
+.cards {
+align-items: center;
+  justify-content: space-around;
+}
