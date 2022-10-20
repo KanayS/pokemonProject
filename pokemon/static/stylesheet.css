@@ -2,22 +2,11 @@
   padding: 0;
   margin: 0;
 }
-body {
-  background-color: #eff3ff;
-}
-.containerPlayerOne {
-  width: 350px;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 8%;
-  text-align:left;
-}
+.containerPlayerOne,
 .containerPlayerTwo {
   width: 350px;
   position: absolute;
   transform: translate(-50%, -50%);
-  top: 8%;
-  text-align: right;
 }
 .container {
   width: 350px;
@@ -92,15 +81,7 @@ body {
 .stats p {
   color: #404060;
 }
-.playerOneCycle {
-  font-size: 18px;
-  position: absolute;
-  margin: 30px auto;
-  border-radius: 5px;
-  left: 15%;
-  top: 4%;
 
-}
 .pokeSearchForm{
    padding-top: 20px;
    position: absolute;
@@ -130,7 +111,6 @@ body {
    right: 0;
    text-align: center;
 }
-
 .loadingGIF {
     background: url("/static/loading.gif");
     background-repeat: no-repeat;
@@ -139,14 +119,8 @@ body {
     background-attachment: fixed;
     color: #fff;
     height: 100%;
-    width:100%;
+    width:100vw%;
 }
-
-.cardGame {
-    transform: scale(0.7);
-}
-
-.cards {
-align-items: center;
-  justify-content: space-around;
+.cardRow {
+    height: 70vh;
 }

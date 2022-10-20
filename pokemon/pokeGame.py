@@ -14,8 +14,10 @@ def pokeGame():
     firstPlayerDeck, secondPlayerDeck = game.divideMainDeckEvenly()
     firstPlayerTopCard = game.showTopCard(firstPlayerDeck)
     secondPlayerTopCard = game.showTopCard(secondPlayerDeck)
+    firstPlayerCounter, secondPlayerCounter = game.showNumberOfCardsPlayerDeck()
     return render_template('pokeGame.html', firstPlayerTopCard=firstPlayerTopCard,
-                           secondPlayerTopCard=secondPlayerTopCard)
+                           secondPlayerTopCard=secondPlayerTopCard, firstPlayerCounter=firstPlayerCounter,
+                           secondPlayerCounter=secondPlayerCounter)
 
 @pokeGameBlueprint.route("/cycleCard/<playerDeck>")
 def showCard(playerDeck):

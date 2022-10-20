@@ -1,0 +1,46 @@
+.cardGame {
+    transform: scale(0.7);
+}
+.cards {
+    padding-top: 0px
+}
+.cardBack {
+    background: url("/static/pokeCardBack.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-attachment: fixed;
+    height: 79vh;
+    width:100%;
+    border-radius: 10px;
+    background-color: #00ff00;
+}
+.playerOneCycle {
+  font-size: 18px;
+  position: absolute;
+  margin: 30px auto;
+  border-radius: 5px;
+}
+.playerTwoCycle {
+  font-size: 18px;
+  position: absolute;
+  margin: 30px auto;
+  border-radius: 5px;
+}
+.banner {
+    background: url("/static/banner.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-attachment: fixed;
+    background-position: center;
+	width: 50vw;
+	height: 120px;
+	margin-left: 25%;
+	margin-right: 25%;
+	transform: scale(1);
+}
+.banner:hover {
+	transform: scale(1.1);
+}
+.cardText {
+    align-bottom;
+}
