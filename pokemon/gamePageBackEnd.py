@@ -2,7 +2,7 @@ from pokemon.createDatabase import PokeDatabase
 import random
 import logging
 
-logging.basicConfig(filename='pokeGameBackEnd.log', level=logging.INFO, filemode='w', force=True)
+
 
 
 class Game:
@@ -17,6 +17,7 @@ class Game:
     @classmethod
     def instance(cls):
         if cls._instance is None:
+            logging.basicConfig(filename='pokeGameBackEnd.log', level=logging.INFO, filemode='w', force=True)
             logging.info('Creating new instance')
             cls._instance = cls.__new__(cls)
             cls._instance.initialise()
