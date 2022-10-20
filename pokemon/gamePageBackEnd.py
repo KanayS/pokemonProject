@@ -1,8 +1,6 @@
-from createDatabase import PokeDatabase
+from pokemon.createDatabase import PokeDatabase
 import random
 import logging
-
-logging.basicConfig(level=logging.INFO)
 
 
 class Game:
@@ -17,20 +15,23 @@ class Game:
     @classmethod
     def instance(cls):
         if cls._instance is None:
-            print('Creating new instance')
+            logging.basicConfig(filename='pokeGameBackEnd.log', level=logging.INFO, filemode='w', force=True)
+            logging.info('Creating new instance')
             cls._instance = cls.__new__(cls)
             cls._instance.initialise()
         return cls._instance
 
-    def initialise(self):
-        database = PokeDatabase()  # what is this???????
-        self.mainDeck = database.createMainCardDeck()
+    def initialise(self, database = 'pokemonDatabase.db'):
+        self.database = PokeDatabase(database)
+
+        self.mainDeck = self.database.createMainCardDeck()
         if self.mainDeck is not None:
             self.totalCards = len(self.mainDeck)
         else:
             self.totalCards = 0
         self.firstPlayerDeck = None
         self.secondPlayerDeck = None
+        self.topCard = None
 
     def shuffleMainDeck(self):
         if self.mainDeck is not None:
@@ -47,8 +48,6 @@ class Game:
             logging.info(f"First player received {len(self.firstPlayerDeck)} cards. "
                          f"Second player received {len(self.secondPlayerDeck)}")
         else:
-            self.firstPlayerDeck = None
-            self.secondPlayerDeck = None
             logging.info("Main deck empty. Players have received no cards")
         return self.firstPlayerDeck, self.secondPlayerDeck
 
@@ -67,17 +66,16 @@ class Game:
     def showNumberOfCardsPlayerDeck(self):
         ###use in another method so that the number of cards is updated each time card added or removed
 
-        totalFirstPlayerDeck = 0
-        totalSecondPlayerDeck = 0
-
         if self.firstPlayerDeck is not None:
             totalFirstPlayerDeck = len(self.firstPlayerDeck)
         else:
+            totalFirstPlayerDeck = 0
             logging.info("Player 1 has no cards")
 
         if self.secondPlayerDeck is not None:
             totalSecondPlayerDeck = len(self.secondPlayerDeck)
         else:
+            totalSecondPlayerDeck = 0
             logging.info("Player 2 has no cards")
 
         return totalFirstPlayerDeck, totalSecondPlayerDeck
@@ -96,3 +94,8 @@ class Game:
             return self.topCard
         else:
             logging.info("Player has no cards to show")
+
+if __name__ == "__main__":
+    game=Game.instance()
+    game.initialise()
+    game.shuffleMainDeck()
