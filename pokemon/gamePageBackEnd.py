@@ -4,11 +4,26 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 
+
 class Game:
 
-    def __init__(self):
+    _instance = None
 
-        database = PokeDatabase()
+    def __init__(self):      
+        self.totalCards = None
+        self.mainDeck = None
+        raise RuntimeError('Call instance() instead')       
+
+    @classmethod
+    def instance(cls):
+        if cls._instance is None:
+            print('Creating new instance')
+            cls._instance = cls.__new__(cls)
+            cls._instance.initialise()
+        return cls._instance
+
+    def initialise(self):
+        database = PokeDatabase()  # what is this???????
         self.mainDeck = database.createMainCardDeck()
         if self.mainDeck is not None:
             self.totalCards = len(self.mainDeck)
@@ -69,27 +84,15 @@ class Game:
 
     def cyclePlayerDeck(self, list):
         if list is not None:
-            topCard = list[0]
-            list.remove(topCard)
-            list.append(topCard)
+            self.topCard = list[0]
+            list.remove(self.topCard)
+            list.append(self.topCard)
         else:
             logging.info("Player deck is empty and cannot cycle")
 
     def showTopCard(self, list):
         if list is not None:
-            topCard = list[0]
-            return topCard
+            self.topCard = list[0]
+            return self.topCard
         else:
             logging.info("Player has no cards to show")
-
-
-if __name__ == "__main__":
-    data = PokeDatabase()
-    data.insertPokeData()
-    game = Game()
-    game.shuffleMainDeck()
-    [firstPlayerDeck, secondPlayerDeck] = game.divideMainDeckEvenly()
-    game.cyclePlayerDeck(firstPlayerDeck)
-    topCard = game.showTopCard(firstPlayerDeck)
-    print(topCard)
-
