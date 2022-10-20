@@ -3,8 +3,7 @@ from pokemon.createDatabase import PokeDatabase
 
 
 class TestPokeDatabase(TestCase):
-    def test_create_main_card_deck(self):
-
+    def test_CreateMainCardDeckDuplicates(self):
 
         database = PokeDatabase('../pokemon/pokemonDatabase.db')
 
@@ -21,7 +20,6 @@ class TestPokeDatabase(TestCase):
 
         database.cursor.execute(insertExtraPoke)
         database.conn.commit()
-        listNames = database.listOfPokeNames()
         mainDeck = database.createMainCardDeck()
 
         assert mainDeck[-1] != {'name': 'Bulbasaur',
@@ -29,3 +27,14 @@ class TestPokeDatabase(TestCase):
                                 'attack': 49,
                                 'defense': 49,
                                 'types': 'grass, poison'}
+
+    def test_CreateMainCardNoPokeFound(self):
+
+        emptyTable = 'emptyDatabase'
+        emptyDatabase = PokeDatabase(emptyTable)
+
+        emptyDeck = emptyDatabase.createMainCardDeck()
+
+        assert emptyDeck is None
+
+

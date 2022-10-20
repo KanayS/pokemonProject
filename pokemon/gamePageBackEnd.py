@@ -17,21 +17,22 @@ class Game:
     @classmethod
     def instance(cls):
         if cls._instance is None:
-            print('Creating new instance')
+            logging.info('Creating new instance')
             cls._instance = cls.__new__(cls)
             cls._instance.initialise()
         return cls._instance
 
-    def initialise(self):
-        database = PokeDatabase()  # what is this???????
+    def initialise(self, database = 'pokemonDatabase.db'):
+        self.database = PokeDatabase(database)
 
-        self.mainDeck = database.createMainCardDeck()
+        self.mainDeck = self.database.createMainCardDeck()
         if self.mainDeck is not None:
             self.totalCards = len(self.mainDeck)
         else:
             self.totalCards = 0
         self.firstPlayerDeck = None
         self.secondPlayerDeck = None
+        self.topCard = None
 
     def shuffleMainDeck(self):
         if self.mainDeck is not None:
@@ -96,4 +97,4 @@ class Game:
             logging.info("Player has no cards to show")
 
 if __name__ == "__main__":
-
+    pass
