@@ -5,8 +5,7 @@ from pokemon.gamePageBackEnd import Game
 
 class TestGame(TestCase):
 
-
-    def test_intialise(self):
+    def test_initialise(self):
         game = Game.instance()
         game.initialise('../pokemon/pokemonDatabase.db')
 
@@ -83,11 +82,9 @@ class TestGame(TestCase):
         gameCycleNotEmpty.cyclePlayerDeck(PlayerDeck)
         BottomCard = PlayerDeck[-1]
 
-
         assert TopCard == BottomCard
         assert originalDeck[0] == BottomCard
         assert originalDeck[1] == PlayerDeck[0]
-
 
     def test_showNumberOfCardsIfPlayerDecksEmpty(self):
         gameShowCardsEmpty = Game.instance()
@@ -118,6 +115,7 @@ class TestGame(TestCase):
         TopCard = gameShowTopCardNotEmpty.showTopCard(firstPlayerDeckNotEmpty)
 
         assert TopCard == firstPlayerDeckNotEmpty[0]
+
 
 if __name__ == '__main__':
     unittest.main()

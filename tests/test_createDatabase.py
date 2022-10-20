@@ -3,8 +3,16 @@ from pokemon.createDatabase import PokeDatabase
 
 
 class TestPokeDatabase(TestCase):
-    def test_CreateMainCardDeckDuplicates(self):
 
+    def test_CreateMainCardNoPokeFound(self):
+        emptyTable = 'emptyDatabase'
+        emptyDatabase = PokeDatabase(emptyTable)
+
+        emptyDeck = emptyDatabase.createMainCardDeck()
+
+        assert emptyDeck is None
+
+    def test_CreateMainCardDeckDuplicates(self):
         database = PokeDatabase('../pokemon/pokemonDatabase.db')
 
         insertExtraPoke = f'''
@@ -27,14 +35,3 @@ class TestPokeDatabase(TestCase):
                                 'attack': 49,
                                 'defense': 49,
                                 'types': 'grass, poison'}
-
-    def test_CreateMainCardNoPokeFound(self):
-
-        emptyTable = 'emptyDatabase'
-        emptyDatabase = PokeDatabase(emptyTable)
-
-        emptyDeck = emptyDatabase.createMainCardDeck()
-
-        assert emptyDeck is None
-
-
