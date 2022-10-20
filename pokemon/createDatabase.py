@@ -146,6 +146,8 @@ class PokeDatabase:
                     type1 = pokemon["types"].split(', ')[0]
                     type2 = pokemon["types"].split(', ')[1]
                     pokemon["types"] = [type1, type2]
+                else:
+                    pokemon["types"] = [pokemon["types"]]
                 deck.append(pokemon)
             return deck
         return None

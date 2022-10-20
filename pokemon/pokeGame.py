@@ -12,16 +12,16 @@ def pokeGame():
     game.initialise()
     game.shuffleMainDeck()
     firstPlayerDeck, secondPlayerDeck = game.divideMainDeckEvenly()
-    return render_template('pokeGame.html', firstPlayerDeck=firstPlayerDeck, secondPlayerDeck=secondPlayerDeck)
+    firstPlayerTopCard = game.showTopCard(firstPlayerDeck)
+    secondPlayerTopCard = game.showTopCard(secondPlayerDeck)
+    return render_template('pokeGame.html', firstPlayerTopCard=firstPlayerTopCard,
+                           secondPlayerTopCard=secondPlayerTopCard)
 
-@pokeGameBlueprint.route("/showTopCard/<playerDeck>")
+@pokeGameBlueprint.route("/cycleCard/<playerDeck>")
 def showCard(playerDeck):
     game = Game.instance()
     deck = getattr(game, f"{playerDeck}")
-    deck1 = game.firstPlayerDeck
+    game.cyclePlayerDeck(deck)
     topCard = game.showTopCard(deck)
-
-    print(topCard)
-
     return json.dumps(topCard)
 

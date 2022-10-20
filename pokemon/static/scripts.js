@@ -77,43 +77,6 @@ function updateCardUI(pokeDict){
     styleCard(themeColor);
 }
 
-function updateCardUI(pokeDict){
-    var element = document.getElementById("cardClass");
-    element.classList.remove("invisible");
-    element.classList.add("visible");
-
-    const mainAttribute = pokeDict.types[0];
-    const themeColor = typeColor[mainAttribute];
-    console.log(mainAttribute)
-    console.log(themeColor);
-    const imgSrc = pokeDict.url;
-    const attack = pokeDict.attack;
-    const defense = pokeDict.defense;
-    const types = pokeDict.types;
-    const name = pokeDict.name;
-
-
-    card.innerHTML = `
-        <img src=${imgSrc} />
-        <h2 class="poke-name">${pokeName}</h2>
-        <div class="types">
-
-        </div>
-        <div class="stats">
-          <div>
-            <h3>${attack}</h3>
-            <p>Attack</p>
-          </div>
-          <div>
-            <h3>${defense}</h3>
-            <p>Defense</p>
-          </div>
-        </div>
-    `;
-
-    appendTypes(pokeDict.types);
-    styleCard(themeColor);
-}
 
 function downloadData(){
     var element = document.getElementById("cardClass");
@@ -143,13 +106,4 @@ function getPokeList(){
     element.classList.remove("visible");
     element.classList.add("invisible");
     console.log("list updated")
-}
-
-function showTopCard(cardDeck){
-    console.log(cardDeck);
-    fetch('/showTopCard/' + cardDeck)
-        .then(topCard => topCard.text())
-        .then(topCard => {
-        console.log(topCard);
-        });
 }
