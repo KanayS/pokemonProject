@@ -6,7 +6,7 @@ import json
 pokedexBlueprint = Blueprint('pokedexURLs', __name__, )
 
 
-@pokedexBlueprint.route("/")
+@pokedexBlueprint.route("/pokedex")
 def main():
     pokeDatabase = PokeDatabase()
     pokeList = pokeDatabase.listOfPokeNames()
