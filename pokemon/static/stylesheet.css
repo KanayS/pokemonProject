@@ -2,22 +2,16 @@
   padding: 0;
   margin: 0;
 }
-body {
-  background-color: #eff3ff;
-}
+
 .containerPlayerOne {
   width: 350px;
   position: absolute;
   transform: translate(-50%, -50%);
-  top: 8%;
-  text-align:left;
 }
 .containerPlayerTwo {
   width: 350px;
   position: absolute;
   transform: translate(-50%, -50%);
-  top: 8%;
-  text-align: right;
 }
 .container {
   width: 350px;
@@ -99,7 +93,12 @@ body {
   border-radius: 5px;
   left: 15%;
   top: 4%;
-
+}
+.playerTwoCycle {
+  font-size: 18px;
+  position: absolute;
+  margin: 30px auto;
+  border-radius: 5px;
 }
 .pokeSearchForm{
    padding-top: 20px;
@@ -144,9 +143,4 @@ body {
 
 .cardGame {
     transform: scale(0.7);
-}
-
-.cards {
-align-items: center;
-  justify-content: space-around;
 }
