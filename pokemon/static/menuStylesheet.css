@@ -12,6 +12,10 @@ body {
 	background-size: cover;
 	text-align:center;
 }
+.icon {
+	float: left;
+	display: block;
+}
 #banner:hover {
 	transform: scale(1.1);
 }
@@ -24,7 +28,6 @@ body {
 	margin-left: 10%;
 	margin-right: 10%;
 }
-
 #banner {
 	width: 50%;
 	text-align: center;
