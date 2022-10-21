@@ -27,3 +27,8 @@ def showCard(playerDeck):
     topCard = game.showTopCard(deck)
     return json.dumps(topCard)
 
+@pokeGameBlueprint.route("/updateCardCounter/")
+def cardCounter():
+    game = Game.instance()
+    cardCounts = game.showNumberOfCardsPlayerDeck()
+    return json.dumps(cardCounts)
