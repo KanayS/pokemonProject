@@ -1,3 +1,4 @@
+@import url('http://fonts.cdnfonts.com/css/cubicfive');
 html, body {
     margin: 0;
     height: 100%;
@@ -49,7 +50,7 @@ body {
 }
 .button a{
   color:white;
-  font-family:Helvetica, sans-serif;
+  font-family: 'CubicFive12', sans-serif;
   font-weight:bold;
   font-size:36px;
   text-align: center;

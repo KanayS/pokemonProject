@@ -1,7 +1,7 @@
 let appendTypesPerCard = (types, card) => {
     types.forEach((item) => {
         let span = document.createElement("SPAN");
-        span.textContent = item;
+        span.textContent = item.charAt(0).toUpperCase() + item.slice(1);
         console.log("."+ card +"Types")
         document.querySelector("."+ card +"Types").appendChild(span);
         });
