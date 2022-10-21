@@ -6,8 +6,13 @@
    <link href="static/menuStylesheet.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-
-<img id="banner" src="https://res.cloudinary.com/codier/image/upload/v1599647184/xwi2mmftfo1izxrqmc9i.png" alt="banner" width="30px" height="25px">
+<audio id="audio_play">
+    <source src="static/pokemonSong.mp3" type="audio/mpeg" />
+</audio>
+  <div class="icon">
+   <img src="static/pauseButton.png" alt="icon" width="50px" height="50px" onClick="document.getElementById('audio_play').pause(); return false;">
+</div>
+<img id="banner" src="https://res.cloudinary.com/codier/image/upload/v1599647184/xwi2mmftfo1izxrqmc9i.png" alt="banner" width="30px" height="25px" onClick="document.getElementById('audio_play').play(); return false;" >
 <br>
 <img id="overlay" src="https://res.cloudinary.com/codier/image/upload/v1599647241/hvwcmnurmxow5ilmdir6.png" width="40px" height="40px">
 
@@ -20,7 +25,6 @@
     <a href="pokedex">PokeDex</a>
   </div>
 </div>
-
 
 </body>
 </html>
