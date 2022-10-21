@@ -88,10 +88,15 @@ function downloadData(){
     element.classList.add("visible");
 //    loading icon visible
     return fetch('/downloadData')
-        .then(data => getPokeList())
-        .then(data => {
-
+        .then(noData => noData.text())
+        .then(noData => {
+        if (noData == 'False'){
+        getPokeList();
+        } else {
+        alert("Pokemon API not working");
+        }
         });
+
 }
 
 function getPokeList(){

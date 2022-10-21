@@ -33,9 +33,9 @@ def getPokeCard(pokeName):
 def downloadData():
     pokeDatabase = PokeDatabase()
     print("before")
-    pokeDatabase.downloadData()
+    noData = pokeDatabase.downloadData()
     print("after")
-    return ""
+    return noData
 
 
 @pokedexBlueprint.route("/pokeList")
