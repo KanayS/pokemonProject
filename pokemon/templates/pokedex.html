@@ -24,14 +24,20 @@
                 {% endfor %}
                 {% endif %}
             </select>
-            <button class="pokedexBtn" type="button" onclick="getPokeCard()">Search Pokemon</button>
         </form>
     </div>
-    <div class="container textStyle invisible" id="cardClass">
-        <div id="card">
+    <div class="row d-flex justify-content-center">
+        <div>
+            <button class="pokedexBtn" type="button" onclick="getPokeCard()">Search Pokemon</button>
         </div>
     </div>
     <div class="row d-flex justify-content-center">
+        <div class="container textStyle invisible smallCard" id="cardClass">
+            <div id="card">
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center downloadRow">
         <div>
             <button class="downloadBtn" type="button" onclick="downloadData()">Download Pokemon</button>
         </div>
