@@ -8,45 +8,55 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" rel="stylesheet">
     <link href="static/stylesheet.css" rel="stylesheet" type="text/css">
     <link href="static/pokeGameStylesheet.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.cdnfonts.com/css/cubicfive" rel="stylesheet">
 </head>
 
 <body>
 <div class="bg background-image">
-    <div class="banner background-image"></div>
-        <div class="cards container-fluid">
-            <div class="row cardRow">
-                <div class="col-6 d-flex justify-content-center">
-                    <div class="text-center playerOneCycle">
-                        <button type="button" onclick="showTopCard('firstPlayerDeck', 'firstPlayerCard')">Next Card
-                        </button>
-                    </div>
-                    <div class="containerPlayerOne cardGame textStyle invisible" id="firstPlayerDeck">
-                        <div class="cardBack background-image visible">
-                            <div id="firstPlayerCard">
-                            </div>
+    <br>
+    <div class="row">
+        <div class="banner background-image"></div>
+    </div>
+
+    <div class="cards container-fluid">
+        <div class="row cardRow">
+            <div class="col-6 d-flex justify-content-center">
+                <div class="text-center playerOneCycle">
+                    <button class="button" type="button" onclick="showTopCard('firstPlayerDeck', 'firstPlayerCard')">Next Card
+                    </button>
+                </div>
+                <div class="containerPlayerOne cardGame textStyle invisible" id="firstPlayerDeck">
+                    <div class="cardBack background-image visible">
+                        <div id="firstPlayerCard">
                         </div>
                     </div>
-                    <p class="cardText">Cards Remaining:</p>
-                    <p class="cardCount cardText">{{firstPlayerCounter}}</p>
                 </div>
-                <div class="col-6 d-flex justify-content-center ">
-                    <div class="text-center playerTwoCycle">
-                        <button type="button" onclick="showTopCard('secondPlayerDeck', 'secondPlayerCard')">Next Card
-                        </button>
-                    </div>
-                    <div class="containerPlayerTwo cardGame textStyle invisible" id="secondPlayerDeck">
-                        <div class="cardBack background-image visible">
-                            <div id="secondPlayerCard">
-                            </div>
+
+            </div>
+            <div class="col-6 d-flex justify-content-center ">
+                <div class="text-center playerTwoCycle">
+                    <button class ="button" type="button" onclick="showTopCard('secondPlayerDeck', 'secondPlayerCard')">Next Card
+                    </button>
+                </div>
+                <div class="containerPlayerTwo cardGame textStyle invisible" id="secondPlayerDeck">
+                    <div class="cardBack background-image visible">
+                        <div id="secondPlayerCard">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-            <div class="row align-bottom">
-                <div class="cardText">Cards Remaining:</div>
-                    <div class="cardCount cardText">{{secondPlayerCounter}}</div>
-            </div>
+    </div>
+    <div class="row align-bottom">
+        <div class="col-6 d-flex justify-content-center">
+            <div class="cardText">Cards Remaining: &nbsp</div>
+            <div class="cardCount cardText">{{firstPlayerCounter}}</div>
+        </div>
+        <div class="col-6 d-flex justify-content-center">
+            <div class="cardText">Cards Remaining: &nbsp</div>
+            <div class="cardCount cardText">{{secondPlayerCounter}}</div>
+        </div>
+    </div>
 
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
