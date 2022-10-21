@@ -7,7 +7,7 @@ import logging
 
 class PokeDatabase:
 
-    def __init__(self, databasePath: str='pokemonDatabase.db'):
+    def __init__(self, databasePath: str = 'pokemonDatabase.db'):
 
         try:
             self.conn = sqlite3.connect(databasePath)
@@ -31,7 +31,8 @@ class PokeDatabase:
         if self.pokeDict is not None:
             for pokemon in self.pokeDict:
                 if len(self.pokeDict[pokemon]["types"]) == 2:
-                    self.pokeDict[pokemon]["types"] = f'{self.pokeDict[pokemon]["types"][0]}, {self.pokeDict[pokemon]["types"][1]}'
+                    self.pokeDict[pokemon][
+                        "types"] = f'{self.pokeDict[pokemon]["types"][0]}, {self.pokeDict[pokemon]["types"][1]}'
                 else:
                     self.pokeDict[pokemon]["types"] = self.pokeDict[pokemon]["types"][0]
 
@@ -40,15 +41,15 @@ class PokeDatabase:
                     (Name, Image_URL, Attack, Defense, Types)
                     VALUES (?, ?, ?, ?, ?)'''
 
-                self.cursor.execute(insertPokemon, (pokemon, self.pokeDict[pokemon]["artwork"], self.pokeDict[pokemon]["attack"],
-                                                    self.pokeDict[pokemon]["defense"], self.pokeDict[pokemon]["types"]))
+                self.cursor.execute(insertPokemon,
+                                    (pokemon, self.pokeDict[pokemon]["artwork"], self.pokeDict[pokemon]["attack"],
+                                     self.pokeDict[pokemon]["defense"], self.pokeDict[pokemon]["types"]))
                 self.conn.commit()
         else:
             logging.info("No data received from URL. Data could not be downloaded")
             noData = 'True'
 
         return noData
-
 
     def createTable(self):
 
@@ -91,7 +92,7 @@ class PokeDatabase:
             return pokemon
         return None
 
-    def listOfPokeNames(self): ###REMOVE DUPLICATES FROM LIST
+    def listOfPokeNames(self):  ###REMOVE DUPLICATES FROM LIST
 
         listNames = f'''
             SELECT Name
@@ -106,7 +107,6 @@ class PokeDatabase:
                 listOfPokeNames.append(name[0])
             return listOfPokeNames
         return None
-
 
     def createMainCardDeck(self):
         Pokemon = f'''
@@ -153,5 +153,3 @@ class PokeDatabase:
                 deck.append(pokemon)
             return deck
         return None
-
-

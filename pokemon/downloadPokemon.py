@@ -1,5 +1,3 @@
-import logging
-
 import requests
 import json
 import logging
@@ -14,7 +12,7 @@ class FetchData:
         try:
             DATA_URL = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151"
             UNRESPONSIVE_URL = "https://abcd"
-            content = requests.get(UNRESPONSIVE_URL)
+            content = requests.get(DATA_URL)
             parsedJson = json.loads(content.text)
         except requests.exceptions.ConnectionError:
             logging.error("Error in URL, cannot get pokemon data.")
