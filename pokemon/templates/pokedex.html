@@ -11,40 +11,40 @@
 </head>
 <body>
 <div class="bg background-image" id="pokedexBackground">
-    <div class="row titleRow d-flex justify-content-center">
-        <img src="/static/pokedexTitle.webp">
-    </div>
-    <div class="row formRow d-flex justify-content-center">
-        <form class="text-center pokeSearchForm">
-            <label>Enter Pokemon:</label>
-            <select id="pokeSearch" name="pokeSearch">
-                {% if pokeList is not none %}
-                {% for pokemon in pokeList %}
-                <option value="{{pokemon}}">{{pokemon}}</option>
-                {% endfor %}
-                {% endif %}
-            </select>
-        </form>
-    </div>
-    <div class="row d-flex justify-content-center">
-        <div>
-            <button class="pokedexBtn" type="button" onclick="getPokeCard()">Search Pokemon</button>
+    <div id="contents">
+        <div class="row titleRow d-flex justify-content-center">
+            <img src="/static/pokedexTitle.webp">
         </div>
-    </div>
-    <div class="row d-flex justify-content-center">
-        <div class="container textStyle invisible smallCard" id="cardClass">
-            <div id="card">
+        <div class="row formRow d-flex justify-content-center">
+            <form class="text-center pokeSearchForm">
+                <label>Enter Pokemon:</label>
+                <select id="pokeSearch" name="pokeSearch">
+                    {% if pokeList is not none %}
+                    {% for pokemon in pokeList %}
+                    <option value="{{pokemon}}">{{pokemon}}</option>
+                    {% endfor %}
+                    {% endif %}
+                </select>
+            </form>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div>
+                <button class="pokedexBtn" type="button" onclick="getPokeCard()">Search Pokemon</button>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="container textStyle invisible smallCard" id="cardClass">
+                <div id="card">
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center downloadRow">
+            <div>
+                <button class="downloadBtn" type="button" onclick="downloadData()">Download Pokemon</button>
             </div>
         </div>
     </div>
-    <div class="row d-flex justify-content-center downloadRow">
-        <div>
-            <button class="downloadBtn" type="button" onclick="downloadData()">Download Pokemon</button>
-        </div>
-    </div>
 </div>
-
-
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

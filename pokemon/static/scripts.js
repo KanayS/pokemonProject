@@ -83,6 +83,10 @@ function downloadData(){
     element.classList.remove("visible");
     element.classList.add("invisible");
 
+    element = document.getElementById("contents");
+    element.classList.remove("visible");
+    element.classList.add("invisible");
+
     element = document.getElementById("pokedexBackground");
     element.classList.remove("bg");
     element.classList.add("loadingGIF");
@@ -110,5 +114,9 @@ function getPokeList(){
     element = document.getElementById("pokedexBackground");
     element.classList.remove("loadingGIF");
     element.classList.add("bg");
-    console.log("list updated")
+    console.log("list updated");
+
+    element = document.getElementById("contents");
+    element.classList.remove("invisible");
+    element.classList.add("visible");
 }
