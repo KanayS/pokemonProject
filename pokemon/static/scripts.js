@@ -1,7 +1,7 @@
 let appendTypes = (types) => {
     types.forEach((item) => {
         let span = document.createElement("SPAN");
-        span.textContent = item;
+        span.textContent = item.charAt(0).toUpperCase() + item.slice(1);
         document.querySelector(".types").appendChild(span);
         });
 };
