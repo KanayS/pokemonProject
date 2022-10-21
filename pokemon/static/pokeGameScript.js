@@ -69,6 +69,7 @@ function updateCard(pokeDict, playerID, card){
 appendTypesPerCard(types, card);
 styleCardID(themeColor, cardID, card);
 }
+
 function showTopCard(cardDeck, cardID){
     console.log(cardDeck);
     fetch('/cycleCard/' + cardDeck)
@@ -79,6 +80,7 @@ function showTopCard(cardDeck, cardID){
         updateCardCount();
         });
 }
+
 function updateCardCount() {
     fetch('/updateCardCounter/')
         .then(cardCounts => cardCounts.json())
