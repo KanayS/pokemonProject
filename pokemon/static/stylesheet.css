@@ -2,6 +2,11 @@
   padding: 0;
   margin: 0;
 }
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden
+}
 .containerPlayerOne,
 .containerPlayerTwo {
   width: 350px;
@@ -92,7 +97,7 @@
 }
 
 .bg {
-    background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url("/static/pokeBackground.jpg");
+    background: url("/static/pokeBackground.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -122,5 +127,5 @@
     width:100vw%;
 }
 .cardRow {
-    height: 70vh;
+    height: 68vh;
 }

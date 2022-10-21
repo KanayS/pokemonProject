@@ -1,7 +1,7 @@
 let appendTypesPerCard = (types, card) => {
     types.forEach((item) => {
         let span = document.createElement("SPAN");
-        span.textContent = item;
+        span.textContent = item.charAt(0).toUpperCase() + item.slice(1);
         console.log("."+ card +"Types")
         document.querySelector("."+ card +"Types").appendChild(span);
         });
@@ -69,8 +69,6 @@ function updateCard(pokeDict, playerID, card){
 appendTypesPerCard(types, card);
 styleCardID(themeColor, cardID, card);
 }
-
-
 function showTopCard(cardDeck, cardID){
     console.log(cardDeck);
     fetch('/cycleCard/' + cardDeck)
@@ -78,5 +76,20 @@ function showTopCard(cardDeck, cardID){
         .then(topCard => {
         console.log(topCard)
         updateCard(topCard, cardDeck, cardID);
+        updateCardCount();
+        });
+}
+function updateCardCount() {
+    fetch('/updateCardCounter/')
+        .then(cardCounts => cardCounts.json())
+        .then(topCard => {
+        console.log(topCard)
+        const playerOneCardCount = topCard[0];
+        const playerTwoCardCount = topCard[1];
+
+        var element = document.getElementById("firstPlayerCounter");
+        element.innerHTML = playerOneCardCount;
+        element = document.getElementById("secondPlayerCounter");
+        element.innerHTML = playerTwoCardCount;
         });
 }

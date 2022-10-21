@@ -1,31 +1,26 @@
-
+@import url('http://fonts.cdnfonts.com/css/cubicfive');
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden
+}
 html {
 	margin: 0;
 }
-
 body {
 	background-image: url("pokeBackground.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
-
 	text-align:center;
-
 }
-
 .icon {
 	float: left;
 	display: block;
-
 }
-
-
 #banner:hover {
 	transform: scale(1.1);
 }
-
-
 #overlay {
-
 	float: right;
 	width: 20%;
 	text-align: right;
@@ -34,18 +29,14 @@ body {
 	margin-left: 10%;
 	margin-right: 10%;
 }
-
-
 #banner {
 	width: 50%;
 	text-align: center;
 	display: block;
 	height: auto;
 	margin-left: 25%;
-	margin-right: 25%;
-
+	margin-right: 25%;e
 }
-
 .button{
   position:relative;
   display:inline-block;
@@ -57,10 +48,9 @@ body {
   margin-left: 40%;
   margin-right: 40%;
 }
-
 .button a{
   color:white;
-  font-family:Helvetica, sans-serif;
+  font-family: 'CubicFive12', sans-serif;
   font-weight:bold;
   font-size:36px;
   text-align: center;
@@ -82,7 +72,6 @@ body {
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
-
 .button a:active{
   top:10px;
   background-color:#F78900;
@@ -91,7 +80,6 @@ body {
   -moz-box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3pxpx 0 #915100;
   box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3px 0 #915100;
 }
-
 .button:after{
   content:"";
   height:100%;
