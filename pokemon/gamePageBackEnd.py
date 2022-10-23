@@ -1,6 +1,7 @@
 from pokemon.createDatabase import PokeDatabase
 import random
 import logging
+from pokeTypes import Damage
 
 
 class Game:
@@ -15,7 +16,7 @@ class Game:
     @classmethod
     def instance(cls):
         if cls._instance is None:
-            logging.basicConfig(filename='pokeGameBackEnd.log', level=logging.INFO, filemode='w', force=True)
+            logging.basicConfig(filename='pokemon.log', level=logging.INFO, filemode='w', force=True)
             logging.info('Creating new instance')
             cls._instance = cls.__new__(cls)
             cls._instance.initialise()
@@ -95,7 +96,43 @@ class Game:
         else:
             logging.info("Player has no cards to show")
 
+    def getDamageValue(self, attackerType, defender):  ##assuming the type is known??
+        ###card asks for parameters to be attacker and defender TYPES!
+
+        defenderTypes = self.database.getPokeData(defender).types
+
+        damageData = Damage()
+        damageValues = damageData.DamageValues
+
+        attackerDamage = damageData.findDamage(attackerType)[1:]
+        damageTotal = 1
+
+        for defenderType in defenderTypes:
+            listIndices = []
+            for damageType in attackerDamage:
+                if len(damageType) > 0:
+                    for pokeType in damageType:
+                        if defenderType == pokeType:
+                            listIndices.append(attackerDamage.index(damageType))
+            if len(listIndices) != 0:
+                for index in listIndices:
+
+                    if index == 1:
+                        damageTotal *= damageValues["doubleDamageTo"]
+
+                    elif index == 3:
+                        damageTotal *= damageValues["halfDamageTo"]
+
+                    elif index == 5:
+                        damageTotal = damageValues["noDamageTo"]
+            else:
+                damageTotal = 0
+
+        return damageTotal
+
 if __name__ == "__main__":
     game=Game.instance()
     game.initialise()
-    game.shuffleMainDeck()
+    damage = game.getDamageValue('dragon', 'Bulbasaur')
+    print(damage)
+

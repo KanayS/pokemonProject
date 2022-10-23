@@ -4,6 +4,14 @@ from pokemon.pokeClass import Pokemon
 from pokemon.downloadPokemon import FetchData
 import logging
 
+def splitString(string):
+    if ", " in string:
+        type1 = string.split(', ')[0]
+        type2 = string.split(', ')[1]
+        string = [type1, type2]
+    else:
+        string = [string]
+    return string
 
 class PokeDatabase:
 
@@ -82,12 +90,13 @@ class PokeDatabase:
             pokemon.attackValue = pokemonDataList[2]
             pokemon.defenseValue = pokemonDataList[3]
             pokemon.types = pokemonDataList[4]
-            if ", " in pokemon.types:
-                type1 = pokemon.types.split(', ')[0]
-                type2 = pokemon.types.split(', ')[1]
-                pokemon.types = [type1, type2]
-            else:
-                pokemon.types = [pokemon.types]
+            pokemon.types = splitString(pokemon.types)
+            # if ", " in pokemon.types:
+            #     type1 = pokemon.types.split(', ')[0]
+            #     type2 = pokemon.types.split(', ')[1]
+            #     pokemon.types = [type1, type2]
+            # else:
+            #     pokemon.types = [pokemon.types]
 
             return pokemon
         return None
@@ -144,12 +153,17 @@ class PokeDatabase:
                     "defense": poke[3],
                     "types": poke[4]
                 }
-                if ", " in pokemon["types"]:
-                    type1 = pokemon["types"].split(', ')[0]
-                    type2 = pokemon["types"].split(', ')[1]
-                    pokemon["types"] = [type1, type2]
-                else:
-                    pokemon["types"] = [pokemon["types"]]
+                # if ", " in pokemon["types"]:
+                #     type1 = pokemon["types"].split(', ')[0]
+                #     type2 = pokemon["types"].split(', ')[1]
+                #     pokemon["types"] = [type1, type2]
+                # else:
+                pokemon["types"] = [pokemon["types"]]
+                pokemon["types"] = splitString(pokemon["types"][0])
                 deck.append(pokemon)
             return deck
         return None
+
+
+
+

@@ -6,7 +6,6 @@ from sqlite3 import Error
 
 logging.basicConfig(filename='pokemon.log', filemode='w', level=logging.DEBUG, force=True)
 
-
 class Damage:
 
     def __init__(self, databasePath: str = 'pokemonDamageTypes.db'):
@@ -19,7 +18,12 @@ class Damage:
         self.cursor = self.conn.cursor()
         self.createTable()
         self.downloadData()
-
+        self.DamageValues = {'doubleDamageFrom': 2,
+                             'doubleDamageTo': 2,
+                             'halfDamageFrom': 0.5,
+                             'halfDamageTo': 0.5,
+                             'noDamageFrom': 0,
+                             'noDamageTo': 0}
     def fetchTypes(self):
 
         try:
@@ -45,8 +49,7 @@ class Damage:
                     for pokeTypeName in pokeType:
                         name = pokeTypeName["name"]
                         listTypeNames.append(name)
-
-                    strTypeNames = ' '.join([str(elem) for elem in listTypeNames])
+                    strTypeNames = ' '.join([str(elem) + ", " for elem in listTypeNames])
                     dictDamage[damageType] = strTypeNames
                 self.damageTypesDict[typeDamageName] = dictDamage
             return self.damageTypesDict
@@ -101,16 +104,20 @@ class Damage:
             self.conn.commit()
             return self.__insertTypeData()
 
-    def findDamage(self, attacker, defender):
+    def findDamage(self, attackerType):
+        # attackData = self.damageTypesDict[attackerType]
+
         data = f'''
         SELECT *
         FROM TypeDamage
-        WHERE Type == '{attacker}';
+        WHERE Type == '{attackerType}';
         '''
         self.cursor.execute(data)
-        attackData = self.cursor.fetchall()
+        data = self.cursor.fetchone()
+        attackData = []
+        for damage in data:
+            damageType = damage.split()
+            attackData.append(damageType)
+        return attackData
 
-
-if __name__ == '__main__':
-    damage = Damage()
 
