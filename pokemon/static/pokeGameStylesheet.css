@@ -13,7 +13,6 @@
     height: 79vh;
     width:100%;
     border-radius: 10px;
-    background-color: #00ff00;
     filter: drop-shadow(8px 12px 6px rgb(0 0 0 / 65%));
 }
 .banner {
@@ -23,7 +22,7 @@
     background-attachment: fixed;
     background-position: center;
 	width: 50vw;
-	height: 120px;
+	height: 20vh;
 	margin-left: 25%;
 	margin-right: 25%;
 	transform: scale(1);
