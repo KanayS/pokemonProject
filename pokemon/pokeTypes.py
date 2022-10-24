@@ -26,7 +26,7 @@ class Damage:
                              'halfDamageTo': 0.5,
                              'noDamageFrom': 0,
                              'noDamageTo': 0}
-        self.damageTotal = 1
+        self.damage = 1
         self.damageDone = []
 
     def __fetchTypes(self):
@@ -124,41 +124,7 @@ class Damage:
             attackData.append(damageType)
         return attackData
 
-    def getDamageValue(self, attackerType, defenderType):
 
-        attackerDamage = self.findDamage(attackerType)[1:]
-
-        listIndices = []
-        for damageType in attackerDamage:
-            if len(damageType) > 0:
-                for pokeType in damageType:
-                    if defenderType == pokeType:
-                        listIndices.append(attackerDamage.index(damageType))
-        if len(listIndices) != 0:
-            self.damageDone.append(False)
-            for index in listIndices:
-
-                if index == 1:
-                    self.damageTotal *= self.damageValues["doubleDamageTo"]
-
-                elif index == 3:
-                    self.damageTotal *= self.damageValues["halfDamageTo"]
-
-                elif index == 5:
-                    self.damageTotal *= self.damageValues["noDamageTo"]
-        else:
-            self.damageDone.append(True)
-
-    def getDamageTotal(self):
-
-        if self.damageDone == [True, True] or self.damageDone == [True]:
-            self.damageTotal = 0
-
-# damage = Damage()
-# damage.getDamageValue('poison', 'fire')
-# damage.getDamageValue('ground', 'fire')
-# damage.getDamageTotal()
-# print(damage.damageTotal)
 
 
 
