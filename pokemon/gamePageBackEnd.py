@@ -96,16 +96,16 @@ class Game:
         else:
             logging.info("Player has no cards to show")
 
-    def getDamageValue(self, attackerType, defender):  ##assuming the type is known??
-        ###card asks for parameters to be attacker and defender TYPES!
+    def getDamageValue(self, attackerType, defender):
 
         defenderTypes = self.database.getPokeData(defender).types
 
         damageData = Damage()
-        damageValues = damageData.DamageValues
+        damageValues = damageData.damageValues
 
         attackerDamage = damageData.findDamage(attackerType)[1:]
         damageTotal = 1
+        damageDone = []
 
         for defenderType in defenderTypes:
             listIndices = []
@@ -115,6 +115,9 @@ class Game:
                         if defenderType == pokeType:
                             listIndices.append(attackerDamage.index(damageType))
             if len(listIndices) != 0:
+
+                damageDone.append(False)
+
                 for index in listIndices:
 
                     if index == 1:
@@ -125,14 +128,19 @@ class Game:
 
                     elif index == 5:
                         damageTotal = damageValues["noDamageTo"]
+
             else:
-                damageTotal = 0
+                damageDone.append(True)
+
+        if damageDone == [True, True] or damageDone == [True]:
+            damageTotal = 0
 
         return damageTotal
 
 if __name__ == "__main__":
-    game=Game.instance()
+
+    game = Game.instance()
     game.initialise()
-    damage = game.getDamageValue('dragon', 'Bulbasaur')
+    damage = game.getDamageValue('ground', 'Charmander')
     print(damage)
 

@@ -6,6 +6,8 @@ from sqlite3 import Error
 
 logging.basicConfig(filename='pokemon.log', filemode='w', level=logging.DEBUG, force=True)
 
+#ASK IF WE ARE MEANT TO DOWNLOAD ALL DATA OR JUST FOR THE ATTACKER AND IF WE ARE SUPPOSED TO STORE THE DATA THEN???
+
 class Damage:
 
     def __init__(self, databasePath: str = 'pokemonDamageTypes.db'):
@@ -18,13 +20,16 @@ class Damage:
         self.cursor = self.conn.cursor()
         self.createTable()
         self.downloadData()
-        self.DamageValues = {'doubleDamageFrom': 2,
+        self.damageValues = {'doubleDamageFrom': 2,
                              'doubleDamageTo': 2,
                              'halfDamageFrom': 0.5,
                              'halfDamageTo': 0.5,
                              'noDamageFrom': 0,
                              'noDamageTo': 0}
-    def fetchTypes(self):
+        self.damageTotal = 1
+        self.damageDone = []
+
+    def __fetchTypes(self):
 
         try:
             TYPE_DATA_URL = "https://pokeapi.co/api/v2/type/"
@@ -49,7 +54,7 @@ class Damage:
                     for pokeTypeName in pokeType:
                         name = pokeTypeName["name"]
                         listTypeNames.append(name)
-                    strTypeNames = ' '.join([str(elem) + ", " for elem in listTypeNames])
+                    strTypeNames = ' '.join([str(elem) for elem in listTypeNames])
                     dictDamage[damageType] = strTypeNames
                 self.damageTypesDict[typeDamageName] = dictDamage
             return self.damageTypesDict
@@ -72,7 +77,7 @@ class Damage:
         self.conn.commit()
 
     def __insertTypeData(self):
-        damageData = self.fetchTypes()
+        damageData = self.__fetchTypes()
         noData = 'False'
 
         if damageData is not None:
@@ -105,7 +110,6 @@ class Damage:
             return self.__insertTypeData()
 
     def findDamage(self, attackerType):
-        # attackData = self.damageTypesDict[attackerType]
 
         data = f'''
         SELECT *
@@ -119,5 +123,47 @@ class Damage:
             damageType = damage.split()
             attackData.append(damageType)
         return attackData
+
+    def getDamageValue(self, attackerType, defenderType):
+
+        attackerDamage = self.findDamage(attackerType)[1:]
+
+        listIndices = []
+        for damageType in attackerDamage:
+            if len(damageType) > 0:
+                for pokeType in damageType:
+                    if defenderType == pokeType:
+                        listIndices.append(attackerDamage.index(damageType))
+        if len(listIndices) != 0:
+            self.damageDone.append(False)
+            for index in listIndices:
+
+                if index == 1:
+                    self.damageTotal *= self.damageValues["doubleDamageTo"]
+
+                elif index == 3:
+                    self.damageTotal *= self.damageValues["halfDamageTo"]
+
+                elif index == 5:
+                    self.damageTotal *= self.damageValues["noDamageTo"]
+        else:
+            self.damageDone.append(True)
+
+    def getDamageTotal(self):
+
+        if self.damageDone == [True, True] or self.damageDone == [True]:
+            self.damageTotal = 0
+
+# damage = Damage()
+# damage.getDamageValue('poison', 'fire')
+# damage.getDamageValue('ground', 'fire')
+# damage.getDamageTotal()
+# print(damage.damageTotal)
+
+
+
+
+
+
 
 
