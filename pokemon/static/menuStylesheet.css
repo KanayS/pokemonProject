@@ -16,6 +16,13 @@ body {
 .icon {
 	float: left;
 	display: block;
+
+
+}
+
+.button:hover {
+    transform: scale(1.1);
+
 }
 #banner:hover {
 	transform: scale(1.1);
@@ -29,18 +36,25 @@ body {
 	margin-left: 10%;
 	margin-right: 10%;
 }
+
+#overlay {
+  animation: shake 1s cubic-bezier(.36,.10,.25,.93) infinite;
+transform: translate3d(0, 0, 0);
+}
+
+
 #banner {
 	width: 50%;
 	text-align: center;
 	display: block;
 	height: auto;
 	margin-left: 25%;
-	margin-right: 25%;e
+	margin-right: 25%;
 }
 .button{
   position:relative;
   display:inline-block;
-  margin:20px;
+  margin:25px;
   float: center;
   width: 20%;
   text-align: center;
@@ -94,3 +108,49 @@ body {
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+
+.pokeball {
+  position: relative;
+  left: 25vmin;
+  top: -15min;
+  background: transparent;
+  height: 2em;
+  width: 2em;
+  font-size: 1.5vmin;
+  color: #000000;
+  box-shadow: 2em 0 #000000, 4em 0 #000000, 6em 0 #000000, 8em 0 #000000,
+-2em 2em #000000, 0em 2em #000000, 2em 2em #FB5F5F, 4em 2em #FB5F5F, 6em 2em #F42A2A, 8em 2em #F42A2A, 10em 2em #000000, 12em 2em #000000, -4em 4em #000000, -2em 4em #FB5F5F, 0em 4em #FB5F5F, 2em 4em #FB5F5F, 4em 4em #FB5F5F, 6em 4em #F42A2A, 8em 4em #F42A2A, 10em 4em #F42A2A, 12em 4em #F42A2A, 14em 4em #000000, -6em 6em #000000, -4em 6em #FB5F5F, -2em 6em #FB5F5F, 0em 6em #FB5F5F, 2em 6em #FB5F5F, 4em 6em #F42A2A, 6em 6em #F42A2A, 8em 6em #F42A2A, 10em 6em #F42A2A, 12em 6em #F42A2A, 14em 6em #DC1010, 16em 6em #000000, -6em 8em #000000, -4em 8em #FB5F5F, -2em 8em #FB5F5F, 0em 8em #FB5F5F, 2em 8em #F42A2A, 4em 8em #F42A2A, 6em 8em #F42A2A, 8em 8em #F42A2A, 10em 8em #F42A2A, 12em 8em #F42A2A, 14em 8em #DC1010, 16em 8em #000000, -8em 10em #000000, -6em 10em #FB5F5F, -4em 10em #FB5F5F, -2em 10em #FB5F5F, 0em 10em #F42A2A, 2em 10em #F42A2A, 4em 10em #F42A2A, 6em 10em #F42A2A, 8em 10em #F42A2A, 10em 10em #F42A2A, 12em 10em #DC1010, 14em 10em #DC1010, 16em 10em #DC1010, 18em 10em #000000, -8em 12em #000000, -6em 12em #FB5F5F, -4em 12em #FB5F5F, -2em 12em #F42A2A, 0em 12em #F42A2A, 2em 12em #F42A2A, 4em 12em #000000, 6em 12em #000000, 8em 12em #F42A2A, 10em 12em #F42A2A, 12em 12em #DC1010, 14em 12em #DC1010, 16em 12em #DC1010, 18em 12em #000000, -8em 14em #000000, -6em 14em #000000, -4em 14em #F42A2A, -2em 14em #F42A2A, 0em 14em #F42A2A, 2em 14em #000000, 4em 14em #FFFFFF, 6em 14em #58CDE7, 8em 14em #000000, 10em 14em #DC1010, 12em 14em #DC1010, 14em 14em #DC1010, 16em 14em #000000, 18em 14em #000000, -8em 16em #000000, -6em 16em #FFFFFF, -4em 16em #000000, -2em 16em #000000, 0em 16em #000000, 2em 16em #000000, 4em 16em #58CDE7, 6em 16em #58CDE7, 8em 16em #000000, 10em 16em #000000, 12em 16em #000000, 14em 16em #000000, 16em 16em #58CDE7, 18em 16em #000000, -6em 18em #000000, -4em 18em #FFFFFF, -2em 18em #FFFFFF, 0em 18em #FFFFFF, 2em 18em #FFFFFF, 4em 18em #000000, 6em 18em #000000, 8em 18em #FFFFFF, 10em 18em #58CDE7, 12em 18em #58CDE7, 14em 18em #58CDE7, 16em 18em #000000, -6em 20em #000000, -4em 20em #FFFFFF, -2em 20em #FFFFFF, 0em 20em #FFFFFF, 2em 20em #FFFFFF, 4em 20em #FFFFFF, 6em 20em #FFFFFF, 8em 20em #FFFFFF, 10em 20em #58CDE7, 12em 20em #58CDE7, 14em 20em #58CDE7, 16em 20em #000000, -4em 22em #000000, -2em 22em #FFFFFF, 0em 22em #FFFFFF, 2em 22em #FFFFFF, 4em 22em #FFFFFF, 6em 22em #FFFFFF, 8em 22em #58CDE7, 10em 22em #58CDE7, 12em 22em #58CDE7, 14em 22em #000000, -2em 24em #000000, 0em 24em #000000, 2em 24em #FFFFFF, 4em 24em #FFFFFF, 6em 24em #58CDE7, 8em 24em #58CDE7, 10em 24em #000000, 12em 24em #000000, 2em 26em #000000, 4em 26em #000000, 6em 26em #000000, 8em 26em #000000;
+
+}
+
+.pokeball {
+  animation: shake 1s cubic-bezier(.36,.10,.25,.93) infinite;
+transform: translate3d(0, 0, 0);
+}
+
+
+
+@keyframes shake {
+  20%, 90% {
+    transform: translate3d(0px, 0, 1px);
+  }
+
+  20%, 80% {
+    transform: translate3d(-1px, 2px, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-2px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, -1px, 0);
+  }
+}
+
