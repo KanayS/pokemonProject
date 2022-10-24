@@ -21,26 +21,34 @@ class PokeDatabase:
         truncTable = 'DELETE FROM Pokemon;'
         self.cursor.execute(truncTable)
         self.conn.commit()
-        self.__insertPokeData()
+        return self.__insertPokeData()
 
     def __insertPokeData(self):
         grabData = FetchData()
-        pokeDict = grabData.fetchdata()
+        self.pokeDict = grabData.fetchdata()
+        noData = 'False'
 
-        for pokemon in pokeDict:
-            if len(pokeDict[pokemon]["types"]) == 2:
-                pokeDict[pokemon]["types"] = f'{pokeDict[pokemon]["types"][0]}, {pokeDict[pokemon]["types"][1]}'
-            else:
-                pokeDict[pokemon]["types"] = pokeDict[pokemon]["types"][0]
+        if self.pokeDict is not None:
+            for pokemon in self.pokeDict:
+                if len(self.pokeDict[pokemon]["types"]) == 2:
+                    self.pokeDict[pokemon]["types"] = f'{self.pokeDict[pokemon]["types"][0]}, {self.pokeDict[pokemon]["types"][1]}'
+                else:
+                    self.pokeDict[pokemon]["types"] = self.pokeDict[pokemon]["types"][0]
 
-            insertPokemon = f'''
-                INSERT INTO Pokemon
-                (Name, Image_URL, Attack, Defense, Types)
-                VALUES (?, ?, ?, ?, ?)'''
+                insertPokemon = f'''
+                    INSERT INTO Pokemon
+                    (Name, Image_URL, Attack, Defense, Types)
+                    VALUES (?, ?, ?, ?, ?)'''
 
-            self.cursor.execute(insertPokemon, (pokemon, pokeDict[pokemon]["artwork"], pokeDict[pokemon]["attack"],
-                                pokeDict[pokemon]["defense"], pokeDict[pokemon]["types"]))
-            self.conn.commit()
+                self.cursor.execute(insertPokemon, (pokemon, self.pokeDict[pokemon]["artwork"], self.pokeDict[pokemon]["attack"],
+                                                    self.pokeDict[pokemon]["defense"], self.pokeDict[pokemon]["types"]))
+                self.conn.commit()
+        else:
+            logging.info("No data received from URL. Data could not be downloaded")
+            noData = 'True'
+
+        return noData
+
 
     def createTable(self):
 
@@ -88,6 +96,7 @@ class PokeDatabase:
         listNames = f'''
             SELECT Name
             FROM Pokemon
+            ORDER BY Name ASC;            
             '''
         self.cursor.execute(listNames)
 

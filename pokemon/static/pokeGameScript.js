@@ -69,16 +69,48 @@ function updateCard(pokeDict, playerID, card){
 appendTypesPerCard(types, card);
 styleCardID(themeColor, cardID, card);
 }
-function showTopCard(cardDeck, cardID){
+
+function showTopCard(cardDeck, cardID, backgroundCardShadow){
     console.log(cardDeck);
+    $(cardID).unwrap();
     fetch('/cycleCard/' + cardDeck)
         .then(topCard => topCard.json())
         .then(topCard => {
-        console.log(topCard)
-        updateCard(topCard, cardDeck, cardID);
-        updateCardCount();
+         element = document.getElementById(backgroundCardShadow);
+         element.classList.remove("cardShadow");
+        if (topCard !== null){
+            updateCard(topCard, cardDeck, cardID);
+            updateCardCount();
+        } else {
+            console.log("test");
+            if (cardDeck == "firstPlayerDeck") {
+                element = document.getElementById("firstPlayerCycle");
+                element.classList.add("invisible");
+                element = document.getElementById("playerOneCardBack");
+                element.classList.remove("cardBack")
+                element.classList.add("pikaMeme");
+                element = document.getElementById("firstPlayerCard");
+                element.classList.remove("cardShadow");
+                alert("The first player deck has ran out of cards :(");
+            } else {
+                element = document.getElementById("secondPlayerCycle");
+                element.classList.add("invisible");
+                element = document.getElementById("playerTwoCardBack");
+                element.classList.remove("cardBack");
+                element.classList.add("pikaMeme");
+                element = document.getElementById("secondPlayerCard");                ;
+                element.classList.remove("cardShadow");
+                alert("The second player deck has ran out of cards :(");
+            }
+
+            element = document.getElementById(cardID);
+            element.innerHTML = `
+            <h2 class="text-center noCardMsg"> No Cards Left :( </h2>
+            `;
+        }
         });
 }
+
 function updateCardCount() {
     fetch('/updateCardCounter/')
         .then(cardCounts => cardCounts.json())

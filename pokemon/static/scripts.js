@@ -83,15 +83,24 @@ function downloadData(){
     element.classList.remove("visible");
     element.classList.add("invisible");
 
-    element = document.getElementById("loadIcon");
-    element.classList.remove("invisible");
-    element.classList.add("visible");
+    element = document.getElementById("contents");
+    element.classList.remove("visible");
+    element.classList.add("invisible");
+
+    element = document.getElementById("pokedexBackground");
+    element.classList.remove("bg");
+    element.classList.add("loadingGIF");
 //    loading icon visible
     return fetch('/downloadData')
-        .then(data => getPokeList())
-        .then(data => {
-
+        .then(noData => noData.text())
+        .then(noData => {
+        if (noData == 'False'){
+        getPokeList();
+        } else {
+        alert("Pokemon API not working");
+        }
         });
+
 }
 
 function getPokeList(){
@@ -102,8 +111,12 @@ function getPokeList(){
             element.innerHTML = data
         });
 
-    element = document.getElementById("loadIcon");
-    element.classList.remove("visible");
-    element.classList.add("invisible");
-    console.log("list updated")
+    element = document.getElementById("pokedexBackground");
+    element.classList.remove("loadingGIF");
+    element.classList.add("bg");
+    console.log("list updated");
+
+    element = document.getElementById("contents");
+    element.classList.remove("invisible");
+    element.classList.add("visible");
 }
