@@ -137,10 +137,3 @@ class Game:
 
         return damageTotal
 
-if __name__ == "__main__":
-
-    game = Game.instance()
-    game.initialise()
-    damage = game.getDamageValue('ground', 'Charmander')
-    print(damage)
-
