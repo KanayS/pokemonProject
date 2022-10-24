@@ -91,12 +91,6 @@ class PokeDatabase:
             pokemon.defenseValue = pokemonDataList[3]
             pokemon.types = pokemonDataList[4]
             pokemon.types = splitString(pokemon.types)
-            # if ", " in pokemon.types:
-            #     type1 = pokemon.types.split(', ')[0]
-            #     type2 = pokemon.types.split(', ')[1]
-            #     pokemon.types = [type1, type2]
-            # else:
-            #     pokemon.types = [pokemon.types]
 
             return pokemon
         return None
@@ -153,11 +147,6 @@ class PokeDatabase:
                     "defense": poke[3],
                     "types": poke[4]
                 }
-                # if ", " in pokemon["types"]:
-                #     type1 = pokemon["types"].split(', ')[0]
-                #     type2 = pokemon["types"].split(', ')[1]
-                #     pokemon["types"] = [type1, type2]
-                # else:
                 pokemon["types"] = [pokemon["types"]]
                 pokemon["types"] = splitString(pokemon["types"][0])
                 deck.append(pokemon)
