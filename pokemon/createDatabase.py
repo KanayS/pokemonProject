@@ -3,6 +3,7 @@ from sqlite3 import Error
 from pokemon.pokeClass import Pokemon
 from pokemon.downloadPokemon import FetchData
 import logging
+import random
 
 def splitString(string):
     if ", " in string:
@@ -151,7 +152,9 @@ class PokeDatabase:
                 pokemon["types"] = [pokemon["types"]]
                 pokemon["types"] = splitString(pokemon["types"][0])
                 deck.append(pokemon)
-            return deck
+
+            random.shuffle(deck)
+            return deck[:10]
         return None
 
 
