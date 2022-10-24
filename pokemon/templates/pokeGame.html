@@ -22,11 +22,11 @@
         <div class="row cardRow">
             <div class="col-6 d-flex justify-content-center">
                 <div class="text-center playerOneCycle">
-                    <button class="button" type="button" onclick="showTopCard('firstPlayerDeck', 'firstPlayerCard')">Next Card
+                    <button id="firstPlayerCycle" class="button" type="button" onclick="showTopCard('firstPlayerDeck', 'firstPlayerCard', 'playerOneCardBack')">Next Card
                     </button>
                 </div>
                 <div class="containerPlayerOne cardGame textStyle invisible" id="firstPlayerDeck">
-                    <div class="cardBack background-image visible">
+                    <div id="playerOneCardBack" class="cardBack background-image visible">
                         <div id="firstPlayerCard">
                         </div>
                     </div>
@@ -35,11 +35,11 @@
             </div>
             <div class="col-6 d-flex justify-content-center ">
                 <div class="text-center playerTwoCycle">
-                    <button class ="button" type="button" onclick="showTopCard('secondPlayerDeck', 'secondPlayerCard')">Next Card
+                    <button id="secondPlayerCycle" class ="button" type="button" onclick="showTopCard('secondPlayerDeck', 'secondPlayerCard', 'playerTwoCardBack')">Next Card
                     </button>
                 </div>
                 <div class="containerPlayerTwo cardGame textStyle invisible" id="secondPlayerDeck">
-                    <div class="cardBack background-image visible">
+                    <div id="playerTwoCardBack" class="cardBack background-image visible">
                         <div id="secondPlayerCard">
                         </div>
                     </div>

@@ -96,6 +96,7 @@ class PokeDatabase:
         listNames = f'''
             SELECT Name
             FROM Pokemon
+            ORDER BY Name ASC;            
             '''
         self.cursor.execute(listNames)
 
