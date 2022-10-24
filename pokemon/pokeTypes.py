@@ -4,13 +4,12 @@ import logging
 import sqlite3
 from sqlite3 import Error
 
-logging.basicConfig(filename='pokemon.log', filemode='w', level=logging.DEBUG, force=True)
-
 #ASK IF WE ARE MEANT TO DOWNLOAD ALL DATA OR JUST FOR THE ATTACKER AND IF WE ARE SUPPOSED TO STORE THE DATA THEN???
 
 class Damage:
 
     def __init__(self, databasePath: str = 'pokemonDamageTypes.db'):
+        logging.basicConfig(filename='pokemon.log', filemode='w', level=logging.DEBUG, force=True)
         self.damageTypesDict = {}
         try:
             self.conn = sqlite3.connect(databasePath)
