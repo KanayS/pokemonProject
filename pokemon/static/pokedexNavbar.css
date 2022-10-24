@@ -1,0 +1,25 @@
+.navbar {
+    width: 100vw;
+    position:relative;
+}
+.navbarText {
+    margin-bottom:auto;
+}
+.banner {
+    background-repeat: no-repeat;
+    background-size: contain;
+    /* background-attachment: fixed; */
+    /* background-position: center; */
+    width: 50vw;
+    height: 20vh;
+    position: absolute;
+    left: 50%;
+    top: 1px;
+    margin-left: -125px !important;
+    display: block;
+    transform: scale(1);
+}
+}
+.banner:hover {
+	transform: scale(1.1);
+}

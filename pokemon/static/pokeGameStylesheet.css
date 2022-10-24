@@ -19,13 +19,17 @@
     background: url("/static/banner.png");
     background-repeat: no-repeat;
     background-size: contain;
-    background-attachment: fixed;
-    background-position: center;
-	width: 50vw;
-	height: 20vh;
-	margin-left: 25%;
-	margin-right: 25%;
-	transform: scale(1);
+    /* background-attachment: fixed; */
+    /* background-position: center; */
+    width: 50vw;
+    height: 20vh;
+    position: absolute;
+    left: 50%;
+    top: 0px;
+    margin-left: -105px !important;
+    display: block;
+    transform: scale(1);
+}
 }
 .banner:hover {
 	transform: scale(1.1);
@@ -81,4 +85,11 @@
     height: 79vh;
     width:100%;
     border-radius: 10px;
+}
+.navbar {
+    width: 100vw;
+    position:relative;
+}
+.navbarText {
+    margin-bottom:auto;
 }

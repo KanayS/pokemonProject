@@ -13,16 +13,53 @@
 
 <body>
 <div class="bg background-image">
-    <br>
-    <div class="row">
-        <div class="banner background-image"></div>
+    <div class="row" >
+        <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong">
+
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" style="height: 18vh;">
+                <div class="banner background-image"></div>
+                <ul class="navbar-nav mr-auto navbarText">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
+                           data-toggle="dropdown" href="#" id="navbarDropdown" role="button">
+                            <navigation>Options</navigation>
+                        </a>
+                        <div aria-labelledby="navbarDropdown" class="dropdown-menu">
+                            <a class="dropdown-item" href="/pokedex">Pokedex</a>
+                            <a class="dropdown-item" href="">Placeholder</a>
+                            <a class="dropdown-item" href="">Placeholder</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="">Placeholder</a>
+                            <a class="dropdown-item" href="">Placeholder</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="">Placeholder</a>
+                        </div>
+                    </li>
+                </ul>
+
+                <label class="navbarText" style="margin-top: 10px;">
+                    Eggs and Spam
+                </label>
+            </div>
+
+        </nav>
+
     </div>
 
     <div class="cards container-fluid">
         <div class="row cardRow">
             <div class="col-6 d-flex justify-content-center">
                 <div class="text-center playerOneCycle">
-                    <button id="firstPlayerCycle" class="button" type="button" onclick="showTopCard('firstPlayerDeck', 'firstPlayerCard', 'playerOneCardBack')">Next Card
+                    <button id="firstPlayerCycle" class="button" type="button"
+                            onclick="showTopCard('firstPlayerDeck', 'firstPlayerCard', 'playerOneCardBack')">Next Card
                     </button>
                 </div>
                 <div class="containerPlayerOne cardGame textStyle invisible" id="firstPlayerDeck">
@@ -35,7 +72,8 @@
             </div>
             <div class="col-6 d-flex justify-content-center ">
                 <div class="text-center playerTwoCycle">
-                    <button id="secondPlayerCycle" class ="button" type="button" onclick="showTopCard('secondPlayerDeck', 'secondPlayerCard', 'playerTwoCardBack')">Next Card
+                    <button id="secondPlayerCycle" class="button" type="button"
+                            onclick="showTopCard('secondPlayerDeck', 'secondPlayerCard', 'playerTwoCardBack')">Next Card
                     </button>
                 </div>
                 <div class="containerPlayerTwo cardGame textStyle invisible" id="secondPlayerDeck">
