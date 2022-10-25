@@ -4,6 +4,11 @@ import logging
 from pokeTypes import Damage
 
 
+def giveAwayCard(listFrom, listTo, card):
+    listFrom.remove(card)
+    listTo.append(card)
+
+
 class Game:
     _instance = None
 
@@ -160,8 +165,6 @@ class Game:
                 choosePlayer = random.randint(1, 2)
                 self.round += 1
 
-                choosePlayer =1 ###REMOVE
-
                 self.firstPlayerAttacking = True
 
                 if choosePlayer == 1:
@@ -212,11 +215,13 @@ class Game:
         AIAttackType = AITypes[0]
         return AIAttackType
 
-    def attack(self, attackType):  ##if statement for if the user needs to choose type from 2 or only 1 type
+    def attack(self, attackType):
         attackValue = self.attacker["attack"]
         defenseValue = self.defender["defense"]
         multiplier = self.getDamageValue(attackType, self.defender["name"])
-        damageDone = (attackValue - defenseValue) * multiplier
+        randNum = random.randint(217, 255)
+        damageCalc = (attackValue / defenseValue) * multiplier * (randNum / 255) * 30
+        damageDone = round(damageCalc, 2)
         if self.attacker == self.firstPlayerCard:
             self.secondPlayerHP -= damageDone
             self.switchAttacker()
@@ -226,14 +231,10 @@ class Game:
             self.switchAttacker()
             return damageDone, self.firstPlayerHP
 
-    def __giveAwayCard(self, listFrom, listTo, card):
-        listFrom.remove(card)
-        listTo.append(card)
-
-    def winCheck(self): ###after each attack -> damage/ HP caluclation
+    def winCheck(self):
 
         if self.firstPlayerHP == 0:
-            self.__giveAwayCard(self.firstPlayerDeck, self.secondPlayerDeck, self.firstPlayerCard)
+            giveAwayCard(self.firstPlayerDeck, self.secondPlayerDeck, self.firstPlayerCard)
             self.loser = self.firstPlayerDeck
             self.winner = self.secondPlayerDeck
             logging.info(f"Player 2 has won the round and taken {self.firstPlayerCard['name']} from Player 1")
@@ -245,7 +246,7 @@ class Game:
                 self.startRound()
 
         elif self.secondPlayerHP == 0:
-            self.__giveAwayCard(self.secondPlayerDeck, self.firstPlayerDeck, self.secondPlayerCard)
+            giveAwayCard(self.secondPlayerDeck, self.firstPlayerDeck, self.secondPlayerCard)
             self.loser = self.secondPlayerDeck
             self.winner = self.firstPlayerDeck
             logging.info(f"Player 1 has won the round and taken {self.secondPlayerCard['name']} from Player 2")
@@ -258,13 +259,5 @@ class Game:
 
         return self.gameOver
 
-
 if __name__ == '__main__':
     pass
-
-
-
-
-
-
-
