@@ -49,13 +49,19 @@ function updateCardUI(pokeDict){
     const themeColor = typeColor[mainAttribute];
     console.log(mainAttribute)
     console.log(themeColor);
+    console.log(pokeDict);
     const imgSrc = pokeDict.url;
     const attack = pokeDict.attack;
     const defense = pokeDict.defense;
+    const hp = pokeDict.hp;
     const types = pokeDict.types;
     const name = pokeDict.name;
 
     card.innerHTML = `
+        <p class="hp">
+          <span>HP</span>
+            ${hp}
+        </p>
         <img src=${imgSrc} />
         <h2 class="poke-name">${pokeName}</h2>
         <div class="types">
