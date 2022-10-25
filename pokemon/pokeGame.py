@@ -45,13 +45,13 @@ def attack(attackType):
     attackType = attackType.lower()
     print(game.attacker)
     damage, hp = game.attack(attackType)
-    checkAttacker = game.checkAttacker()
     print(game.attacker)
-    gameover = False
     print(game.firstPlayerAttacking)
-    return attackType
+    return json.dumps([damage, hp])
+
 
 @pokeGameBlueprint.route("/renderCards")
 def cardUI():
+    game = Game.instance()
     gameCardUI = render_template('gameCardUI.html')
-    return render_template(gameCardUI)
+    return render_template(gameCardUI, firstPlayerAttacking=game.firstPlayerAttacking)
