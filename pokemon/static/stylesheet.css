@@ -17,7 +17,7 @@ html, body {
 .container {
   width: 350px;
   position: absolute;
-  top: 20vh;
+  top: 120px;
 }
 #card,
 #firstPlayerCard,
@@ -48,6 +48,8 @@ html, body {
   border-radius: 30px;
   margin-left: auto;
   font-weight: 400;
+  color: black;
+  position: absolute;
 }
 .poke-name {
   text-align: center;

@@ -24,6 +24,7 @@ def getPokeCard(pokeName):
         "url": pokemon.url,
         "attack": pokemon.attackValue,
         "defense": pokemon.defenseValue,
+        "hp": pokemon.hp,
         "types": pokemon.types
     }
     return json.dumps(pokeDict)
