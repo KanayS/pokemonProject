@@ -10,7 +10,7 @@ class TestGame(TestCase):
         game = Game.instance()
         game.initialise('../pokemon/pokemonDatabase.db')
 
-        assert game.totalCards == 151
+        assert game.totalCards == 10
 
     def test_shuffleMainDeckMainDeckEmpty(self):
         gameShuffleEmpty = Game.instance()
@@ -116,6 +116,68 @@ class TestGame(TestCase):
         TopCard = gameShowTopCardNotEmpty.showTopCard(firstPlayerDeckNotEmpty)
 
         assert TopCard == firstPlayerDeckNotEmpty[0]
+
+    def test_getDamageIf0(self):
+        gameGetDamageIf0 = Game.instance()
+        gameGetDamageIf0.initialise('../pokemon/pokemonDatabase.db')
+        gameGetDamageIf0.attacker = {'name': 'PokeAttacker', 'types': ['poison']}
+        gameGetDamageIf0.defender = {'name': 'PokeDefender', 'types': ['ice']}
+        damageMultiplierOneType = gameGetDamageIf0.getDamageMultiplier('poison')
+        gameGetDamageIf0.defender = {'name': 'PokeDefenderTwo', 'types': ['grass', 'steel']}
+        damageMultiplierTwoType = gameGetDamageIf0.getDamageMultiplier('poison')
+
+        assert damageMultiplierOneType == 0
+        assert damageMultiplierTwoType == 0
+
+    def test_getDamageIfHalf(self):
+        gameGetDamageIf0 = Game.instance()
+        gameGetDamageIf0.initialise('../pokemon/pokemonDatabase.db')
+        gameGetDamageIf0.attacker = {'name': 'PokeAttacker', 'types': ['normal']}
+        gameGetDamageIf0.defender = {'name': 'PokeDefender', 'types': ['rock']}
+        damageMultiplierOneType = gameGetDamageIf0.getDamageMultiplier('normal')
+
+        assert damageMultiplierOneType == 0.5
+
+    def test_startRoundEmptyDecks(self):
+        gameStartRoundEmptyDecks = Game.instance()
+        gameStartRoundEmptyDecks.initialise('../pokemon/pokemonDatabase.db')
+        gameStartRoundEmptyDecks.startRound()
+
+        assert gameStartRoundEmptyDecks.attacker is None
+        assert gameStartRoundEmptyDecks.defender is None
+
+    def test_startRoundIfFirst(self):
+        gameStartRoundFirst = Game.instance()
+        gameStartRoundFirst.initialise('../pokemon/pokemonDatabase.db')
+        ##????
+
+    def test_switchAttacker(self):
+        gameswitchAttacker = Game.instance()
+        gameswitchAttacker.initialise('../pokemon/pokemonDatabase.db')
+        gameswitchAttacker.firstPlayerCard = 1
+        gameswitchAttacker.secondPlayerCard = 2
+        gameswitchAttacker.attacker = gameswitchAttacker.firstPlayerCard
+        gameswitchAttacker.defender = gameswitchAttacker.secondPlayerCard
+
+        gameswitchAttacker.switchAttacker()
+
+        assert gameswitchAttacker.attacker == gameswitchAttacker.secondPlayerCard
+        assert gameswitchAttacker.defender == gameswitchAttacker.firstPlayerCard
+
+    def test_getAttackerTypes(self):
+        gamegetAttackerTypes = Game.instance()
+        gamegetAttackerTypes.initialise('../pokemon/pokemonDatabase.db')
+        gamegetAttackerTypes.attacker = {'name': 'PokeAttacker', 'types': ['normal']}
+        gamegetAttackerTypes.defender = {'name': 'PokeDefender', 'types': ['rock']}
+        types = gamegetAttackerTypes.getAttackerTypes()
+
+        assert types == ['normal']
+
+
+
+
+
+
 
 
 if __name__ == '__main__':

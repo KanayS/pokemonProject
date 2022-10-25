@@ -1,7 +1,7 @@
 from pokemon.createDatabase import PokeDatabase
 import random
 import logging
-from pokeTypes import Damage
+from pokemon.pokeTypes import Damage
 
 
 def giveAwayCard(listFrom, listTo, card):
@@ -112,7 +112,7 @@ class Game:
         else:
             logging.info("Player has no cards to show")
 
-    def getDamageValue(self, attackerType: str) -> int:
+    def getDamageMultiplier(self, attackerType: str) -> int:
 
         defenderTypes = self.defender["types"]
 
@@ -217,9 +217,10 @@ class Game:
         return AIAttackType
 
     def attack(self, attackType):
+
         attackValue = self.attacker["attack"]
         defenseValue = self.defender["defense"]
-        multiplier = self.getDamageValue(attackType)
+        multiplier = self.getDamageMultiplier(attackType)
         randNum = random.randint(217, 255)
         damageCalc = (attackValue / defenseValue) * multiplier * (randNum / 255) * 30
         damageDone = round(damageCalc, 2)

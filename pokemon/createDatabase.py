@@ -156,7 +156,3 @@ class PokeDatabase:
             random.shuffle(deck)
             return deck[:10]
         return None
-
-
-
-
