@@ -138,6 +138,15 @@ class TestGame(TestCase):
 
         assert damageMultiplierOneType == 0.5
 
+    def test_getDamageTwoDefenseTypesNotZero(self):
+        gameGetDamage = Game.instance()
+        gameGetDamage.initialise('../pokemon/pokemonDatabase.db')
+        gameGetDamage.attacker = {'name': 'PokeAttacker', 'types': ['normal']}
+        gameGetDamage.defender = {'name': 'PokeDefender', 'types': ['rock', 'steel']}
+        damageMultiplier = gameGetDamage.getDamageMultiplier('normal')
+
+        assert damageMultiplier == 0.25
+
     def test_startRoundEmptyDecks(self):
         gameStartRoundEmptyDecks = Game.instance()
         gameStartRoundEmptyDecks.initialise('../pokemon/pokemonDatabase.db')
@@ -165,13 +174,91 @@ class TestGame(TestCase):
         assert gameswitchAttacker.defender == gameswitchAttacker.firstPlayerCard
 
     def test_getAttackerTypes(self):
-        gamegetAttackerTypes = Game.instance()
-        gamegetAttackerTypes.initialise('../pokemon/pokemonDatabase.db')
-        gamegetAttackerTypes.attacker = {'name': 'PokeAttacker', 'types': ['normal']}
-        gamegetAttackerTypes.defender = {'name': 'PokeDefender', 'types': ['rock']}
-        types = gamegetAttackerTypes.getAttackerTypes()
+        gameAttackerTypes = Game.instance()
+        gameAttackerTypes.initialise('../pokemon/pokemonDatabase.db')
+        gameAttackerTypes.attacker = {'name': 'PokeAttacker', 'types': ['normal']}
+        gameAttackerTypes.defender = {'name': 'PokeDefender', 'types': ['rock']}
+        types = gameAttackerTypes.getAttackerTypes()
 
         assert types == ['normal']
+
+    def test_attackerFirstPlayerDamage(self):
+        gameDamage = Game.instance()
+        gameDamage.initialise('../pokemon/pokemonDatabase.db')
+        gameDamage.firstPlayerCard = {'name': 'Squirtle', 'url': '', 'attack': 48, 'defense': 65, 'hp': 32, 'types': ['grass', 'poison']}
+
+        gameDamage.secondPlayerCard = {'name': 'Charmander', 'url': '', 'attack': 52, 'defense': 43, 'hp': 49, 'types': ['grass', 'poison']}
+        gameDamage.secondPlayerHP = gameDamage.secondPlayerCard["hp"]
+
+        gameDamage.attacker = gameDamage.firstPlayerCard
+        gameDamage.defender = gameDamage.secondPlayerCard
+
+
+        damage, secondPlayerHP = gameDamage.attack('grass')
+
+        assert damage == 7.55
+        assert secondPlayerHP == 41.45
+        assert gameDamage.attacker == gameDamage.secondPlayerCard
+
+    def test_loseRoundDeckNotEmpty(self):
+        gameWinCheck = Game.instance()
+        gameWinCheck.initialise('../pokemon/pokemonDatabase.db')
+
+        gameWinCheck.firstPlayerDeck = [{'name': 'Primeape', 'url': '', 'attack': 105, 'defense': 60, 'types': ['fighting']},
+                                        {'name': 'Bulbasaur', 'url': '', 'attack': 49, 'defense': 49, 'types': ['grass', 'poison']}]
+
+        gameWinCheck.secondPlayerDeck = [{'name': 'Golbat', 'url': '', 'attack': 80, 'defense': 70, 'types': ['poison', 'flying']},
+                                        {'name': 'Magnemite', 'url': '', 'attack': 35, 'defense': 70, 'types': ['electric', 'steel']}]
+        firstPlayerCard = gameWinCheck.firstPlayerDeck[0]
+        gameWinCheck.startRound()
+
+        gameWinCheck.firstPlayerHP = 0
+        gameOver = gameWinCheck.winCheck()
+
+        assert gameOver is False
+        assert gameWinCheck.loser == gameWinCheck.firstPlayerDeck
+        assert gameWinCheck.winner == gameWinCheck.secondPlayerDeck
+        assert gameWinCheck.secondPlayerDeck[-1] == firstPlayerCard
+        assert gameWinCheck.attacker == gameWinCheck.secondPlayerDeck[0]
+        assert gameWinCheck.defender == gameWinCheck.firstPlayerDeck[0]
+
+    def test_pokeKilled(self):
+
+        gameDamaged = Game.instance()
+        gameDamaged.initialise('../pokemon/pokemonDatabase.db')
+        gameDamaged.firstPlayerDeck = [{'name': 'Poke1', 'url': '', 'attack': 99, 'defense': 65, 'hp': 15, 'types': ['grass', 'poison']},
+                                        {'name': 'Bulbasaur', 'url': '', 'attack': 49, 'defense': 49, 'types': ['grass', 'poison']}]
+
+        gameDamaged.secondPlayerDeck = [{'name': 'Poke2', 'url': '', 'attack': 48, 'defense': 43, 'hp': 15, 'types': ['grass', 'poison']},
+                                        {'name': 'Magnemite', 'url': '', 'attack': 35, 'defense': 70, 'types': ['electric', 'steel']}]
+        gameDamaged.firstPlayerCard = gameDamaged.firstPlayerDeck[0]
+        gameDamaged.secondPlayerCard = gameDamaged.secondPlayerDeck[0]
+        secondPlayerCard = gameDamaged.secondPlayerCard
+        gameDamaged.secondPlayerCard = gameDamaged.secondPlayerDeck[0]
+        gameDamaged.secondPlayerHP = gameDamaged.secondPlayerCard["hp"]
+
+        gameDamaged.attacker = gameDamaged.firstPlayerCard
+        gameDamaged.defender = gameDamaged.secondPlayerCard
+
+        damage, secondPlayerHP = gameDamaged.attack('grass')
+
+        gameOver = gameDamaged.winCheck()
+
+        assert secondPlayerHP <= 0
+        assert damage > 15
+        assert gameOver is False
+        assert gameDamaged.loser == gameDamaged.secondPlayerDeck
+        assert gameDamaged.winner == gameDamaged.firstPlayerDeck
+        assert gameDamaged.firstPlayerDeck[-1] == secondPlayerCard
+        assert gameDamaged.attacker == gameDamaged.firstPlayerDeck[0]
+        assert gameDamaged.defender == gameDamaged.secondPlayerDeck[0]
+
+###check whether the winnner still rotates their card and puts winning card at
+### bottom
+###issue with float and integer comparison for HP sort!
+
+
+
 
 
 

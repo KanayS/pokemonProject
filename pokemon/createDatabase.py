@@ -5,6 +5,7 @@ from pokemon.downloadPokemon import FetchData
 import logging
 import random
 
+
 def splitString(string):
     if ", " in string:
         type1 = string.split(', ')[0]
@@ -13,6 +14,7 @@ def splitString(string):
     else:
         string = [string]
     return string
+
 
 class PokeDatabase:
 

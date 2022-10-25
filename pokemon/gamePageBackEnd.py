@@ -221,6 +221,7 @@ class Game:
         attackValue = self.attacker["attack"]
         defenseValue = self.defender["defense"]
         multiplier = self.getDamageMultiplier(attackType)
+        #randNum = 230 ##FOR TESTING PURPOSES
         randNum = random.randint(217, 255)
         damageCalc = (attackValue / defenseValue) * multiplier * (randNum / 255) * 30
         damageDone = round(damageCalc, 2)
@@ -235,7 +236,7 @@ class Game:
 
     def winCheck(self):
 
-        if self.firstPlayerHP == 0:
+        if int(self.firstPlayerHP) <= 0:
             giveAwayCard(self.firstPlayerDeck, self.secondPlayerDeck, self.firstPlayerCard)
             self.loser = self.firstPlayerDeck
             self.winner = self.secondPlayerDeck
@@ -247,7 +248,7 @@ class Game:
                 self.firstPlayerAttacking = False
                 self.startRound()
 
-        elif self.secondPlayerHP == 0:
+        elif int(self.secondPlayerHP) <= 0:
             giveAwayCard(self.secondPlayerDeck, self.firstPlayerDeck, self.secondPlayerCard)
             self.loser = self.secondPlayerDeck
             self.winner = self.firstPlayerDeck
