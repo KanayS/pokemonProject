@@ -42,6 +42,8 @@ class Game:
         self.round = 0
         self.winner = {}
         self.loser = {}
+        self.gameOver = False
+        self.firstPlayerAttacking = False
 
     def shuffleMainDeck(self):
         if self.mainDeck is not None:
@@ -156,9 +158,11 @@ class Game:
             if self.round == 0:
 
                 choosePlayer = random.randint(1, 2)
-                self.round +=1
+                self.round += 1
 
-                firstPlayerStarting = True
+                choosePlayer =1 ###REMOVE
+
+                self.firstPlayerAttacking = True
 
                 if choosePlayer == 1:
                     self.attacker = self.firstPlayerCard
@@ -167,23 +171,35 @@ class Game:
                 elif choosePlayer == 2:
                     self.attacker = self.secondPlayerCard
                     self.defender = self.firstPlayerCard
-                    firstPlayerStarting = False
+                    self.firstPlayerAttacking = False
                     logging.info(f"Player 2 chosen to attack first with {self.attacker['name']}")
-                return firstPlayerStarting
 
             else:
                 self.attacker = self.winner[0]
                 self.defender = self.loser[0]
+
         else:
             logging.info("Decks are empty and game cannot start")
 
+    def checkAttacker(self):
+        if self.firstPlayerAttacking == True:
+            attackingPlayer = 1
+        elif self.firstPlayerAttacking == False:
+            attackingPlayer = 2
+
+        return attackingPlayer
+
     def switchAttacker(self):
+
         if self.attacker == self.firstPlayerCard:
             self.attacker = self.secondPlayerCard
             self.defender = self.firstPlayerCard
+            self.firstPlayerAttacking = False
+
         else:
             self.attacker = self.firstPlayerCard
             self.defender = self.secondPlayerCard
+            self.firstPlayerAttacking = True
 
     def getAttackerTypes(self):
         self.typesToAttack = self.attacker["types"]
@@ -200,12 +216,17 @@ class Game:
         attackValue = self.attacker["attack"]
         defenseValue = self.defender["defense"]
         multiplier = self.getDamageValue(attackType, self.defender["name"])
-        if attackValue > defenseValue:
-            damageDone = (attackValue - defenseValue) * multiplier
-        else:
-            damageDone = 0
-
-        return damageDone
+        damageDone = (attackValue - defenseValue) * multiplier
+        if self.attacker == self.firstPlayerCard:
+            self.secondPlayerHP -= damageDone
+            damagedPlayer = 2
+            self.switchAttacker()
+            return damageDone, self.secondPlayerHP, damagedPlayer
+        elif self.attacker == self.secondPlayerCard:
+            self.firstPlayerHP -= damageDone
+            damagedPlayer = 1
+            self.switchAttacker()
+            return damageDone, self.firstPlayerHP, damagedPlayer
 
     def __giveAwayCard(self, listFrom, listTo, card):
         listFrom.remove(card)
@@ -218,21 +239,34 @@ class Game:
             self.loser = self.firstPlayerDeck
             self.winner = self.secondPlayerDeck
             logging.info(f"Player 2 has won the round and taken {self.firstPlayerCard['name']} from Player 1")
+            if len(self.loser) == 0:
+                logging.info("Game is over. Player 2 has won the game")
+                self.gameOver = True
+            else:
+                self.firstPlayerAttacking = False
+                self.startRound()
 
         elif self.secondPlayerHP == 0:
             self.__giveAwayCard(self.secondPlayerDeck, self.firstPlayerDeck, self.secondPlayerCard)
             self.loser = self.secondPlayerDeck
             self.winner = self.firstPlayerDeck
             logging.info(f"Player 1 has won the round and taken {self.secondPlayerCard['name']} from Player 2")
+            if len(self.loser) == 0:
+                logging.info("Game is over. Player 1 has won the game")
+                self.gameOver = True
+            else:
+                self.firstPlayerAttacking = True
+                self.startRound()
+
+        return self.gameOver
 
 
 if __name__ == '__main__':
-    game = Game.instance()
-    game.initialise()
-    game.shuffleMainDeck()
-    game.divideMainDeckEvenly()
-    game.startRound()
-    game.firstPlayerHP = 0
-    game.winCheck()
-    print()
-    game.startRound()
+    pass
+
+
+
+
+
+
+
