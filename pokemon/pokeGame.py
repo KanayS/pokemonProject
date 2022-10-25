@@ -43,12 +43,10 @@ def cardCounter():
 def attack(attackType):
     game = Game.instance()
     attackType = attackType.lower()
-    print(game.attacker)
+    firstPlayerAttacking = game.firstPlayerAttacking
+    gameStage = game.gameStage
     damage, hp = game.attack(attackType)
-    print(game.attacker)
-    print(game.firstPlayerAttacking)
-    return json.dumps([damage, hp])
-
+    return json.dumps([damage, hp, firstPlayerAttacking, gameStage])
 
 @pokeGameBlueprint.route("/showInitialCard/<playerDeck>")
 def showInitialCard(playerDeck):
@@ -58,8 +56,8 @@ def showInitialCard(playerDeck):
     return json.dumps(topCard)
 
 
-@pokeGameBlueprint.route("/renderCardButtons")
+@pokeGameBlueprint.route("/renderCardButtons/")
 def cardUI():
     game = Game.instance()
-    gameCardUI = render_template('gameCardUI.html')
-    return render_template(gameCardUI, firstPlayerAttacking=game.firstPlayerAttacking)
+    attackTypes = game.getAttackerTypes()
+    return render_template("gameCardUI.html", firstPlayerAttacking=game.firstPlayerAttacking, attackTypes=attackTypes)

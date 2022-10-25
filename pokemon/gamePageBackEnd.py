@@ -159,7 +159,7 @@ class Game:
 
             self.firstPlayerCard = self.firstPlayerDeck[0]
             self.secondPlayerCard = self.secondPlayerDeck[0]
-
+            self.gameStage = 0
             if self.round == 0:
 
                 choosePlayer = random.randint(1, 2)
@@ -209,6 +209,7 @@ class Game:
         return self.typesToAttack
 
     def AIAttack(self):
+        self.gameStage = 1
         AITypes = self.getAttackerTypes()
         if len(AITypes) > 1:
             random.shuffle(AITypes)
@@ -216,6 +217,7 @@ class Game:
         return AIAttackType
 
     def attack(self, attackType):
+        self.gameStage = 1
         attackValue = self.attacker["attack"]
         defenseValue = self.defender["defense"]
         multiplier = self.getDamageValue(attackType)

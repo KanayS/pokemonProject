@@ -139,13 +139,21 @@ function attack(attackType) {
         .then(attackList => attackList.json())
         .then(attackList => {
             console.log(attackList);
-            const damage = attackList[0];
+            const damage = attackList[0]; //make animation attack with this damage
             const hp = attackList[1];
+            const firstPlayerAttacking = attackList[2];
+            const gameStage = attackList[3];
+            //attack animation function with firstPlayerAttacking as argument
+            if (gameStage == 0) {
+                if (firstPlayerAttacking == true){
+                    showInitialCard('secondPlayerDeck', 'secondPlayerCard');
+                }
+                else {
+                    showInitialCard('firstPlayerDeck', 'firstPlayerCard');
+                }
+            }
+            swapAttackButton(firstPlayerAttacking);
         });
-}
-
-function changeAttacker() {
-
 }
 
 function showInitialCard(cardDeck, cardID){
@@ -162,4 +170,27 @@ function showInitialCard(cardDeck, cardID){
                 noCardCheck(cardDeck);
             }
         });
+}
+
+function swapAttackButton(firstPlayerAttacking){
+    fetch('/renderCardButtons')
+        .then(template => template.text())
+        .then(template => {
+            console.log(template);
+            if (firstPlayerAttacking == false) {
+                element = document.getElementById("firstPlayerAttackBtn");
+                element.innerHTML = template
+                element.classList.remove("invisible")
+                element = document.getElementById("secondPlayerAttackBtn");
+                element.classList.add("invisible");
+            }
+            else {
+                element = document.getElementById("secondPlayerAttackBtn");
+                element.innerHTML = template
+                element.classList.remove("invisible")
+                element = document.getElementById("firstPlayerAttackBtn");
+                element.classList.add("invisible");
+            }
+        });
+
 }
