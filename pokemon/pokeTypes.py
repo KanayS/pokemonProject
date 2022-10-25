@@ -4,8 +4,6 @@ import logging
 import sqlite3
 from sqlite3 import Error
 
-#ASK IF WE ARE MEANT TO DOWNLOAD ALL DATA OR JUST FOR THE ATTACKER AND IF WE ARE SUPPOSED TO STORE THE DATA THEN???
-
 class Damage:
 
     def __init__(self, databasePath: str = 'pokemonDamageTypes.db'):
