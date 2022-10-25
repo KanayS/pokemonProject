@@ -1,6 +1,7 @@
 import unittest
 from unittest import TestCase
 from pokemon.gamePageBackEnd import Game
+from pokemon.pokeTypes import Damage
 
 
 class TestGame(TestCase):
@@ -46,10 +47,10 @@ class TestGame(TestCase):
     def test_divideMainDeckUnevenlyNotEmpty(self):
         gameDivideEven = Game.instance()
         gameDivideEven.initialise('../pokemon/pokemonDatabase.db')
-        gameDivideEven.divideMainDeckUnevenly(30)
+        gameDivideEven.divideMainDeckUnevenly(7)
 
-        assert len(gameDivideEven.firstPlayerDeck) == 30
-        assert len(gameDivideEven.secondPlayerDeck) == 121
+        assert len(gameDivideEven.firstPlayerDeck) == 7
+        assert len(gameDivideEven.secondPlayerDeck) == 3
 
     def test_divideMainDeckUnevenlyIfSplitExceedsNotEmpty(self):
         gameDivideSplit = Game.instance()

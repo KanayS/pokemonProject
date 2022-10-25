@@ -4,6 +4,11 @@ import logging
 from pokeTypes import Damage
 
 
+def giveAwayCard(listFrom, listTo, card):
+    listFrom.remove(card)
+    listTo.append(card)
+
+
 class Game:
     _instance = None
 
@@ -110,11 +115,10 @@ class Game:
     def getDamageValue(self, attackerType: str) -> int:
 
         defenderTypes = self.defender['types']
-
         damageData = Damage()
         damageValues = damageData.damageValues
 
-        attackerDamage = damageData.findDamage(attackerType)[1:]
+        attackerDamage = damageData.findDamage(attackerType)[2::2]
         damageTotal = 1
         damageDone = []
 
@@ -125,25 +129,26 @@ class Game:
                     for pokeType in damageType:
                         if defenderType == pokeType:
                             listIndices.append(attackerDamage.index(damageType))
+
             if len(listIndices) != 0:
 
                 damageDone.append(True)
 
                 for index in listIndices:
 
-                    if index == 1:
+                    if index == 0:
                         damageTotal *= damageValues["doubleDamageTo"]
 
-                    elif index == 3:
+                    elif index == 1:
                         damageTotal *= damageValues["halfDamageTo"]
 
-                    elif index == 5:
-                        damageTotal = damageValues["noDamageTo"]
+                    elif index == 2:
+                        damageTotal *= damageValues["noDamageTo"]
 
             else:
                 damageDone.append(False)
 
-        if damageDone == [True, True] or damageDone == [True]:
+        if damageDone == [False, False] or damageDone == [False]:
             damageTotal = 0
 
         return damageTotal
@@ -210,11 +215,14 @@ class Game:
         AIAttackType = AITypes[0]
         return AIAttackType
 
-    def attack(self, attackType):  ##if statement for if the user needs to choose type from 2 or only 1 type
+    def attack(self, attackType):
         attackValue = self.attacker["attack"]
         defenseValue = self.defender["defense"]
         multiplier = self.getDamageValue(attackType)
-        damageDone = (attackValue - defenseValue) * multiplier
+        randNum = random.randint(217, 255)
+        damageCalc = (attackValue / defenseValue) * multiplier * (randNum / 255) * 30
+        damageDone = round(damageCalc, 2)
+
         if self.attacker == self.firstPlayerCard:
             self.secondPlayerHP -= damageDone
             self.switchAttacker()
@@ -224,14 +232,10 @@ class Game:
             self.switchAttacker()
             return damageDone, self.firstPlayerHP
 
-    def __giveAwayCard(self, listFrom, listTo, card):
-        listFrom.remove(card)
-        listTo.append(card)
-
-    def winCheck(self): ###after each attack -> damage/ HP caluclation
+    def winCheck(self):
 
         if self.firstPlayerHP == 0:
-            self.__giveAwayCard(self.firstPlayerDeck, self.secondPlayerDeck, self.firstPlayerCard)
+            giveAwayCard(self.firstPlayerDeck, self.secondPlayerDeck, self.firstPlayerCard)
             self.loser = self.firstPlayerDeck
             self.winner = self.secondPlayerDeck
             logging.info(f"Player 2 has won the round and taken {self.firstPlayerCard['name']} from Player 1")
@@ -243,7 +247,7 @@ class Game:
                 self.startRound()
 
         elif self.secondPlayerHP == 0:
-            self.__giveAwayCard(self.secondPlayerDeck, self.firstPlayerDeck, self.secondPlayerCard)
+            giveAwayCard(self.secondPlayerDeck, self.firstPlayerDeck, self.secondPlayerCard)
             self.loser = self.secondPlayerDeck
             self.winner = self.firstPlayerDeck
             logging.info(f"Player 1 has won the round and taken {self.secondPlayerCard['name']} from Player 2")
@@ -255,14 +259,5 @@ class Game:
                 self.startRound()
 
         return self.gameOver
-
-
-if __name__ == '__main__':
-    pass
-
-
-
-
-
 
 
