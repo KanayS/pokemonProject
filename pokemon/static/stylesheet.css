@@ -120,10 +120,6 @@ html, body {
     height: 100%;
     width:100vw%;
 }
-.cardRow {
-    height: 68vh;
-}
-
 .pokedexBtn,
 .downloadBtn {
   color:white;

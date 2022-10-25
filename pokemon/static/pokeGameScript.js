@@ -75,6 +75,11 @@ function updateCard(pokeDict, playerID, card){
 appendTypesPerCard(types, card);
 styleCardID(themeColor, cardID, card);
 }
+function attack(attackType) {
+    console.log(attackType);
+    fetch('/attack/' + attackType)
+        .then(attackList => attackList.text());
+}
 
 function showTopCard(cardDeck, cardID, backgroundCardShadow){
     console.log(cardDeck);
@@ -114,7 +119,7 @@ function showTopCard(cardDeck, cardID, backgroundCardShadow){
             <h2 class="text-center noCardMsg"> No Cards Left :( </h2>
             `;
         }
-        });
+    });
 }
 
 function updateCardCount() {
@@ -131,3 +136,4 @@ function updateCardCount() {
         element.innerHTML = playerTwoCardCount;
         });
 }
+
