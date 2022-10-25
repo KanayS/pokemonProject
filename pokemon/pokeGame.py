@@ -50,7 +50,15 @@ def attack(attackType):
     return json.dumps([damage, hp])
 
 
-@pokeGameBlueprint.route("/renderCards")
+@pokeGameBlueprint.route("/showInitialCard/<playerDeck>")
+def showInitialCard(playerDeck):
+    game = Game.instance()
+    deck = getattr(game, f"{playerDeck}")
+    topCard = game.showTopCard(deck)
+    return json.dumps(topCard)
+
+
+@pokeGameBlueprint.route("/renderCardButtons")
 def cardUI():
     game = Game.instance()
     gameCardUI = render_template('gameCardUI.html')

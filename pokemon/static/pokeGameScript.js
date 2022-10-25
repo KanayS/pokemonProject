@@ -75,51 +75,47 @@ function updateCard(pokeDict, playerID, card){
 appendTypesPerCard(types, card);
 styleCardID(themeColor, cardID, card);
 }
-function attack(attackType) {
-    console.log(attackType);
-    fetch('/attack/' + attackType)
-        .then(attackList => attackList.text());
-}
 
-function showTopCard(cardDeck, cardID, backgroundCardShadow){
-    console.log(cardDeck);
-    $(cardID).unwrap();
-    fetch('/cycleCard/' + cardDeck)
+function showTopCard(cardDeck, cardID){
+        fetch('/cycleCard/' + cardDeck)
         .then(topCard => topCard.json())
         .then(topCard => {
-         element = document.getElementById(backgroundCardShadow);
-         element.classList.remove("cardShadow");
-        if (topCard !== null){
-            updateCard(topCard, cardDeck, cardID);
-            updateCardCount();
-        } else {
-            console.log("test");
-            if (cardDeck == "firstPlayerDeck") {
-                element = document.getElementById("firstPlayerCycle");
-                element.classList.add("invisible");
-                element = document.getElementById("playerOneCardBack");
-                element.classList.remove("cardBack")
-                element.classList.add("pikaMeme");
-                element = document.getElementById("firstPlayerCard");
-                element.classList.remove("cardShadow");
-                alert("The first player deck has ran out of cards :(");
-            } else {
-                element = document.getElementById("secondPlayerCycle");
-                element.classList.add("invisible");
-                element = document.getElementById("playerTwoCardBack");
-                element.classList.remove("cardBack");
-                element.classList.add("pikaMeme");
-                element = document.getElementById("secondPlayerCard");                ;
-                element.classList.remove("cardShadow");
-                alert("The second player deck has ran out of cards :(");
+            if (topCard !== null){
+                updateCard(topCard, cardDeck, cardID);
+                updateCardCount();
             }
+            else {
+                noCardCheck(cardDeck);
+            }
+        });
+}
+function noCardCheck(cardDeck){
+    if (cardDeck == "firstPlayerDeck") {
+        element = document.getElementById("firstPlayerCycle");
+        element.classList.add("invisible");
+        element = document.getElementById("playerOneCardBack");
+        element.classList.remove("cardBack")
+        element.classList.add("pikaMeme");
+        element = document.getElementById("firstPlayerCard");
+        element.classList.remove("cardShadow");
+        alert("The first player deck has ran out of cards :(");
+    }
+    else {
+        element = document.getElementById("secondPlayerCycle");
+        element.classList.add("invisible");
+        element = document.getElementById("playerTwoCardBack");
+        element.classList.remove("cardBack");
+        element.classList.add("pikaMeme");
+        element = document.getElementById("secondPlayerCard");
+        element.classList.remove("cardShadow");
+        alert("The second player deck has ran out of cards :(");
+    }
 
-            element = document.getElementById(cardID);
-            element.innerHTML = `
-            <h2 class="text-center noCardMsg"> No Cards Left :( </h2>
-            `;
-        }
-    });
+    element = document.getElementById(cardID);
+    element.innerHTML = `
+    <h2 class="text-center noCardMsg"> No Cards Left :( </h2>
+    `;
+
 }
 
 function updateCardCount() {
@@ -137,3 +133,33 @@ function updateCardCount() {
         });
 }
 
+function attack(attackType) {
+    console.log(attackType);
+    fetch('/attack/' + attackType)
+        .then(attackList => attackList.json())
+        .then(attackList => {
+            console.log(attackList);
+            const damage = attackList[0];
+            const hp = attackList[1];
+        });
+}
+
+function changeAttacker() {
+
+}
+
+function showInitialCard(cardDeck, cardID){
+    console.log(cardDeck);
+    console.log(cardID);
+    fetch('/showInitialCard/' + cardDeck)
+        .then(topCard => topCard.json())
+        .then(topCard => {
+            if (topCard !== null){
+                updateCard(topCard, cardDeck, cardID);
+                updateCardCount();
+            }
+            else {
+                noCardCheck(cardDeck);
+            }
+        });
+}
