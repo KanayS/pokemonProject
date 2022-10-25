@@ -69,6 +69,11 @@ function updateCard(pokeDict, playerID, card){
 appendTypesPerCard(types, card);
 styleCardID(themeColor, cardID, card);
 }
+function attack(attackType) {
+    console.log(attackType);
+    fetch('/attack/' + attackType)
+        .then(attackList => attackList.text());
+}
 
 function showTopCard(cardDeck, cardID, backgroundCardShadow){
     console.log(cardDeck);
@@ -126,8 +131,3 @@ function updateCardCount() {
         });
 }
 
-function attack(attackType) {
-    fetch('/attack/' + attackType)
-        .then({
-        });
-}

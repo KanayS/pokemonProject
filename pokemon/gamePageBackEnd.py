@@ -107,9 +107,9 @@ class Game:
         else:
             logging.info("Player has no cards to show")
 
-    def getDamageValue(self, attackerType: str, defender: str) -> int:
+    def getDamageValue(self, attackerType: str) -> int:
 
-        defenderTypes = self.database.getPokeData(defender).types
+        defenderTypes = self.defender['types']
 
         damageData = Damage()
         damageValues = damageData.damageValues
@@ -127,7 +127,7 @@ class Game:
                             listIndices.append(attackerDamage.index(damageType))
             if len(listIndices) != 0:
 
-                damageDone.append(False)
+                damageDone.append(True)
 
                 for index in listIndices:
 
@@ -141,7 +141,7 @@ class Game:
                         damageTotal = damageValues["noDamageTo"]
 
             else:
-                damageDone.append(True)
+                damageDone.append(False)
 
         if damageDone == [True, True] or damageDone == [True]:
             damageTotal = 0
@@ -159,8 +159,6 @@ class Game:
 
                 choosePlayer = random.randint(1, 2)
                 self.round += 1
-
-                choosePlayer =1 ###REMOVE
 
                 self.firstPlayerAttacking = True
 
@@ -215,7 +213,7 @@ class Game:
     def attack(self, attackType):  ##if statement for if the user needs to choose type from 2 or only 1 type
         attackValue = self.attacker["attack"]
         defenseValue = self.defender["defense"]
-        multiplier = self.getDamageValue(attackType, self.defender["name"])
+        multiplier = self.getDamageValue(attackType)
         damageDone = (attackValue - defenseValue) * multiplier
         if self.attacker == self.firstPlayerCard:
             self.secondPlayerHP -= damageDone

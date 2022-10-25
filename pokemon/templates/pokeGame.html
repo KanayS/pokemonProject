@@ -68,11 +68,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-2 d-flex justify-content-center flex-column" >
+            <div id="gameCardUI" class="col-2 d-flex justify-content-center flex-column" >
                 {% if firstPlayerAttacking == true %}
                     {% for type in attackTypes %}
                        <button id="PlayerOne{{type}}" class="button attackButton" type="button"
-                            onclick="attack({{type}})">{{type}}
+                            onclick="attack('{{type}}')">{{type}}
                        </button>
                     {% endfor %}
                 {% endif %}
@@ -81,7 +81,7 @@
                 {% if firstPlayerAttacking == false %}
                     {% for type in attackTypes %}
                        <button id="PlayerTwo{{type}}" class="button attackButton" type="button"
-                            onclick="attack({{type}})">{{type}}
+                            onclick="attack('{{type}}')">{{type}}
                        </button>
                     {% endfor %}
                 {% endif %}
