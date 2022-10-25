@@ -108,7 +108,7 @@ function showTopCard(cardDeck, cardID, backgroundCardShadow){
             <h2 class="text-center noCardMsg"> No Cards Left :( </h2>
             `;
         }
-        });
+    });
 }
 
 function updateCardCount() {
@@ -123,5 +123,11 @@ function updateCardCount() {
         element.innerHTML = playerOneCardCount;
         element = document.getElementById("secondPlayerCounter");
         element.innerHTML = playerTwoCardCount;
+        });
+}
+
+function attack(attackType) {
+    fetch('/attack/' + attackType)
+        .then({
         });
 }

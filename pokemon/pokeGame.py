@@ -13,11 +13,15 @@ def pokeGame():
     game.shuffleMainDeck()
     firstPlayerDeck, secondPlayerDeck = game.divideMainDeckEvenly()
     firstPlayerTopCard = game.showTopCard(firstPlayerDeck)
+    attackTypes = ["Grass", "Poison"]
+    firstPlayerAttacking = True
+    #gameOver = false
     secondPlayerTopCard = game.showTopCard(secondPlayerDeck)
     firstPlayerCounter, secondPlayerCounter = game.showNumberOfCardsPlayerDeck()
     return render_template('pokeGame.html', firstPlayerTopCard=firstPlayerTopCard,
                            secondPlayerTopCard=secondPlayerTopCard, firstPlayerCounter=firstPlayerCounter,
-                           secondPlayerCounter=secondPlayerCounter)
+                           secondPlayerCounter=secondPlayerCounter, firstPlayerAttacking=firstPlayerAttacking,
+                           attackTypes=attackTypes)
 
 @pokeGameBlueprint.route("/cycleCard/<playerDeck>")
 def showCard(playerDeck):
@@ -32,3 +36,15 @@ def cardCounter():
     game = Game.instance()
     cardCounts = game.showNumberOfCardsPlayerDeck()
     return json.dumps(cardCounts)
+
+@pokeGameBlueprint.route("/attack/<type>")
+def attack(attackType):
+    game = Game.instance()
+    attackType = attackType.lower()
+    # damage, hp = game.attack(attackType)
+    # check attacker
+    damage = 10
+    hp = 80
+    # winCheck
+    gameover = False
+    return json.dumps([damage, hp, gameover])
