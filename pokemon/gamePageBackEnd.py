@@ -112,14 +112,14 @@ class Game:
         else:
             logging.info("Player has no cards to show")
 
-    def getDamageValue(self, attackerType: str, defender: str) -> int:
+    def getDamageValue(self, attackerType: str) -> int:
 
-        defenderTypes = self.database.getPokeData(defender).types
+        defenderTypes = self.defender["types"]
 
         damageData = Damage()
         damageValues = damageData.damageValues
 
-        attackerDamage = damageData.findDamage(attackerType)[1:]
+        attackerDamage = damageData.findDamage(attackerType)[2::2]
         damageTotal = 1
         damageDone = []
 
@@ -130,25 +130,26 @@ class Game:
                     for pokeType in damageType:
                         if defenderType == pokeType:
                             listIndices.append(attackerDamage.index(damageType))
+
             if len(listIndices) != 0:
 
-                damageDone.append(False)
+                damageDone.append(True)
 
                 for index in listIndices:
 
-                    if index == 1:
+                    if index == 0:
                         damageTotal *= damageValues["doubleDamageTo"]
 
-                    elif index == 3:
+                    elif index == 1:
                         damageTotal *= damageValues["halfDamageTo"]
 
-                    elif index == 5:
-                        damageTotal = damageValues["noDamageTo"]
+                    elif index == 2:
+                        damageTotal *= damageValues["noDamageTo"]
 
             else:
-                damageDone.append(True)
+                damageDone.append(False)
 
-        if damageDone == [True, True] or damageDone == [True]:
+        if damageDone == [False, False] or damageDone == [False]:
             damageTotal = 0
 
         return damageTotal
@@ -218,7 +219,7 @@ class Game:
     def attack(self, attackType):
         attackValue = self.attacker["attack"]
         defenseValue = self.defender["defense"]
-        multiplier = self.getDamageValue(attackType, self.defender["name"])
+        multiplier = self.getDamageValue(attackType)
         randNum = random.randint(217, 255)
         damageCalc = (attackValue / defenseValue) * multiplier * (randNum / 255) * 30
         damageDone = round(damageCalc, 2)
@@ -259,5 +260,4 @@ class Game:
 
         return self.gameOver
 
-if __name__ == '__main__':
-    pass
+
