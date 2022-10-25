@@ -35,9 +35,11 @@
 	transform: scale(1.1);
 }
 .cardText {
-    align-bottom;
+    text-align:center;
     font-family: 'CubicFive12', sans-serif;
     font-size: 30px;
+    margin-left:0px;
+    margin-right:0px;
 }
 .button {
     color:white;
@@ -92,4 +94,12 @@
 }
 .navbarText {
     margin-bottom:auto;
+}
+.cardRow {
+    height: 62vh;
+}
+.noMargin {
+    margin-left: -1px;
+    margin-right: -1px;
+    top: 0px;
 }
