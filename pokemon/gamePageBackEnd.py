@@ -219,14 +219,12 @@ class Game:
         damageDone = (attackValue - defenseValue) * multiplier
         if self.attacker == self.firstPlayerCard:
             self.secondPlayerHP -= damageDone
-            damagedPlayer = 2
             self.switchAttacker()
-            return damageDone, self.secondPlayerHP, damagedPlayer
+            return damageDone, self.secondPlayerHP
         elif self.attacker == self.secondPlayerCard:
             self.firstPlayerHP -= damageDone
-            damagedPlayer = 1
             self.switchAttacker()
-            return damageDone, self.firstPlayerHP, damagedPlayer
+            return damageDone, self.firstPlayerHP
 
     def __giveAwayCard(self, listFrom, listTo, card):
         listFrom.remove(card)
