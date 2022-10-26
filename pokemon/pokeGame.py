@@ -46,6 +46,8 @@ def attack(attackType):
     firstPlayerAttacking = game.firstPlayerAttacking
     gameStage = game.gameStage
     damage, hp = game.attack(attackType)
+    if hp <= 0:
+        hp = "Fainted"
     return json.dumps([damage, hp, firstPlayerAttacking, gameStage])
 
 @pokeGameBlueprint.route("/showInitialCard/<playerDeck>")

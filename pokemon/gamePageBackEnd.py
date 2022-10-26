@@ -150,7 +150,7 @@ class Game:
                 damageDone.append(False)
 
         if damageDone == [False, False] or damageDone == [False]:
-            damageTotal = 0
+            damageTotal = 1
 
         return damageTotal
 
