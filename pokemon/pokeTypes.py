@@ -140,7 +140,7 @@ class Damage:
                         "#95afc0",
                         "#6c5ce7",
                         "#a29bfe",
-                        "#2d3436",
+                        "coral",
                         "#0190FF",
                         "#95afc0",
                         "#6c5ce7",

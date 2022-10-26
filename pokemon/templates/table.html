@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" xmlns:pointer-events="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,12 +14,12 @@
 <h1> Damage</h1>
 
 <div>
-    <table class="damage-table" id = "table">
+    <table class="damage-table damage-table-highlight-all" id = "damage-table">
         <thead>
             <tr>
-                <th><img src="static/poketable.gif" width=30px></th>
+                <th style = "background-color: green"><img src="static/poketable.gif" width=100px></th>
                 {% for type, colour in typeColour.items() %}
-                    <th style = "background-color: {{colour}}">{{type}}</th>
+                    <th class = "rotate" style = "background-color: {{colour}}; color: black"><div><span>{{type}}</span></div></th>
                 {% endfor %}
             </tr>
         </thead>
@@ -27,17 +27,17 @@
             {% for typeName, typeData in typesData.items() %}
 
                 <tr>
-                    <td class = "row-name" style = "background-color: {{typeColour[typeName]}}"><b>{{typeName}}</b></td>
+                    <td class = "row-name" style = "background-color: {{typeColour[typeName]}}; color: black"><b>{{typeName}}</b></td>
 
                     {% for damageValue in typeData %}
                         {% if damageValue == 2 %}
-                            <td id = "2" style = "background-color: green" onmouseover = "highlight()">2</td>
+                            <td id = "two" style = "background-color: green">2</td>
                         {% elif damageValue == 0.5 %}
-                            <td style = "background-color: orange" onmouseover = "highlight()">1/2</td>
+                            <td id = "half" style = "background-color: orange">1/2</td>
                         {% elif damageValue == 0 %}
-                            <td style ="background-color:red" onmouseover = "highlight()"><b>X</b></td>
+                            <td id = "zero" style ="background-color:red">X</td>
                         {% elif damageValue == None %}
-                            <td style = "background-color: white"></td>
+                            <td></td>
                         {% endif %}
                     {% endfor %}
                 </tr>
@@ -47,11 +47,6 @@
     </table>
 </div>
 
-<script>
 
-
-
-}
-</script>
 </body>
 </html>
