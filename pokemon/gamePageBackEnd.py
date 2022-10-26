@@ -155,13 +155,14 @@ class Game:
         return damageTotal
 
     def startRound(self):
-
+        self.gameStage = 0
         if self.firstPlayerDeck is not None and self.secondPlayerDeck is not None:
 
             self.firstPlayerCard = self.firstPlayerDeck[0]
             self.firstPlayerHP = self.firstPlayerCard["hp"]
             self.secondPlayerCard = self.secondPlayerDeck[0]
             self.secondPlayerHP = self.secondPlayerCard["hp"]
+
 
             if self.round == 0:
 
@@ -212,6 +213,7 @@ class Game:
         return self.typesToAttack
 
     def AIAttack(self):
+        self.gameStage = 1
         AITypes = self.getAttackerTypes()
         if len(AITypes) > 1:
             random.shuffle(AITypes)
@@ -220,6 +222,7 @@ class Game:
 
     def attack(self, attackType):
 
+        self.gameStage = 1
         attackValue = self.attacker["attack"]
         defenseValue = self.defender["defense"]
         multiplier = self.getDamageMultiplier(attackType)
@@ -238,6 +241,7 @@ class Game:
             return damageDone, self.firstPlayerHP
 
     def winCheck(self):
+
 
         if ceil(self.firstPlayerHP) <= 0:
             giveAwayCard(self.firstPlayerDeck, self.secondPlayerDeck, self.firstPlayerCard)

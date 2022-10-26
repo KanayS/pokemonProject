@@ -1,5 +1,14 @@
-{% for type in attackTypes %}
-   <button id="PlayerOne{{type}}" class="button attackButton" type="button"
-        onclick="attack('{{type}}')">{{type}}
-   </button>
-{% endfor %}
+ <!-- {{firstPlayerAttacking}}-->
+{% if firstPlayerAttacking == true %}
+   {% for type in attackTypes %}
+      <button id="PlayerOne{{type}}" class="button attackButton" type="button"
+           onclick="attack('{{type}}')">{{type}}
+      </button>
+   {% endfor %}
+ {% else %}
+    {% for type in attackTypes %}
+        <button id="PlayerTwo{{type}}" class="button attackButton" type="button"
+        onclick="attack('{{type}}', 'playerTwo')">{{type}}
+        </button>
+    {% endfor %}
+ {% endif %}
