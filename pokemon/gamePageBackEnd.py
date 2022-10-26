@@ -159,9 +159,9 @@ class Game:
         if self.firstPlayerDeck is not None and self.secondPlayerDeck is not None:
 
             self.firstPlayerCard = self.firstPlayerDeck[0]
-            self.firstPlayerHP = self.firstPlayerCard["hp"]
+            self.firstPlayerHP = int(self.firstPlayerCard["hp"])
             self.secondPlayerCard = self.secondPlayerDeck[0]
-            self.secondPlayerHP = self.secondPlayerCard["hp"]
+            self.secondPlayerHP = int(self.secondPlayerCard["hp"])
 
 
             if self.round == 0:
