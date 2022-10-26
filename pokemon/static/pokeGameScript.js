@@ -140,23 +140,28 @@ function attack(attackType) {
         .then(attackList => {
             console.log(attackList);
             const damage = attackList[0]; //make animation attack with this damage
-            const hp = attackList[1];
+            var hp = attackList[1];
             const firstPlayerAttacking = attackList[2];
             const gameStage = attackList[3];
             //attack animation function with firstPlayerAttacking as argument
             if (gameStage == 0) {
                 if (firstPlayerAttacking == true){
-                    showInitialCard('secondPlayerDeck', 'secondPlayerCard');
+                    showInitialCard('secondPlayerDeck', 'secondPlayerCard',attackList);
                 }
                 else {
-                    showInitialCard('firstPlayerDeck', 'firstPlayerCard');
+                    showInitialCard('firstPlayerDeck', 'firstPlayerCard', attackList);
                 }
             }
+            else{
+            updateHP(attackList);
+            }
+
             swapAttackButton(firstPlayerAttacking);
+            return attackList
         });
 }
 
-function showInitialCard(cardDeck, cardID){
+function showInitialCard(cardDeck, cardID, attackList){
     console.log(cardDeck);
     console.log(cardID);
     fetch('/showInitialCard/' + cardDeck)
@@ -165,6 +170,9 @@ function showInitialCard(cardDeck, cardID){
             if (topCard !== null){
                 updateCard(topCard, cardDeck, cardID);
                 updateCardCount();
+                if (attackList){
+                updateHP(attackList);
+                }
             }
             else {
                 noCardCheck(cardDeck);
@@ -192,4 +200,29 @@ function swapAttackButton(firstPlayerAttacking){
                 element.classList.add("invisible");
             }
         });
+}
+
+function updateHP(attackList) {
+    console.log(attackList);
+    const hp = attackList[1];
+    const firstPlayerAttacking = attackList[2];
+    if (firstPlayerAttacking == true){
+        element = document.getElementById('secondPlayerCard');
+        console.log(document.querySelector("#secondPlayerCard"));
+        console.log(document.querySelector("#secondPlayerCard .hp"));
+        document.querySelector("#secondPlayerCard .hp").innerHTML = `
+        <span>HP</span>
+        ${hp}
+        `;
+    }
+    else {
+        element = document.getElementById('firstPlayerCard');
+        console.log(document.querySelector("#firstPlayerCard"));
+        console.log(document.querySelector("#firstPlayerCard .hp"));
+        document.querySelector("#firstPlayerCard .hp").innerHTML = `
+        <span>HP</span>
+        ${hp}
+        `;
+    }
+
 }
