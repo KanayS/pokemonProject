@@ -41,8 +41,8 @@ class Game:
         self.attacker = None
         self.defender = None
         self.typesToAttack = []
-        self.firstPlayerHP = 10  # need to get these from API
-        self.secondPlayerHP = 10  # need to get from API for each Poke
+        self.firstPlayerHP = 0  # need to get these from API
+        self.secondPlayerHP = 0  # need to get from API for each Poke
         self.firstPlayerCard = {}
         self.secondPlayerCard = {}
         self.round = 0
@@ -159,7 +159,9 @@ class Game:
         if self.firstPlayerDeck is not None and self.secondPlayerDeck is not None:
 
             self.firstPlayerCard = self.firstPlayerDeck[0]
+            self.firstPlayerHP = self.firstPlayerCard["hp"]
             self.secondPlayerCard = self.secondPlayerDeck[0]
+            self.secondPlayerHP = self.secondPlayerCard["hp"]
 
             if self.round == 0:
 
