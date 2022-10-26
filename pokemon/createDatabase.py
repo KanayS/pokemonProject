@@ -49,12 +49,13 @@ class PokeDatabase:
 
                 insertPokemon = f'''
                     INSERT INTO Pokemon
-                    (Name, Image_URL, Attack, Defense, Types)
-                    VALUES (?, ?, ?, ?, ?)'''
+                    (Name, Image_URL, Attack, Defense, Hp, Types)
+                    VALUES (?, ?, ?, ?, ?, ?)'''
 
                 self.cursor.execute(insertPokemon,
                                     (pokemon, self.pokeDict[pokemon]["artwork"], self.pokeDict[pokemon]["attack"],
-                                     self.pokeDict[pokemon]["defense"], self.pokeDict[pokemon]["types"]))
+                                     self.pokeDict[pokemon]["defense"], self.pokeDict[pokemon]["types"],
+                                     self.pokeDict[pokemon]["hp"]))
                 self.conn.commit()
         else:
             logging.info("No data received from URL. Data could not be downloaded")
@@ -68,8 +69,9 @@ class PokeDatabase:
             CREATE TABLE IF NOT EXISTS Pokemon (
                 Name TEXT,
                 Image_URL TEXT,
-                Attack Value INTEGER,
-                Defense Value INTEGER,
+                Attack INTEGER,
+                Defense INTEGER,
+                Hp INTEGER,
                 Types TEXT             
             )'''
 
@@ -92,6 +94,7 @@ class PokeDatabase:
             pokemon.url = pokemonDataList[1]
             pokemon.attackValue = pokemonDataList[2]
             pokemon.defenseValue = pokemonDataList[3]
+            pokemon.hp = pokemonDataList[5]
             pokemon.types = pokemonDataList[4]
             pokemon.types = splitString(pokemon.types)
 
@@ -149,6 +152,7 @@ class PokeDatabase:
                     "url": poke[1],
                     "attack": poke[2],
                     "defense": poke[3],
+                    "hp": poke[5],
                     "types": poke[4]
                 }
                 pokemon["types"] = [pokemon["types"]]

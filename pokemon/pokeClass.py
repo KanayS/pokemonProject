@@ -4,5 +4,6 @@ class Pokemon:
         self.url = ""
         self.attackValue = 0
         self.defenseValue = 0
+        self.hp = 0
         self.types = []
 

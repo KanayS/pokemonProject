@@ -34,6 +34,7 @@ const typeColor = {
 };
 
 function updateCard(pokeDict, playerID, card){
+    console.log(pokeDict);
     var element = document.getElementById(playerID);
     element.classList.remove("invisible");
     element.classList.add("visible");
@@ -44,11 +45,16 @@ function updateCard(pokeDict, playerID, card){
     const imgSrc = pokeDict.url;
     const attack = pokeDict.attack;
     const defense = pokeDict.defense;
+    const hp = pokeDict.hp;
     const types = pokeDict.types;
     const pokeName = pokeDict.name;
     cardID = document.getElementById(card)
 
     cardID.innerHTML = `
+    <p class="hp">
+      <span>HP</span>
+        ${hp}
+    </p>
     <img src=${imgSrc} />
     <h2 class="poke-name">${pokeName}</h2>
     <div class=${card + "Types"} >
@@ -68,6 +74,11 @@ function updateCard(pokeDict, playerID, card){
 
 appendTypesPerCard(types, card);
 styleCardID(themeColor, cardID, card);
+}
+function attack(attackType) {
+    console.log(attackType);
+    fetch('/attack/' + attackType)
+        .then(attackList => attackList.text());
 }
 
 function showTopCard(cardDeck, cardID, backgroundCardShadow){
@@ -108,7 +119,7 @@ function showTopCard(cardDeck, cardID, backgroundCardShadow){
             <h2 class="text-center noCardMsg"> No Cards Left :( </h2>
             `;
         }
-        });
+    });
 }
 
 function updateCardCount() {
@@ -125,3 +136,4 @@ function updateCardCount() {
         element.innerHTML = playerTwoCardCount;
         });
 }
+

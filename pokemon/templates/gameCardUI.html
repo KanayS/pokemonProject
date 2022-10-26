@@ -1,0 +1,5 @@
+{% for type in attackTypes %}
+   <button id="PlayerOne{{type}}" class="button attackButton" type="button"
+        onclick="attack('{{type}}')">{{type}}
+   </button>
+{% endfor %}

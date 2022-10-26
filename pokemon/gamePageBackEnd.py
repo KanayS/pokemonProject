@@ -115,8 +115,7 @@ class Game:
 
     def getDamageMultiplier(self, attackerType: str) -> int:
 
-        defenderTypes = self.defender["types"]
-
+        defenderTypes = self.defender['types']
         damageData = Damage()
         damageValues = damageData.damageValues
 
@@ -226,6 +225,7 @@ class Game:
         randNum = random.randint(217, 255)
         damageCalc = (attackValue / defenseValue) * multiplier * (randNum / 255) * 30
         damageDone = round(damageCalc, 2)
+
         if self.attacker == self.firstPlayerCard:
             self.secondPlayerHP -= damageDone
             self.switchAttacker()
