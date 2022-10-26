@@ -155,7 +155,7 @@ class Game:
         return damageTotal
 
     def startRound(self):
-    
+        self.gameStage = 0
         if self.firstPlayerDeck is not None and self.secondPlayerDeck is not None:
 
             self.firstPlayerCard = self.firstPlayerDeck[0]
