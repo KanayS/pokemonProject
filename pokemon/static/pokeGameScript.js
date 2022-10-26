@@ -187,15 +187,15 @@ function swapAttackButton(firstPlayerAttacking){
             console.log(template);
             if (firstPlayerAttacking == false) {
                 element = document.getElementById("firstPlayerAttackBtn");
-                element.innerHTML = template
-                element.classList.remove("invisible")
+                element.innerHTML = template;
+                element.classList.remove("invisible");
                 element = document.getElementById("secondPlayerAttackBtn");
                 element.classList.add("invisible");
             }
             else {
                 element = document.getElementById("secondPlayerAttackBtn");
-                element.innerHTML = template
-                element.classList.remove("invisible")
+                element.innerHTML = template;
+                element.classList.remove("invisible");
                 element = document.getElementById("firstPlayerAttackBtn");
                 element.classList.add("invisible");
             }
@@ -224,5 +224,38 @@ function updateHP(attackList) {
         ${hp}
         `;
     }
+    if (hp == "Fainted"){
+        winCheck();
+    }
+}
+
+function winCheck(){
+    fetch('/winCheck')
+            .then(roundInfoDict => roundInfoDict.json())
+            .then(roundInfoDict => {
+            console.log(roundInfoDict);
+            const gameOver = roundInfoDict.gameOver;
+            const beginningPlayerTopCard = roundInfoDict.beginningPlayerTopCard;
+            const attackTypes = roundInfoDict.attackTypes;
+            var firstPlayerAttacking = roundInfoDict.firstPlayerAttacking;
+            const firstPlayerCounter = roundInfoDict.firstPlayerCounter;
+            const secondPlayerCounter = roundInfoDict.secondPlayerCounter;
+            if (firstPlayerAttacking) {
+                element = document.getElementById("secondPlayerCard");
+                element.innerHTML = "";
+                element.removeAttribute('style');
+            }
+            else{
+                element = document.getElementById("firstPlayerCard");
+                element.innerHTML = "";
+                element.removeAttribute('style');
+            }
+            return firstPlayerAttacking;
+        })
+        .then(firstPlayerAttacking => {
+            firstPlayerAttacking = firstPlayerAttacking !== true;
+            swapAttackButton(firstPlayerAttacking);
+        });
+
 
 }
