@@ -1,7 +1,7 @@
 import unittest
 from unittest import TestCase
 from pokemon.gamePageBackEnd import Game
-from pokemon.pokeTypes import Damage
+from math import ceil
 
 
 class TestGame(TestCase):
@@ -244,18 +244,48 @@ class TestGame(TestCase):
 
         gameOver = gameDamaged.winCheck()
 
-        assert secondPlayerHP <= 0
+        assert secondPlayerHP <= 0 ## (based on randnum being 230)
         assert damage > 15
         assert gameOver is False
         assert gameDamaged.loser == gameDamaged.secondPlayerDeck
         assert gameDamaged.winner == gameDamaged.firstPlayerDeck
+        assert gameDamaged.firstPlayerAttacking is True
         assert gameDamaged.firstPlayerDeck[-1] == secondPlayerCard
         assert gameDamaged.attacker == gameDamaged.firstPlayerDeck[0]
         assert gameDamaged.defender == gameDamaged.secondPlayerDeck[0]
 
-###check whether the winnner still rotates their card and puts winning card at
-### bottom
-###issue with float and integer comparison for HP sort!
+    def testGameover(self):
+        gameOver = Game.instance()
+        gameOver.initialise('../pokemon/pokemonDatabase.db')
+        gameOver.firstPlayerDeck = [
+            {'name': 'Poke1', 'url': '', 'attack': 99, 'defense': 65, 'hp': 50, 'types': ['grass', 'poison']},
+            {'name': 'Bulbasaur', 'url': '', 'attack': 100, 'defense': 49, 'hp': 5, 'types': ['ground']}]
+
+        gameOver.secondPlayerDeck = [
+            {'name': 'Poke2', 'url': '', 'attack': 48, 'defense': 20, 'hp': 10, 'types': ['grass', 'poison']},
+            {'name': 'Magnemite', 'url': '', 'attack': 35, 'defense': 20, 'hp': 10, 'types': ['electric', 'steel']}]
+
+        gameOver.startRound()
+        gameOver.attacker = gameOver.firstPlayerCard
+        gameOver.defender = gameOver.secondPlayerCard
+        damage, secondPLayerHP = gameOver.attack('grass')
+        print(damage)
+        print(secondPLayerHP)
+        gameOver.winCheck()
+        damage2, secondPlayerHP2 = gameOver.attack('ground')
+        print(damage2)
+        print(secondPlayerHP2)
+        endGame = gameOver.winCheck()
+
+        assert endGame is True
+        assert len(gameOver.secondPlayerDeck) == 0
+        assert len(gameOver.firstPlayerDeck) == 4
+        assert gameOver.firstPlayerDeck[2] == {'name': 'Poke2', 'url': '', 'attack': 48, 'defense': 20, 'hp': 10, 'types': ['grass', 'poison']}
+        assert gameOver.firstPlayerDeck[3] == {'name': 'Magnemite', 'url': '', 'attack': 35, 'defense': 20, 'hp': 10, 'types': ['electric', 'steel']}
+
+
+
+
 
 
 
