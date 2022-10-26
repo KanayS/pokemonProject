@@ -16,7 +16,6 @@ def pokeGame():
     firstPlayerTopCard = game.showTopCard(firstPlayerDeck)
     attackTypes = game.getAttackerTypes()
     firstPlayerAttacking = game.firstPlayerAttacking
-    #gameOver = false
     secondPlayerTopCard = game.showTopCard(secondPlayerDeck)
     firstPlayerCounter, secondPlayerCounter = game.showNumberOfCardsPlayerDeck()
     return render_template('pokeGame.html', firstPlayerTopCard=firstPlayerTopCard,
@@ -63,3 +62,26 @@ def cardUI():
     game = Game.instance()
     attackTypes = game.getAttackerTypes()
     return render_template("gameCardUI.html", firstPlayerAttacking=game.firstPlayerAttacking, attackTypes=attackTypes)
+
+@pokeGameBlueprint.route("/winCheck/")
+def winCheck():
+    game = Game.instance()
+    gameOver = game.winCheck()
+    firstPlayerTopCard = game.firstPlayerCard
+    secondPlayerTopCard = game.secondPlayerCard
+    attackTypes = game.getAttackerTypes()
+    firstPlayerAttacking = game.firstPlayerAttacking
+    firstPlayerCounter, secondPlayerCounter = game.showNumberOfCardsPlayerDeck()
+    roundInfoDict = {
+        "gameOver": gameOver,
+        "beginningPlayerTopCard": "",
+        "attackTypes": attackTypes,
+        "firstPlayerAttacking": firstPlayerAttacking,
+        "firstPlayerCounter": firstPlayerCounter,
+        "secondPlayerCounter": secondPlayerCounter
+    }
+    if firstPlayerAttacking:
+        roundInfoDict["beginningPlayerTopCard"] = firstPlayerTopCard
+    else:
+        roundInfoDict["beginningPlayerTopCard"] = secondPlayerTopCard
+    return json.dumps(roundInfoDict)
