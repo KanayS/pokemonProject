@@ -1,7 +1,8 @@
 from pokemon.createDatabase import PokeDatabase
 import random
 import logging
-from pokeTypes import Damage
+from pokemon.pokeTypes import Damage
+from math import ceil
 
 
 def giveAwayCard(listFrom, listTo, card):
@@ -40,8 +41,8 @@ class Game:
         self.attacker = None
         self.defender = None
         self.typesToAttack = []
-        self.firstPlayerHP = 100  # need to get these from API
-        self.secondPlayerHP = 100  # need to get from API for each Poke
+        self.firstPlayerHP = 0  # need to get these from API
+        self.secondPlayerHP = 0  # need to get from API for each Poke
         self.firstPlayerCard = {}
         self.secondPlayerCard = {}
         self.round = 0
@@ -112,7 +113,7 @@ class Game:
         else:
             logging.info("Player has no cards to show")
 
-    def getDamageValue(self, attackerType: str) -> int:
+    def getDamageMultiplier(self, attackerType: str) -> int:
 
         defenderTypes = self.defender['types']
         damageData = Damage()
@@ -154,12 +155,15 @@ class Game:
         return damageTotal
 
     def startRound(self):
-
+    
         if self.firstPlayerDeck is not None and self.secondPlayerDeck is not None:
 
             self.firstPlayerCard = self.firstPlayerDeck[0]
+            self.firstPlayerHP = self.firstPlayerCard["hp"]
             self.secondPlayerCard = self.secondPlayerDeck[0]
-            self.gameStage = 0
+            self.secondPlayerHP = self.secondPlayerCard["hp"]
+
+
             if self.round == 0:
 
                 choosePlayer = random.randint(1, 2)
@@ -217,10 +221,12 @@ class Game:
         return AIAttackType
 
     def attack(self, attackType):
+
         self.gameStage = 1
         attackValue = self.attacker["attack"]
         defenseValue = self.defender["defense"]
-        multiplier = self.getDamageValue(attackType)
+        multiplier = self.getDamageMultiplier(attackType)
+        #randNum = 230 ##FOR TESTING PURPOSES
         randNum = random.randint(217, 255)
         damageCalc = (attackValue / defenseValue) * multiplier * (randNum / 255) * 30
         damageDone = round(damageCalc, 2)
@@ -236,7 +242,8 @@ class Game:
 
     def winCheck(self):
 
-        if self.firstPlayerHP <= 0:
+
+        if ceil(self.firstPlayerHP) <= 0:
             giveAwayCard(self.firstPlayerDeck, self.secondPlayerDeck, self.firstPlayerCard)
             self.loser = self.firstPlayerDeck
             self.winner = self.secondPlayerDeck
@@ -248,7 +255,7 @@ class Game:
                 self.firstPlayerAttacking = False
                 self.startRound()
 
-        elif self.secondPlayerHP <= 0:
+        elif ceil(self.secondPlayerHP) <= 0:
             giveAwayCard(self.secondPlayerDeck, self.firstPlayerDeck, self.secondPlayerCard)
             self.loser = self.secondPlayerDeck
             self.winner = self.firstPlayerDeck
@@ -261,5 +268,4 @@ class Game:
                 self.startRound()
 
         return self.gameOver
-
 
