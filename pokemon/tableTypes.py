@@ -9,8 +9,10 @@ app = Flask(__name__)
 @app.route("/")
 def tableTypes():
     damage = Damage()
-    typeList, typesData = damage.makeDamageTable()
-    return render_template('table.html', typesData=typesData, typeList=typeList)
+    typesData, colourDict = damage.makeDamageTable()
+
+
+    return render_template('table.html', typesData=typesData, typeColour=colourDict)
 
 
 if __name__ == '__main__':

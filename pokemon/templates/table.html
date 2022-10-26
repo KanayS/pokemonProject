@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Damage Table</title>
     <link href="static/tableDamage.css" rel="stylesheet" type="text/css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="/static/table.js"></script>
 
 </head>
 <body>
@@ -14,34 +14,30 @@
 <h1> Damage</h1>
 
 <div>
-    <table class="damage-table damage-table-highlight-all">
+    <table class="damage-table" id = "table">
         <thead>
             <tr>
                 <th><img src="static/poketable.gif" width=30px></th>
-                {% for type in typeList %}
-                    <th>{{type}}</th>
+                {% for type, colour in typeColour.items() %}
+                    <th style = "background-color: {{colour}}">{{type}}</th>
                 {% endfor %}
             </tr>
         </thead>
         <tbody>
             {% for typeName, typeData in typesData.items() %}
+
                 <tr>
-                    <td class = "disabled" style ="background-color: #DDEFEF;
-                        border: solid 1px #DDEEEE;
-                        color: #336B6B;
-                        padding: 10px;
-                        text-align: left;
-                        text-shadow: 1px 1px 1px #fff"><b>{{typeName}}</b></td>
+                    <td class = "row-name" style = "background-color: {{typeColour[typeName]}}"><b>{{typeName}}</b></td>
 
                     {% for damageValue in typeData %}
                         {% if damageValue == 2 %}
-                            <td style = "background-color: green" onmouseover = "">2</td>
+                            <td id = "2" style = "background-color: green" onmouseover = "highlight()">2</td>
                         {% elif damageValue == 0.5 %}
-                            <td style = "background-color: orange">1/2</td>
+                            <td style = "background-color: orange" onmouseover = "highlight()">1/2</td>
                         {% elif damageValue == 0 %}
-                            <td style ="background-color:red"><b>X</b></td>
+                            <td style ="background-color:red" onmouseover = "highlight()"><b>X</b></td>
                         {% elif damageValue == None %}
-                            <td style = "background-color: white"></td style = "background-color: white">
+                            <td style = "background-color: white"></td>
                         {% endif %}
                     {% endfor %}
                 </tr>
@@ -51,8 +47,11 @@
     </table>
 </div>
 
+<script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
+
+}
+</script>
 </body>
 </html>

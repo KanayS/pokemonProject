@@ -19,9 +19,7 @@ body {
     font: normal 13px Arial, sans-serif;
 }
 .damage-table thead th {
-    background-color: #DDEFEF;
     border: solid 1px #DDEEEE;
-    color: #336B6B;
     padding: 10px;
     text-align: left;
     text-shadow: 1px 1px 1px #fff;
@@ -39,15 +37,10 @@ body {
 }
 
 .row-name {
-    background-color: #DDEFEF;
     border: solid 1px #DDEEEE;
-    color: #336B6B;
     padding: 10px;
     text-align: left;
     text-shadow: 1px 1px 1px #fff
-}
-.disabled {
-pointer-events:none;
 }
 
 
