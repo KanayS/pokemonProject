@@ -126,7 +126,7 @@ class Damage:
         self.cursor.execute(data)
         typeData = self.cursor.fetchall()
         typeList = []
-        for types in typeData:
+        for types in typeData[:-2]:
             typeList.append(types[0])
 
         tableData = {}
