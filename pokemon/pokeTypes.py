@@ -121,6 +121,38 @@ class Damage:
             attackData.append(damageType)
         return attackData
 
+    def makeDamageTable(self):
+        data = 'SELECT Type FROM TypeDamage'
+        self.cursor.execute(data)
+        typeData = self.cursor.fetchall()
+        typeList = []
+        for types in typeData:
+            typeList.append(types[0])
+
+        tableData = {}
+        for type in typeList:
+            listForTable = [None] * len(typeList)
+            damageData = self.findDamage(type)[2::2]
+
+            for damageList in damageData:
+                if len(damageList) != 0:
+                    for damage in damageList:
+
+                        damageIndex = damageData.index(damageList)
+                        indexType = typeList.index(damage)
+
+                        if damageIndex == 0:
+                            damageValue = 2
+                        elif damageIndex == 1:
+                            damageValue = 0.5
+                        else:
+                            damageValue = 0
+
+                        listForTable[indexType] = damageValue
+            tableData[type] = listForTable
+
+        return typeList, tableData
+
 
 
 

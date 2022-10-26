@@ -150,7 +150,7 @@ class Game:
                 damageDone.append(False)
 
         if damageDone == [False, False] or damageDone == [False]:
-            damageTotal = 0
+            damageTotal = 1
 
         return damageTotal
 
@@ -251,10 +251,12 @@ class Game:
 
         if self.attacker == self.firstPlayerCard:
             self.secondPlayerHP -= damageDone
+            self.secondPlayerHP = round(self.secondPlayerHP, 2)
             self.switchAttacker()
             return damageDone, self.secondPlayerHP
         elif self.attacker == self.secondPlayerCard:
             self.firstPlayerHP -= damageDone
+            self.firstPlayerHP = round(self.firstPlayerHP, 2)
             self.switchAttacker()
             return damageDone, self.firstPlayerHP
 

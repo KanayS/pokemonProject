@@ -1,0 +1,21 @@
+@import url('http://fonts.cdnfonts.com/css/cubicfive');
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden
+}
+html {
+	margin: 0;
+}
+body {
+	background-image: url("pokeBackground.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	text-align:center;
+}
+
+table {
+    display:grid;
+
+}
+
