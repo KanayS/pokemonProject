@@ -220,6 +220,24 @@ class Game:
         AIAttackType = AITypes[0]
         return AIAttackType
 
+    def AIAttackAdvanced(self):
+        self.gameStage = 1
+        AITypes = self.getAttackerTypes()
+        if len(AITypes) == 2:
+
+            multiplierValues = []
+            for AIType in AITypes:
+                multiplier = self.getDamageMultiplier(AIType)
+                multiplierValues.append(multiplier)
+            if multiplierValues[0] > multiplierValues[1] or multiplierValues[0] == multiplierValues[1]:
+                AIAttackType = AITypes[0]
+            else:
+                AIAttackType = AITypes[1]
+        else:
+            AIAttackType = AITypes[0]
+
+        return AIAttackType
+
     def attack(self, attackType):
 
         self.gameStage = 1

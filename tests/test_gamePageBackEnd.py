@@ -283,19 +283,31 @@ class TestGame(TestCase):
         assert gameOver.firstPlayerDeck[2] == {'name': 'Poke2', 'url': '', 'attack': 48, 'defense': 20, 'hp': 10, 'types': ['grass', 'poison']}
         assert gameOver.firstPlayerDeck[3] == {'name': 'Magnemite', 'url': '', 'attack': 35, 'defense': 20, 'hp': 10, 'types': ['electric', 'steel']}
 
+    def test_AIAdvanced(self):
+        gameAI = Game.instance()
+        gameAI.initialise('../pokemon/pokemonDatabase.db')
+        gameAI.firstPlayerDeck = [{'name': 'Poke1', 'url': '', 'attack': 99, 'defense': 65, 'hp': 50, 'types': ['grass', 'poison']}]
+        gameAI.secondPlayerDeck = [{'name': 'Poke2', 'url': '', 'attack': 48, 'defense': 20, 'hp': 10, 'types': ['rock']}]
 
+        gameAI.attacker = gameAI.firstPlayerDeck[0]
+        gameAI.defender = gameAI.secondPlayerDeck[0]
+        chosenAttackType = gameAI.AIAttackAdvanced()
 
+        assert chosenAttackType == 'grass'
 
+    def test_AIAdvancedEqual(self):
+        gameAI0 = Game.instance()
+        gameAI0.initialise('../pokemon/pokemonDatabase.db')
+        gameAI0.firstPlayerDeck = [
+            {'name': 'Poke1', 'url': '', 'attack': 99, 'defense': 65, 'hp': 50, 'types': ['normal', 'fighting']}]
+        gameAI0.secondPlayerDeck = [
+            {'name': 'Poke2', 'url': '', 'attack': 48, 'defense': 20, 'hp': 10, 'types': ['ghost']}]
 
+        gameAI0.attacker = gameAI0.firstPlayerDeck[0]
+        gameAI0.defender = gameAI0.secondPlayerDeck[0]
+        chosenAttackType = gameAI0.AIAttackAdvanced()
 
-
-
-
-
-
-
-
-
+        assert chosenAttackType == 'normal'
 
 if __name__ == '__main__':
     unittest.main()
