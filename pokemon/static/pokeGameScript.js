@@ -192,5 +192,4 @@ function swapAttackButton(firstPlayerAttacking){
                 element.classList.add("invisible");
             }
         });
-
 }

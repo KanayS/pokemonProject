@@ -236,7 +236,7 @@ class Game:
 
     def winCheck(self):
 
-        if self.firstPlayerHP == 0:
+        if self.firstPlayerHP <= 0:
             giveAwayCard(self.firstPlayerDeck, self.secondPlayerDeck, self.firstPlayerCard)
             self.loser = self.firstPlayerDeck
             self.winner = self.secondPlayerDeck
@@ -248,7 +248,7 @@ class Game:
                 self.firstPlayerAttacking = False
                 self.startRound()
 
-        elif self.secondPlayerHP == 0:
+        elif self.secondPlayerHP <= 0:
             giveAwayCard(self.secondPlayerDeck, self.firstPlayerDeck, self.secondPlayerCard)
             self.loser = self.secondPlayerDeck
             self.winner = self.firstPlayerDeck
