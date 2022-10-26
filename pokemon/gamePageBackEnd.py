@@ -2,6 +2,7 @@ from pokemon.createDatabase import PokeDatabase
 import random
 import logging
 from pokemon.pokeTypes import Damage
+from math import ceil
 
 
 def giveAwayCard(listFrom, listTo, card):
@@ -40,8 +41,8 @@ class Game:
         self.attacker = None
         self.defender = None
         self.typesToAttack = []
-        self.firstPlayerHP = 100  # need to get these from API
-        self.secondPlayerHP = 100  # need to get from API for each Poke
+        self.firstPlayerHP = 10  # need to get these from API
+        self.secondPlayerHP = 10  # need to get from API for each Poke
         self.firstPlayerCard = {}
         self.secondPlayerCard = {}
         self.round = 0
@@ -236,7 +237,7 @@ class Game:
 
     def winCheck(self):
 
-        if int(self.firstPlayerHP) <= 0:
+        if ceil(self.firstPlayerHP) <= 0:
             giveAwayCard(self.firstPlayerDeck, self.secondPlayerDeck, self.firstPlayerCard)
             self.loser = self.firstPlayerDeck
             self.winner = self.secondPlayerDeck
@@ -248,7 +249,7 @@ class Game:
                 self.firstPlayerAttacking = False
                 self.startRound()
 
-        elif int(self.secondPlayerHP) <= 0:
+        elif ceil(self.secondPlayerHP) <= 0:
             giveAwayCard(self.secondPlayerDeck, self.firstPlayerDeck, self.secondPlayerCard)
             self.loser = self.secondPlayerDeck
             self.winner = self.firstPlayerDeck
@@ -261,5 +262,4 @@ class Game:
                 self.startRound()
 
         return self.gameOver
-
 
