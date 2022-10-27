@@ -299,11 +299,14 @@ function playAnimations(firstPlayerAttacking){
         element.setAttribute('data-animation', 'twice');
         element.style.animationPlayerState ="running";
     }
+    var fireballSound = new Audio('/static/fireballSound.wav');
+    fireballSound.loop = false;
+    fireballSound.play();
     checkCollision(firstPlayerAttacking);
 }
-// MIGHT NEED TO SWAP CONDITION IN LINE 301
+
 function checkCollision(firstPlayerAttacking) {
-    if (firstPlayerAttacking) {
+    if (firstPlayerAttacking) { // MIGHT NEED TO SWAP CONDITION
         var defender = document.getElementById('playerTwoCardBack');
         var elem = document.getElementById("playerOneAnimation");
         if (detectOverlap(elem, defender)) {
@@ -312,6 +315,9 @@ function checkCollision(firstPlayerAttacking) {
             element.classList.add("invisible");
             document.getElementById("playerTwoExplosion").src = '/static/explosion.gif';
             setTimeout(() => {document.getElementById("playerTwoExplosion").src = "" }, 400);
+            var fireballBoom = new Audio('/static/fireballBoom.mp3');
+            fireballBoom.loop = false;
+            fireballBoom.play();
         }
         else {
         setTimeout(checkCollision, 10, firstPlayerAttacking);
@@ -326,6 +332,9 @@ function checkCollision(firstPlayerAttacking) {
             element.classList.add("invisible");
             document.getElementById("playerOneExplosion").src = '/static/explosion.gif';
             setTimeout(() => {document.getElementById("playerOneExplosion").src = "" }, 400);
+            var fireballBoom = new Audio('/static/fireballBoom.mp3');
+            fireballBoom.loop = false;
+            fireballBoom.play();
         }
         else {
             setTimeout(checkCollision, 10, firstPlayerAttacking);
@@ -353,3 +362,7 @@ var detectOverlap = (function () {
         return comparePositions(pos1[0], pos2[0]) && comparePositions(pos1[1], pos2[1]);
     };
 })();
+
+window.onload = function() {
+    document.getElementById("my_audio").play();
+}
