@@ -22,7 +22,7 @@
 {% for typeName, typeData in typesData.items() %}
 
 <tr id={{typeName}}>
-    <td class="row-name" style="background-color: {{typeColour[typeName]}}; font-family: 'cubicfive12'; color:black; font-size: 10px"><b>{{typeName}}</b></td>
+    <td class="row-name" style="background-color: {{typeColour[typeName]}}; color:black; font-size: 17px"><b>{{typeName}}</b></td>
 
     {% for damageValue in typeData %}
     {% if damageValue == 2 %}
