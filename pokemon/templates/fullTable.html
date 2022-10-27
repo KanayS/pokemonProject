@@ -1,22 +1,32 @@
 <thead>
+
+<!--<tr>-->
+<!--    <th colspan="20" style ="border-style: hidden; background-color:white; text-align:center">Defending Types</th>-->
+<!--</tr>-->
 <tr>
+    <th style ="border-style: hidden"></th>
     <th style="background-color: green"><img src="static/poketable.gif" width=100px></th>
     {% for type, colour in typeColour.items() %}
     <th class="rotate" style="background-color: {{colour}}; color: black">
-        <div><span>{{type}}</span></div>
+        <div style = "justify:left">{{type}}</div>
     </th>
     {% endfor %}
 </tr>
 </thead>
 <tbody id="tbody">
+<tr>
+    <th style ="border-style: hidden; background-color: white" class ="rotate" rowspan="20">
+        <div><span>Attacking Types</span></div>
+    </th>
+</tr>
 {% for typeName, typeData in typesData.items() %}
 
 <tr id={{typeName}}>
-    <td class="row-name" style="background-color: {{typeColour[typeName]}}; color: black"><b>{{typeName}}</b></td>
+    <td class="row-name" style="background-color: {{typeColour[typeName]}}; font-family: 'cubicfive12'; color:black"><b>{{typeName}}</b></td>
 
     {% for damageValue in typeData %}
     {% if damageValue == 2 %}
-    <td id="two" style="background-color: green">2</td>
+    <td id="two" style="background-color: #66FF99">2</td>
     {% elif damageValue == 0.5 %}
     <td id="half" style="background-color: orange">1/2</td>
     {% elif damageValue == 0 %}

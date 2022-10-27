@@ -126,24 +126,28 @@ class Damage:
         self.cursor.execute(data)
         typeData = self.cursor.fetchall()
         typeList = []
-        typeColor = ["#26de81",
-                        "#ffeaa7",
-                        "#fed330",
-                        "#FF0069",
-                        "#30336b",
-                        "#f0932b",
-                        "#81ecec",
-                        "#00b894",
-                        "#EFB549",
-                        "#a55eea",
-                        "#74b9ff",
-                        "#95afc0",
-                        "#6c5ce7",
-                        "#a29bfe",
-                        "coral",
-                        "#0190FF",
-                        "#95afc0",
-                        "#6c5ce7",
+        typeColor = ["#95afc0", #normal
+                     "#3545A7", #fighting
+                     "#81ecec",#flying
+                     "#6c5ce7",#poison
+                     "#EFB549",#ground
+                     "#C0C0C0",#rock
+                     "#26de81",#bug
+                     "#a55eea",#ghost
+                     ##steel
+                     "#f0932b", #fire
+                     "#0190FF",#water
+                     "#00b894",#grass
+                     "#fed330",#electric
+                     "#a29bfe",#psychic
+                     "#74b9ff",#ice
+                     "#ffeaa7",#dragon
+                     ##dark
+                     "#FF0069",#fairy
+                     "#6c5ce7",
+                     "#a29bfe",
+                     "coral",
+                        "#95afc0"
                         ]
         for types in typeData[:-2]:
             typeList.append(types[0])
