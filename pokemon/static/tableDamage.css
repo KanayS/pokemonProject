@@ -18,8 +18,6 @@ body {
     border: solid 1px #DDEEEE;
     padding: 10px;
     text-align: center;
-
-
 }
 
 .damage-table {
@@ -30,7 +28,7 @@ body {
     margin-right: auto;
     margin-bottom: auto;
     font: normal 13px Arial, sans-serif;
-    transform: scale(0.8);
+    transform: scale(0.7);
 
 }
 .damage-table thead th {
@@ -39,13 +37,15 @@ body {
     color: black;
     padding: 10px;
     font-size: 17px;
+    width: 5%;
 }
 .damage-table tbody td {
     border: solid 1px #DDEEEE;
     color: #333;
-    padding: 10px;
+    width: 5%;
     text-align: center;
     font-size: 15px;
+
 
 }
 .damage-table-highlight-all {
@@ -78,7 +78,7 @@ body {
 
 th.rotate {
 
-  height: 100px;
+  height: 50px;
   white-space: nowrap;
 }
 
@@ -86,7 +86,6 @@ th.rotate > div {
   transform:
     rotate(-90deg);
   width: 30px;
-  text-align: inherit
 }
 
 .pokedexBtn,
@@ -123,24 +122,19 @@ th.rotate > div {
 .navbar {
     width: 100vw;
     position:relative;
-    margin: 5px;
 }
 .navbarText {
-    margin-bottom:auto;
+
 }
 .banner {
     background-repeat: no-repeat;
     background-size: contain;
-    /* background-attachment: fixed; */
-    /* background-position: center; */
-    width: 20vw;
-    height: 20vh;
     position: absolute;
     left: 50%;
-    top: 1px;
+    top: 5px;
     margin-left: -105px !important;
-    display: block;
-    transform: scale(1);
+    display: inline;
+
 
 }
-}
+
