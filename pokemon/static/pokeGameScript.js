@@ -85,29 +85,22 @@ function showTopCard(cardDeck, cardID){
                 updateCardCount();
             }
             else {
-                noCardCheck(cardDeck);
+                noCardCheck(cardDeck,cardID);
             }
         });
 }
-function noCardCheck(cardDeck){
+
+function noCardCheck(cardDeck, cardID){
     if (cardDeck == "firstPlayerDeck") {
-        element = document.getElementById("firstPlayerCycle");
-        element.classList.add("invisible");
-        element = document.getElementById("playerOneCardBack");
-        element.classList.remove("cardBack")
-        element.classList.add("pikaMeme");
-        element = document.getElementById("firstPlayerCard");
-        element.classList.remove("cardShadow");
+        document.getElementById("playerOneCardBack").classList.remove("cardBack");
+        document.getElementById("playerOneCardBack").classList.add("pikaMeme");
+        document.getElementById("firstPlayerCard").classList.remove("cardShadow");;
         alert("The first player deck has ran out of cards :(");
     }
     else {
-        element = document.getElementById("secondPlayerCycle");
-        element.classList.add("invisible");
-        element = document.getElementById("playerTwoCardBack");
-        element.classList.remove("cardBack");
-        element.classList.add("pikaMeme");
-        element = document.getElementById("secondPlayerCard");
-        element.classList.remove("cardShadow");
+        document.getElementById("playerTwoCardBack").classList.remove("cardBack");
+        document.getElementById("playerTwoCardBack").classList.add("pikaMeme");
+        document.getElementById("secondPlayerCard").classList.remove("cardShadow");
         alert("The second player deck has ran out of cards :(");
     }
 
@@ -115,7 +108,6 @@ function noCardCheck(cardDeck){
     element.innerHTML = `
     <h2 class="text-center noCardMsg"> No Cards Left :( </h2>
     `;
-
 }
 
 function updateCardCount() {
@@ -143,6 +135,7 @@ function attack(attackType) {
             var hp = attackList[1];
             const firstPlayerAttacking = attackList[2];
             const gameStage = attackList[3];
+            swapAttackButton(firstPlayerAttacking);
             //attack animation function with firstPlayerAttacking as argument
             if (gameStage == 0) {
                 if (firstPlayerAttacking == true){
@@ -155,8 +148,6 @@ function attack(attackType) {
             else{
             updateHP(attackList);
             }
-
-            swapAttackButton(firstPlayerAttacking);
             return attackList
         });
 }
@@ -231,8 +222,8 @@ function updateHP(attackList) {
 
 function winCheck(){
     fetch('/winCheck')
-            .then(roundInfoDict => roundInfoDict.json())
-            .then(roundInfoDict => {
+        .then(roundInfoDict => roundInfoDict.json())
+        .then(roundInfoDict => {
             console.log(roundInfoDict);
             const gameOver = roundInfoDict.gameOver;
             const beginningPlayerTopCard = roundInfoDict.beginningPlayerTopCard;
@@ -240,22 +231,43 @@ function winCheck(){
             var firstPlayerAttacking = roundInfoDict.firstPlayerAttacking;
             const firstPlayerCounter = roundInfoDict.firstPlayerCounter;
             const secondPlayerCounter = roundInfoDict.secondPlayerCounter;
-            if (firstPlayerAttacking) {
-                element = document.getElementById("secondPlayerCard");
-                element.innerHTML = "";
-                element.removeAttribute('style');
-            }
-            else{
-                element = document.getElementById("firstPlayerCard");
-                element.innerHTML = "";
-                element.removeAttribute('style');
-            }
-            return firstPlayerAttacking;
-        })
-        .then(firstPlayerAttacking => {
-            firstPlayerAttacking = firstPlayerAttacking !== true;
-            swapAttackButton(firstPlayerAttacking);
-        });
+            const timeout = 3000;
+            setTimeout(() => {
+                updateCardCount();
+                if (firstPlayerAttacking) {
+                    element = document.getElementById("secondPlayerCard");
+                    element.innerHTML = "";
+                    element.removeAttribute('style');
+                }
+                else{
+                    element = document.getElementById("firstPlayerCard");
+                    element.innerHTML = "";
+                    element.removeAttribute('style');
+                }
+                 if (!gameOver){
+                    buttonSwap = firstPlayerAttacking !== true;
+                    swapAttackButton(buttonSwap);
+                }
+            }, timeout);
 
+
+                element = document.getElementById("firstPlayerAttackBtn");
+                element.classList.remove("visible");
+                element.classList.add("invisible");
+                element = document.getElementById("secondPlayerAttackBtn");
+                element.classList.remove("visible");
+                element.classList.add("invisible");
+                if (gameOver) {
+                    document.getElementById("secondPlayerCard").removeAttribute('style');
+                    document.getElementById("firstPlayerCard").removeAttribute('style');
+                    if (firstPlayerAttacking){
+                        noCardCheck('firstPlayerDeck', 'firstPlayerCard');
+                    }
+                    else {
+                        noCardCheck('secondPlayerDeck', 'secondPlayerCard');
+                    }
+                }
+
+        });
 
 }
