@@ -1,0 +1,15 @@
+<div>
+    <form>
+        <label>Look up:</label>
+        <select id="typeSearch" name="typeSearch">
+            <option value="all">Show all</option>
+            {% if typeColour is not none %}
+            {% for type in typeColour.keys() %}
+            <option value="{{type}}">{{type}}</option>
+            {% endfor %}
+            {% endif %}
+        </select>
+    </form>
+
+    <button class="pokedexBtn" type="button" onclick="getPokeType()">Search Type</button>
+</div>

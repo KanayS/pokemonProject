@@ -1,21 +1,16 @@
 @import url('http://fonts.cdnfonts.com/css/cubicfive');
 
 
+
 body {
 	background-image: url("pokeBackground.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
-	text-align:center;
-}
 
-div {
-    width = 100px;
-    height = 80px;
 }
 
 .damage-table tbody td:hover {
     font-weight: bold;
-    font: 15px;
     background-color: coral;
     }
 
@@ -23,6 +18,7 @@ div {
     border: solid 1px #DDEEEE;
     padding: 10px;
     text-align: center;
+
 
 }
 
@@ -32,19 +28,24 @@ div {
     border-spacing: 0;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: auto;
     font: normal 13px Arial, sans-serif;
+    transform: scale(0.8);
+
 }
 .damage-table thead th {
 
     border: solid 1px #DDEEEE;
-    color: #336B6B;
+    color: black;
     padding: 10px;
-
+    font-size: 17px;
 }
 .damage-table tbody td {
     border: solid 1px #DDEEEE;
     color: #333;
     padding: 10px;
+    text-align: center;
+    font-size: 15px;
 
 }
 .damage-table-highlight-all {
@@ -76,7 +77,7 @@ div {
 }
 
 th.rotate {
-  /* Something you can count on */
+
   height: 100px;
   white-space: nowrap;
 }
@@ -85,6 +86,61 @@ th.rotate > div {
   transform:
     rotate(-90deg);
   width: 30px;
+  text-align: inherit
 }
 
+.pokedexBtn,
+.downloadBtn {
+  color:white;
+  font-family: 'CubicFive12', sans-serif;
+  font-weight:bold;
+  text-align: center;
+  text-decoration:none;
+  background-color:#FFA12B  ;
+  margin: 19px;
 
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  text-shadow: 0px 1px 0px #000;
+  filter: dropshadow(color=#000, offx=0px, offy=1px);
+
+  -webkit-box-shadow:inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
+  -moz-box-shadow:inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
+  box-shadow:inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
+
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.pokedexBtn:active {
+  top:3px;
+  background-color:#F78900;
+
+  -webkit-box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3px 0 #915100;
+  -moz-box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3pxpx 0 #915100;
+  box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3px 0 #915100;
+}
+
+.navbar {
+    width: 100vw;
+    position:relative;
+    margin: 5px;
+}
+.navbarText {
+    margin-bottom:auto;
+}
+.banner {
+    background-repeat: no-repeat;
+    background-size: contain;
+    /* background-attachment: fixed; */
+    /* background-position: center; */
+    width: 20vw;
+    height: 20vh;
+    position: absolute;
+    left: 50%;
+    top: 1px;
+    margin-left: -105px !important;
+    display: block;
+    transform: scale(1);
+
+}
+}
