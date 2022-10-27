@@ -6,12 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Damage Table</title>
     <link href="static/tableDamage.css" rel="stylesheet" type="text/css">
-    <script src="/static/table.js"></script>
-
+    <link href="static/pokedexNavbar.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<!--#NAVBARRRRR-->
+
 
 <h1> Damage</h1>
+ <div class="row formRow d-flex justify-content-center">
+    <form class="text-center pokeSearchForm">
+        <label>Enter Pokemon:</label>
+        <select id="typeSearch" name="typeSearch">
+            <option value="all">Show all</option>
+            {% if typeColour is not none %}
+            {% for type in typeColour.keys() %}
+            <option value="{{type}}">{{type}}</option>
+            {% endfor %}
+            {% endif %}
+        </select>
+    </form>
+</div>
+
+<div class="row d-flex justify-content-center">
+    <div>
+        <button class="pokedexBtn" type="button" onclick="getPokeType()">Search Type</button>
+    </div>
+</div>
 
 <div>
     <table class="damage-table damage-table-highlight-all" id = "damage-table">
@@ -23,10 +43,10 @@
                 {% endfor %}
             </tr>
         </thead>
-        <tbody>
+        <tbody id="tbody">
             {% for typeName, typeData in typesData.items() %}
 
-                <tr>
+                <tr id = {{typeName}}>
                     <td class = "row-name" style = "background-color: {{typeColour[typeName]}}; color: black"><b>{{typeName}}</b></td>
 
                     {% for damageValue in typeData %}
@@ -41,12 +61,13 @@
                         {% endif %}
                     {% endfor %}
                 </tr>
+            {% endfor %}
         </tbody>
-    {% endfor %}
+
 
     </table>
 </div>
 
-
+<script src="/static/table.js"></script>
 </body>
 </html>

@@ -177,12 +177,5 @@ class Damage:
 
         return tableData, colourDict
 
-# damage = Damage()
-# damage.makeDamageTable()
-#
-#
-
-
-
 
 

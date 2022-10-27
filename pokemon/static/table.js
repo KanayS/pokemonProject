@@ -1,11 +1,19 @@
-var highlight = function(){
-
-    var table = document.getElementById("table");
-    for( var i = 1; i < table.rows.length; i++)
-        {
-            for(var j = 0; j < table.rows[i].cells.length; j++){
-                table.rows[i].cells[0].style.text = "red";
-                table.rows[0].cells[j].style.text = "red";
-                }
-        }
+function getPokeType(){
+    var pokeDict;
+    pokeType = document.getElementById("typeSearch");
+    pokeType = pokeType.value;
+    if (pokeType != 'all') {
+        fetch('/getPokeType/' + pokeType)
+            .then(pokeParse => pokeParse.text())
+            .then(pokeParse => {
+                document.getElementById("tbody").innerHTML = pokeParse;
+            });
+    }
+    else {
+        fetch('/fullTable')
+            .then(pokeParse => pokeParse.text())
+            .then(pokeParse => {
+                document.getElementById("damage-table").innerHTML = pokeParse;
+            });
+    }
 }
