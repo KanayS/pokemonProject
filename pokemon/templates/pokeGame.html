@@ -8,6 +8,7 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" rel="stylesheet">
     <link href="static/stylesheet.css" rel="stylesheet" type="text/css">
     <link href="static/pokeGameStylesheet.css" rel="stylesheet" type="text/css">
+    <link href="static/animations.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.cdnfonts.com/css/cubicfive" rel="stylesheet">
     <script src="/static/pokeGameScript.js"></script>
 </head>
@@ -64,6 +65,8 @@
                     </div>
                 </div>
             </div>
+            <img src="" id="playerOneExplosion" class ="playerTwoExplosion">
+            <div id="playerOneAnimation" class="playerOneAnimation a-slide invisible"> <img src="/static/fireball.gif"></div>
             <div id="firstPlayerAttackBtn" class="col-2 d-flex justify-content-center flex-column" >
                 {% if firstPlayerAttacking == true %}
                     {% for type in attackTypes %}
@@ -84,7 +87,9 @@
                 <script>showInitialCard('secondPlayerDeck', 'secondPlayerCard')</script>
                 {% endif %}
             </div>
+            <div id="playerTwoAnimation" class="playerTwoAnimation a-slide2 invisible"> <img src="/static/fireball2.gif"></div>
             <div class="col-4 d-flex justify-content-center" style="bottom: 8vh">
+                <img src="" id="playerTwoExplosion" class ="playerTwoExplosion">
                 <div class="containerPlayerTwo cardGame textStyle invisible" id="secondPlayerDeck">
                     <div id="playerTwoCardBack" class="cardBack background-image visible">
                         <div id="secondPlayerCard">
