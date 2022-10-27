@@ -106,3 +106,9 @@
 .attackButton {
     margin-bottom: 50px;
 }
+
+#damageText {
+    position: absolute;
+    margin-top: 140px;
+    font-family: 'CubicFive12', sans-serif;
+}

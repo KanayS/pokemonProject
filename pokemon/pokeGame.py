@@ -41,13 +41,13 @@ def cardCounter():
 @pokeGameBlueprint.route("/attack/<attackType>")
 def attack(attackType):
     game = Game.instance()
-    attackType = attackType.lower()
+    lAttackType = attackType.lower()
     firstPlayerAttacking = game.firstPlayerAttacking
     gameStage = game.gameStage
-    damage, hp = game.attack(attackType)
+    damage, hp = game.attack(lAttackType)
     if hp <= 0:
         hp = "Fainted"
-    return json.dumps([damage, hp, firstPlayerAttacking, gameStage])
+    return json.dumps([damage, hp, firstPlayerAttacking, gameStage, attackType])
 
 @pokeGameBlueprint.route("/showInitialCard/<playerDeck>")
 def showInitialCard(playerDeck):

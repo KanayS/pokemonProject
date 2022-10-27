@@ -136,7 +136,7 @@ function attack(attackType) {
             const firstPlayerAttacking = attackList[2];
             const gameStage = attackList[3];
             swapAttackButton(firstPlayerAttacking);
-            playAnimations(firstPlayerAttacking);
+            playAnimations(firstPlayerAttacking, attackList);
             //attack animation function with firstPlayerAttacking as argument
             if (gameStage == 0) {
                 if (firstPlayerAttacking == true){
@@ -149,7 +149,6 @@ function attack(attackType) {
             else{
             updateHP(attackList);
             }
-            return attackList
         });
 }
 
@@ -196,26 +195,29 @@ function swapAttackButton(firstPlayerAttacking){
 
 function updateHP(attackList) {
     console.log(attackList);
+    const damage = attackList[0];
     const hp = attackList[1];
+    const attackType = attackList[4];
     const firstPlayerAttacking = attackList[2];
+    const color = typeColor[attackType];
+    var pokemon = ";"
     if (firstPlayerAttacking == true){
-        element = document.getElementById('secondPlayerCard');
-        console.log(document.querySelector("#secondPlayerCard"));
-        console.log(document.querySelector("#secondPlayerCard .hp"));
+        pokemon = document.querySelector("#firstPlayerCard .poke-name").innerHTML;
         document.querySelector("#secondPlayerCard .hp").innerHTML = `
         <span>HP</span>
         ${hp}
         `;
     }
     else {
-        element = document.getElementById('firstPlayerCard');
-        console.log(document.querySelector("#firstPlayerCard"));
-        console.log(document.querySelector("#firstPlayerCard .hp"));
+        pokemon = document.querySelector("#secondPlayerCard .poke-name").innerHTML;
         document.querySelector("#firstPlayerCard .hp").innerHTML = `
         <span>HP</span>
         ${hp}
         `;
     }
+    document.getElementById("damageText").style.color = color;
+    document.getElementById("damageText").innerHTML = (pokemon + " did " + damage + " damage with " + attackType + "!");
+
     if (hp == "Fainted"){
         winCheck();
     }
@@ -273,10 +275,10 @@ function winCheck(){
 
 }
 
-function playAnimations(firstPlayerAttacking){
+function playAnimations(firstPlayerAttacking, attackList){
     if (firstPlayerAttacking) {
         console.log("ANIMATION STUFF");
-	element = document.querySelector("#firstPlayerCard img ");
+	    element = document.querySelector("#firstPlayerCard img ");
         element.classList.add("a-slide");
         element.setAttribute('data-animation', 'once');
         element.style.animationPlayState = "running";
