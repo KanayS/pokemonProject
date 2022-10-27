@@ -35,36 +35,7 @@
 
 <div>
     <table class="damage-table damage-table-highlight-all" id = "damage-table">
-        <thead>
-            <tr>
-                <th style = "background-color: green"><img src="static/poketable.gif" width=100px></th>
-                {% for type, colour in typeColour.items() %}
-                    <th class = "rotate" style = "background-color: {{colour}}; color: black"><div><span>{{type}}</span></div></th>
-                {% endfor %}
-            </tr>
-        </thead>
-        <tbody id="tbody">
-            {% for typeName, typeData in typesData.items() %}
-
-                <tr id = {{typeName}}>
-                    <td class = "row-name" style = "background-color: {{typeColour[typeName]}}; color: black"><b>{{typeName}}</b></td>
-
-                    {% for damageValue in typeData %}
-                        {% if damageValue == 2 %}
-                            <td id = "two" style = "background-color: green">2</td>
-                        {% elif damageValue == 0.5 %}
-                            <td id = "half" style = "background-color: orange">1/2</td>
-                        {% elif damageValue == 0 %}
-                            <td id = "zero" style ="background-color:red">X</td>
-                        {% elif damageValue == None %}
-                            <td></td>
-                        {% endif %}
-                    {% endfor %}
-                </tr>
-            {% endfor %}
-        </tbody>
-
-
+        {% include 'fullTable.html' %}
     </table>
 </div>
 
