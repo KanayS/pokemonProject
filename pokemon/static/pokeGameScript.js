@@ -140,23 +140,28 @@ function attack(attackType) {
         .then(attackList => {
             console.log(attackList);
             const damage = attackList[0]; //make animation attack with this damage
-            const hp = attackList[1];
+            var hp = attackList[1];
             const firstPlayerAttacking = attackList[2];
             const gameStage = attackList[3];
             //attack animation function with firstPlayerAttacking as argument
             if (gameStage == 0) {
                 if (firstPlayerAttacking == true){
-                    showInitialCard('secondPlayerDeck', 'secondPlayerCard');
+                    showInitialCard('secondPlayerDeck', 'secondPlayerCard',attackList);
                 }
                 else {
-                    showInitialCard('firstPlayerDeck', 'firstPlayerCard');
+                    showInitialCard('firstPlayerDeck', 'firstPlayerCard', attackList);
                 }
             }
+            else{
+            updateHP(attackList);
+            }
+
             swapAttackButton(firstPlayerAttacking);
+            return attackList
         });
 }
 
-function showInitialCard(cardDeck, cardID){
+function showInitialCard(cardDeck, cardID, attackList){
     console.log(cardDeck);
     console.log(cardID);
     fetch('/showInitialCard/' + cardDeck)
@@ -165,6 +170,9 @@ function showInitialCard(cardDeck, cardID){
             if (topCard !== null){
                 updateCard(topCard, cardDeck, cardID);
                 updateCardCount();
+                if (attackList){
+                updateHP(attackList);
+                }
             }
             else {
                 noCardCheck(cardDeck);
@@ -179,17 +187,75 @@ function swapAttackButton(firstPlayerAttacking){
             console.log(template);
             if (firstPlayerAttacking == false) {
                 element = document.getElementById("firstPlayerAttackBtn");
-                element.innerHTML = template
-                element.classList.remove("invisible")
+                element.innerHTML = template;
+                element.classList.remove("invisible");
                 element = document.getElementById("secondPlayerAttackBtn");
                 element.classList.add("invisible");
             }
             else {
                 element = document.getElementById("secondPlayerAttackBtn");
-                element.innerHTML = template
-                element.classList.remove("invisible")
+                element.innerHTML = template;
+                element.classList.remove("invisible");
                 element = document.getElementById("firstPlayerAttackBtn");
                 element.classList.add("invisible");
             }
         });
+}
+
+function updateHP(attackList) {
+    console.log(attackList);
+    const hp = attackList[1];
+    const firstPlayerAttacking = attackList[2];
+    if (firstPlayerAttacking == true){
+        element = document.getElementById('secondPlayerCard');
+        console.log(document.querySelector("#secondPlayerCard"));
+        console.log(document.querySelector("#secondPlayerCard .hp"));
+        document.querySelector("#secondPlayerCard .hp").innerHTML = `
+        <span>HP</span>
+        ${hp}
+        `;
+    }
+    else {
+        element = document.getElementById('firstPlayerCard');
+        console.log(document.querySelector("#firstPlayerCard"));
+        console.log(document.querySelector("#firstPlayerCard .hp"));
+        document.querySelector("#firstPlayerCard .hp").innerHTML = `
+        <span>HP</span>
+        ${hp}
+        `;
+    }
+    if (hp == "Fainted"){
+        winCheck();
+    }
+}
+
+function winCheck(){
+    fetch('/winCheck')
+            .then(roundInfoDict => roundInfoDict.json())
+            .then(roundInfoDict => {
+            console.log(roundInfoDict);
+            const gameOver = roundInfoDict.gameOver;
+            const beginningPlayerTopCard = roundInfoDict.beginningPlayerTopCard;
+            const attackTypes = roundInfoDict.attackTypes;
+            var firstPlayerAttacking = roundInfoDict.firstPlayerAttacking;
+            const firstPlayerCounter = roundInfoDict.firstPlayerCounter;
+            const secondPlayerCounter = roundInfoDict.secondPlayerCounter;
+            if (firstPlayerAttacking) {
+                element = document.getElementById("secondPlayerCard");
+                element.innerHTML = "";
+                element.removeAttribute('style');
+            }
+            else{
+                element = document.getElementById("firstPlayerCard");
+                element.innerHTML = "";
+                element.removeAttribute('style');
+            }
+            return firstPlayerAttacking;
+        })
+        .then(firstPlayerAttacking => {
+            firstPlayerAttacking = firstPlayerAttacking !== true;
+            swapAttackButton(firstPlayerAttacking);
+        });
+
+
 }
