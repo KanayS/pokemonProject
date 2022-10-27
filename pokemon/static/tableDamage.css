@@ -1,0 +1,90 @@
+@import url('http://fonts.cdnfonts.com/css/cubicfive');
+
+
+body {
+	background-image: url("pokeBackground.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	text-align:center;
+}
+
+div {
+    width = 100px;
+    height = 80px;
+}
+
+.damage-table tbody td:hover {
+    font-weight: bold;
+    font: 15px;
+    background-color: coral;
+    }
+
+.row-name {
+    border: solid 1px #DDEEEE;
+    padding: 10px;
+    text-align: center;
+
+}
+
+.damage-table {
+    border: solid 1px #DDEEEE;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-left: auto;
+    margin-right: auto;
+    font: normal 13px Arial, sans-serif;
+}
+.damage-table thead th {
+
+    border: solid 1px #DDEEEE;
+    color: #336B6B;
+    padding: 10px;
+
+}
+.damage-table tbody td {
+    border: solid 1px #DDEEEE;
+    color: #333;
+    padding: 10px;
+
+}
+.damage-table-highlight-all {
+    overflow: hidden;
+    z-index: 1;
+}
+.damage-table-highlight-all tbody td, .damage-table-highlight-all thead th {
+    position: relative;
+}
+.damage-table-highlight-all tbody td:hover::before {
+    background-color: #FFFFE0;
+    content:'\00a0';
+    height: 100%;
+    left: -5000px;
+    position: absolute;
+    top: 0;
+    width: 10000px;
+    z-index: -1;
+}
+.damage-table-highlight-all tbody td:hover::after {
+    background-color: #FFFFE0;
+    content:'\00a0';
+    height: 10000px;
+    left: 0;
+    position: absolute;
+    top: -5000px;
+    width: 100%;
+    z-index: -1;
+}
+
+th.rotate {
+  /* Something you can count on */
+  height: 100px;
+  white-space: nowrap;
+}
+
+th.rotate > div {
+  transform:
+    rotate(-90deg);
+  width: 30px;
+}
+
+
