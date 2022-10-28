@@ -1,0 +1,50 @@
+@import url('http://fonts.cdnfonts.com/css/cubicfive');
+body,html {
+  display: grid;
+  height: 100%;
+  overflow: hidden;
+
+}
+
+body {
+	background-image: url("pokeBackground.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	text-align:center;
+
+}
+* {
+  font-family: 'CubicFive12', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+header h1 {
+  color: #f0c305;
+  font-size: 70px;
+  animation: blinker 1s linear infinite;
+  text-align: center;
+  text-shadow: 2px 0 #36b, -2px 0 #36b, 0 2px #36b, 0 -2px #36b, 1px 1px #36b,
+    -1px -1px #36b, 1px -1px #36b, -1px 1px #36b;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  z-index: 5;
+}
+
+
+#canvas{
+  height: 100%;
+  width: 100%;
+}
