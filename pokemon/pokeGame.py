@@ -6,8 +6,8 @@ import json
 pokeGameBlueprint = Blueprint('pokeGameURLs', __name__, )
 
 
-@pokeGameBlueprint.route("/pokeGame")
-def pokeGame():
+@pokeGameBlueprint.route("/pokeGame/<gameMode>")
+def pokeGame(gameMode):
     game = Game.instance()
     game.initialise()
     game.shuffleMainDeck()
@@ -18,10 +18,12 @@ def pokeGame():
     firstPlayerAttacking = game.firstPlayerAttacking
     secondPlayerTopCard = game.showTopCard(secondPlayerDeck)
     firstPlayerCounter, secondPlayerCounter = game.showNumberOfCardsPlayerDeck()
+    script = gameMode
+
     return render_template('pokeGame.html', firstPlayerTopCard=firstPlayerTopCard,
                            secondPlayerTopCard=secondPlayerTopCard, firstPlayerCounter=firstPlayerCounter,
                            secondPlayerCounter=secondPlayerCounter, firstPlayerAttacking=firstPlayerAttacking,
-                           attackTypes=attackTypes)
+                           attackTypes=attackTypes, script=script)
 
 @pokeGameBlueprint.route("/cycleCard/<playerDeck>")
 def showCard(playerDeck):
@@ -85,3 +87,9 @@ def winCheck():
     else:
         roundInfoDict["beginningPlayerTopCard"] = secondPlayerTopCard
     return json.dumps(roundInfoDict)
+
+@pokeGameBlueprint.route("/aiAttack/")
+def aiAttack():
+    game = Game.instance()
+    attack = game.AIAttackAdvanced()
+    return json.dumps(attack)

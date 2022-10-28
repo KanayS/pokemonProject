@@ -220,7 +220,6 @@ class Game:
         return self.typesToAttack
 
     def AIAttack(self):
-        self.gameStage = 1
         AITypes = self.getAttackerTypes()
         if len(AITypes) > 1:
             random.shuffle(AITypes)
@@ -228,7 +227,6 @@ class Game:
         return AIAttackType
 
     def AIAttackAdvanced(self):
-        self.gameStage = 1
         AITypes = self.getAttackerTypes()
         if len(AITypes) == 2:
 
