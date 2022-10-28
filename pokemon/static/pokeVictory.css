@@ -11,6 +11,8 @@ body {
 	background-repeat: no-repeat;
 	background-size: cover;
 	text-align:center;
+    background-position: center center;
+
 
 }
 * {
@@ -40,11 +42,11 @@ header h1 {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
-  z-index: 5;
 }
 
+canvas {
 
-#canvas{
-  height: 100%;
-  width: 100%;
+  cursor: crosshair;
+   position:absolute;
+   height:100%; width:100%;
 }

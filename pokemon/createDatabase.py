@@ -160,5 +160,5 @@ class PokeDatabase:
                 deck.append(pokemon)
 
             random.shuffle(deck)
-            return deck[:10]
+            return deck[:2]
         return None

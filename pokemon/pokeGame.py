@@ -93,3 +93,9 @@ def aiAttack():
     game = Game.instance()
     attack = game.AIAttackAdvanced()
     return json.dumps(attack)
+
+@pokeGameBlueprint.route("/victory/")
+def victory():
+    game = Game.instance()
+    victor = game.victor
+    return render_template('pokeVictory.html', victor=victor)
