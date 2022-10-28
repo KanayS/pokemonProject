@@ -1,0 +1,33 @@
+[data-animation] {
+      animation: var(--animn, none) var(--animdur, 0s) var(--animtf, linear) var(--animdel, 0s) var(--animic, infinite) var(--animdir, alternate) var(--animfm, none) var(--animps, running);
+    }
+
+@keyframes slide {
+    from { margin-left: 0%; }
+    to { margin-left: calc(100% - var(--w, 150px)); }
+}
+@keyframes slide2 {
+    from { margin-left: calc(70% - var(--w, 150px)); }
+    to { margin-left: 0%; }
+}
+.a-slide {
+    --animdur: 2s;
+    --animn: slide;
+}
+
+.a-slide2 {
+    --animdur: 2s;
+    --animn: slide2;
+}
+
+.playerTwoAnimation,
+.playerOneAnimation {
+    position: absolute;
+    transform: scale(0.6);
+}
+
+.playerOneExplosion,
+.playerTwoExplosion {
+    position: absolute;
+    z-index: 1;
+}
