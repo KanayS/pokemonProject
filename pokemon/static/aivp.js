@@ -116,6 +116,6 @@ function aiAttack() {
     fetch('/aiAttack')
         .then(attackType => attackType.json())
         .then(attackType => {
-           setTimeout(attack, 4000, attackType, "playerTwo");
+           setTimeout(attack, 2500, attackType, "playerTwo");
         });
 }
