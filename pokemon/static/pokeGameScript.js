@@ -108,6 +108,7 @@ function noCardCheck(cardDeck, cardID){
     element.innerHTML = `
     <h2 class="text-center noCardMsg">No Cards Left</h2>
     `;
+    setTimeout(function(){ window.location.href= '/victory/';}, 4000);
 }
 
 function updateCardCount() {
