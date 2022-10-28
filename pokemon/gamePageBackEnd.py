@@ -51,6 +51,7 @@ class Game:
         self.gameOver = False
         self.firstPlayerAttacking = False
         self.gameStage = 0
+        self.victor = ""
 
     def shuffleMainDeck(self):
         if self.mainDeck is not None:
@@ -274,6 +275,7 @@ class Game:
             if len(self.loser) == 0:
                 logging.info("Game is over. Player 2 has won the game")
                 self.gameOver = True
+                self.victor = "Player 2"
             else:
                 self.firstPlayerAttacking = False
                 self.startRound()
@@ -286,6 +288,7 @@ class Game:
             if len(self.loser) == 0:
                 logging.info("Game is over. Player 1 has won the game")
                 self.gameOver = True
+                self.victor = "Player 1"
             else:
                 self.firstPlayerAttacking = True
                 self.startRound()
