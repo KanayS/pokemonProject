@@ -25,7 +25,6 @@ class Damage:
                              'noDamageTo': 0}
         self.damage = 1
         self.damageDone = []
-
     def __fetchTypes(self):
 
         try:
@@ -147,8 +146,8 @@ class Damage:
                      "#6c5ce7",
                      "#a29bfe",
                      "coral",
-                        "#95afc0"
-                        ]
+                     "#95afc0"]
+
         for types in typeData[:-2]:
             typeList.append(types[0])
 
