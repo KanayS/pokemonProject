@@ -309,4 +309,10 @@ function gameLoop() {
 
 
 
-window.onload = gameLoop();
+
+window.onload = function() {
+    setTimeout(function(){ window.location.href= '/';}, 10000);
+    var music = new Audio('/static/victory.mp3');
+    music.play();
+    gameLoop();
+}
