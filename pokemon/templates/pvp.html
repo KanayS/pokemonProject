@@ -1,8 +1,21 @@
-{% if firstPlayerAttacking == false %}
-{% for type in attackTypes %}
-<button id="PlayerTwo{{type}}" class="button attackButton" type="button"
-        onclick="attack('{{type}}', 'playerTwo')">{{type}}
-</button>
-{% endfor %}
-<script>showInitialCard('secondPlayerDeck', 'secondPlayerCard')</script>
-{% endif %}
+<div id="firstPlayerAttackBtn" class="col-2 d-flex justify-content-center flex-column">
+    {% if firstPlayerAttacking == true %}
+    {% for type in attackTypes %}
+    <button id="PlayerOne{{type}}" class="button attackButton" type="button"
+            onclick="attack('{{type}}', 'playerOne')">{{type}}
+    </button>
+    {% endfor %}
+    <script>showInitialCard('firstPlayerDeck', 'firstPlayerCard')</script>
+    {% endif %}
+</div>
+<div id="secondPlayerAttackBtn" class="col-2 d-flex justify-content-center flex-column">
+    {% if firstPlayerAttacking == false %}
+    {% for type in attackTypes %}
+    <button id="PlayerTwo{{type}}" class="button attackButton" type="button"
+            onclick="attack('{{type}}', 'playerTwo')">{{type}}
+    </button>
+    {% endfor %}
+    <script>showInitialCard('secondPlayerDeck', 'secondPlayerCard')</script>
+    {% endif %}
+
+</div>
