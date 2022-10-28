@@ -1,0 +1,21 @@
+
+
+
+
+
+    <tr id = {{typeName}}>
+        <td style = "border-style: hidden"></td>
+        <td class = "row-name" style = "background-color: {{typeColour}}; color: black">{{typeName}}</td>
+
+        {% for damageValue in typesData %}
+            {% if damageValue == 2 %}
+                <td id = "two" style = "background-color: #66FF99">2</td>
+            {% elif damageValue == 0.5 %}
+                <td id = "half" style = "background-color: orange">1/2</td>
+            {% elif damageValue == 0 %}
+                <td id = "zero" style ="background-color:red">X</td>
+            {% elif damageValue == None %}
+                <td></td>
+            {% endif %}
+        {% endfor %}
+    </tr>

@@ -1,0 +1,119 @@
+@import url('http://fonts.cdnfonts.com/css/cubicfive');
+
+
+
+body {
+	background-image: url("pokeBackground.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+
+}
+
+.damage-table tbody td:hover {
+    font-weight: bold;
+    background-color: coral;
+    }
+
+.row-name {
+    border: solid 1px #DDEEEE;
+    padding: 10px;
+    text-align: center;
+}
+
+.damage-table {
+    border: solid 1px #DDEEEE;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font: normal 13px Arial, sans-serif;
+    transform: scale(0.7);
+
+
+}
+.damage-table thead th {
+
+    border: solid 1px #DDEEEE;
+    color: black;
+    padding: 10px;
+    font-size: 17px;
+}
+.damage-table tbody td {
+    border: solid 1px #DDEEEE;
+    color: #333;
+    width: 5%;
+    text-align: center;
+    font-size: 15px;
+}
+.damage-table-highlight-all {
+    overflow: hidden;
+    z-index: 1;
+}
+.damage-table-highlight-all tbody td, .damage-table-highlight-all thead th {
+    position: relative;
+}
+.damage-table-highlight-all tbody td:hover::before {
+    background-color: #FFFFE0;
+    content:'\00a0';
+    height: 100%;
+    left: -5000px;
+    position: absolute;
+    top: 0;
+    width: 10000px;
+    z-index: -1;
+}
+.damage-table-highlight-all tbody td:hover::after {
+    background-color: #FFFFE0;
+    content:'\00a0';
+    height: 10000px;
+    left: 0;
+    position: absolute;
+    top: -5000px;
+    width: 100%;
+    z-index: -1;
+}
+
+.pokedexBtn,
+.downloadBtn {
+  color:white;
+  font-family: 'CubicFive12', sans-serif;
+  font-weight:bold;
+  text-align: center;
+  text-decoration:none;
+  background-color:#FFA12B  ;
+
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  text-shadow: 0px 1px 0px #000;
+  filter: dropshadow(color=#000, offx=0px, offy=1px);
+
+  -webkit-box-shadow:inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
+  -moz-box-shadow:inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
+  box-shadow:inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
+
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.pokedexBtn:active {
+  top:3px;
+  background-color:#F78900;
+
+  -webkit-box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3px 0 #915100;
+  -moz-box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3pxpx 0 #915100;
+  box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3px 0 #915100;
+}
+
+.navbar {
+    width: 100vw;
+    position:relative;
+}
+
+.banner {
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+    left: 50%;
+    top: 10px;
+    margin-left: -200px !important;
+
+    display: inline;
+}
+

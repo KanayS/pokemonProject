@@ -25,7 +25,6 @@ class Damage:
                              'noDamageTo': 0}
         self.damage = 1
         self.damageDone = []
-
     def __fetchTypes(self):
 
         try:
@@ -121,12 +120,65 @@ class Damage:
             attackData.append(damageType)
         return attackData
 
+    def makeDamageTable(self):
+        data = 'SELECT Type FROM TypeDamage'
+        self.cursor.execute(data)
+        typeData = self.cursor.fetchall()
+        typeList = []
+        typeColor = ["#95afc0", #normal
+                     "#3545A7", #fighting
+                     "#81ecec",#flying
+                     "#6c5ce7",#poison
+                     "#EFB549",#ground
+                     "#C0C0C0",#rock
+                     "#26de81",#bug
+                     "#a55eea",#ghost
+                     ##steel
+                     "#f0932b", #fire
+                     "#0190FF",#water
+                     "#00b894",#grass
+                     "#fed330",#electric
+                     "#a29bfe",#psychic
+                     "#74b9ff",#ice
+                     "#ffeaa7",#dragon
+                     ##dark
+                     "#FF0069",#fairy
+                     "#6c5ce7",
+                     "#a29bfe",
+                     "coral",
+                     "#95afc0"]
 
+        for types in typeData[:-2]:
+            typeList.append(types[0])
 
+        colourDict = {}
+        for types in typeList:
+            index = typeList.index(types)
+            colourDict[types] = typeColor[index]
 
+        tableData = {}
+        for type in typeList:
+            listForTable = [None] * len(typeList)
+            damageData = self.findDamage(type)[2::2]
 
+            for damageList in damageData:
+                if len(damageList) != 0:
+                    for damage in damageList:
 
+                        damageIndex = damageData.index(damageList)
+                        indexType = typeList.index(damage)
 
+                        if damageIndex == 0:
+                            damageValue = 2
+                        elif damageIndex == 1:
+                            damageValue = 0.5
+                        else:
+                            damageValue = 0
+
+                        listForTable[indexType] = damageValue
+            tableData[type] = listForTable
+
+        return tableData, colourDict
 
 
 

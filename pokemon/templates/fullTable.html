@@ -1,0 +1,37 @@
+<thead>
+
+<tr>
+    <th style ="border-style: hidden"></th>
+    <th style="background-color: green"><img src="static/poketable.gif" width=50px></th>
+    {% for type, colour in typeColour.items() %}
+    <th style="background-color: {{colour}}; font-weight: normal; margin:auto; text-align:center">
+        {{type}}
+    </th>
+    {% endfor %}
+</tr>
+</thead>
+<tbody id="tbody">
+<tr>
+    <th style ="border-style: hidden; background-color: #FFA12B; color: white; font-family: 'CubicFive12'; height:10px" rowspan="20">
+        <div style="font-size: 20px; transform: rotate(-90deg) translateY(-1px) translateX(-85px);white-space: nowrap; width: 30px">Attacking Types</div>
+    </th>
+</tr>
+{% for typeName, typeData in typesData.items() %}
+
+<tr id={{typeName}}>
+    <td class="row-name" style="background-color: {{typeColour[typeName]}}; color:black; font-size: 17px">{{typeName}}</td>
+
+    {% for damageValue in typeData %}
+    {% if damageValue == 2 %}
+    <td id="two" style="background-color: #66FF99">2</td>
+    {% elif damageValue == 0.5 %}
+    <td id="half" style="background-color: orange">1/2</td>
+    {% elif damageValue == 0 %}
+    <td id="zero" style="background-color:red">X</td>
+    {% elif damageValue == None %}
+    <td></td>
+    {% endif %}
+    {% endfor %}
+</tr>
+{% endfor %}
+</tbody>

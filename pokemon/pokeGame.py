@@ -6,8 +6,8 @@ import json
 pokeGameBlueprint = Blueprint('pokeGameURLs', __name__, )
 
 
-@pokeGameBlueprint.route("/pokeGame")
-def pokeGame():
+@pokeGameBlueprint.route("/pokeGame/<gameMode>")
+def pokeGame(gameMode):
     game = Game.instance()
     game.initialise()
     game.shuffleMainDeck()
@@ -16,13 +16,14 @@ def pokeGame():
     firstPlayerTopCard = game.showTopCard(firstPlayerDeck)
     attackTypes = game.getAttackerTypes()
     firstPlayerAttacking = game.firstPlayerAttacking
-    #gameOver = false
     secondPlayerTopCard = game.showTopCard(secondPlayerDeck)
     firstPlayerCounter, secondPlayerCounter = game.showNumberOfCardsPlayerDeck()
+    script = gameMode
+
     return render_template('pokeGame.html', firstPlayerTopCard=firstPlayerTopCard,
                            secondPlayerTopCard=secondPlayerTopCard, firstPlayerCounter=firstPlayerCounter,
                            secondPlayerCounter=secondPlayerCounter, firstPlayerAttacking=firstPlayerAttacking,
-                           attackTypes=attackTypes)
+                           attackTypes=attackTypes, script=script)
 
 @pokeGameBlueprint.route("/cycleCard/<playerDeck>")
 def showCard(playerDeck):
@@ -42,11 +43,13 @@ def cardCounter():
 @pokeGameBlueprint.route("/attack/<attackType>")
 def attack(attackType):
     game = Game.instance()
-    attackType = attackType.lower()
+    lAttackType = attackType.lower()
     firstPlayerAttacking = game.firstPlayerAttacking
     gameStage = game.gameStage
-    damage, hp = game.attack(attackType)
-    return json.dumps([damage, hp, firstPlayerAttacking, gameStage])
+    damage, hp = game.attack(lAttackType)
+    if hp <= 0:
+        hp = "Fainted"
+    return json.dumps([damage, hp, firstPlayerAttacking, gameStage, attackType])
 
 @pokeGameBlueprint.route("/showInitialCard/<playerDeck>")
 def showInitialCard(playerDeck):
@@ -61,3 +64,32 @@ def cardUI():
     game = Game.instance()
     attackTypes = game.getAttackerTypes()
     return render_template("gameCardUI.html", firstPlayerAttacking=game.firstPlayerAttacking, attackTypes=attackTypes)
+
+@pokeGameBlueprint.route("/winCheck/")
+def winCheck():
+    game = Game.instance()
+    gameOver = game.winCheck()
+    firstPlayerTopCard = game.firstPlayerCard
+    secondPlayerTopCard = game.secondPlayerCard
+    attackTypes = game.getAttackerTypes()
+    firstPlayerAttacking = game.firstPlayerAttacking
+    firstPlayerCounter, secondPlayerCounter = game.showNumberOfCardsPlayerDeck()
+    roundInfoDict = {
+        "gameOver": gameOver,
+        "beginningPlayerTopCard": "",
+        "attackTypes": attackTypes,
+        "firstPlayerAttacking": firstPlayerAttacking,
+        "firstPlayerCounter": firstPlayerCounter,
+        "secondPlayerCounter": secondPlayerCounter
+    }
+    if firstPlayerAttacking:
+        roundInfoDict["beginningPlayerTopCard"] = firstPlayerTopCard
+    else:
+        roundInfoDict["beginningPlayerTopCard"] = secondPlayerTopCard
+    return json.dumps(roundInfoDict)
+
+@pokeGameBlueprint.route("/aiAttack/")
+def aiAttack():
+    game = Game.instance()
+    attack = game.AIAttackAdvanced()
+    return json.dumps(attack)

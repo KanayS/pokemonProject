@@ -50,6 +50,7 @@ class Game:
         self.loser = {}
         self.gameOver = False
         self.firstPlayerAttacking = False
+        self.gameStage = 0
 
     def shuffleMainDeck(self):
         if self.mainDeck is not None:
@@ -150,7 +151,7 @@ class Game:
                 damageDone.append(False)
 
         if damageDone == [False, False] or damageDone == [False]:
-            damageTotal = 0
+            damageTotal = 1
 
         return damageTotal
 
@@ -159,12 +160,12 @@ class Game:
         if self.firstPlayerDeck is not None and self.secondPlayerDeck is not None:
 
             self.firstPlayerCard = self.firstPlayerDeck[0]
-            self.firstPlayerHP = int(self.firstPlayerCard["hp"])
             self.secondPlayerCard = self.secondPlayerDeck[0]
-            self.secondPlayerHP = int(self.secondPlayerCard["hp"])
-
 
             if self.round == 0:
+
+                self.firstPlayerHP = int(self.firstPlayerCard["hp"])
+                self.secondPlayerHP = int(self.secondPlayerCard["hp"])
 
                 choosePlayer = random.randint(1, 2)
                 self.round += 1
@@ -182,6 +183,12 @@ class Game:
                     logging.info(f"Player 2 chosen to attack first with {self.attacker['name']}")
 
             else:
+                if self.firstPlayerAttacking:
+                    self.secondPlayerHP = int(self.secondPlayerCard["hp"])
+
+                else:
+                    self.firstPlayerHP = int(self.firstPlayerCard["hp"])
+
                 self.attacker = self.winner[0]
                 self.defender = self.loser[0]
 
@@ -213,11 +220,27 @@ class Game:
         return self.typesToAttack
 
     def AIAttack(self):
-        self.gameStage = 1
         AITypes = self.getAttackerTypes()
         if len(AITypes) > 1:
             random.shuffle(AITypes)
         AIAttackType = AITypes[0]
+        return AIAttackType
+
+    def AIAttackAdvanced(self):
+        AITypes = self.getAttackerTypes()
+        if len(AITypes) == 2:
+
+            multiplierValues = []
+            for AIType in AITypes:
+                multiplier = self.getDamageMultiplier(AIType)
+                multiplierValues.append(multiplier)
+            if multiplierValues[0] > multiplierValues[1] or multiplierValues[0] == multiplierValues[1]:
+                AIAttackType = AITypes[0]
+            else:
+                AIAttackType = AITypes[1]
+        else:
+            AIAttackType = AITypes[0]
+
         return AIAttackType
 
     def attack(self, attackType):
@@ -229,7 +252,7 @@ class Game:
         #randNum = 230 ##FOR TESTING PURPOSES
         randNum = random.randint(217, 255)
         damageCalc = (attackValue / defenseValue) * multiplier * (randNum / 255) * 30
-        damageDone = round(damageCalc, 2)
+        damageDone = ceil(damageCalc)
 
         if self.attacker == self.firstPlayerCard:
             self.secondPlayerHP -= damageDone
