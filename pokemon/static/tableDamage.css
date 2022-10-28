@@ -111,7 +111,7 @@ body {
     background-size: contain;
     position: absolute;
     left: 50%;
-    top: 90px;
+    top: 10px;
     margin-left: -200px !important;
 
     display: inline;
