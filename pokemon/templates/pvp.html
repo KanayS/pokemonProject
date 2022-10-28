@@ -1,0 +1,8 @@
+{% if firstPlayerAttacking == false %}
+{% for type in attackTypes %}
+<button id="PlayerTwo{{type}}" class="button attackButton" type="button"
+        onclick="attack('{{type}}', 'playerTwo')">{{type}}
+</button>
+{% endfor %}
+<script>showInitialCard('secondPlayerDeck', 'secondPlayerCard')</script>
+{% endif %}
