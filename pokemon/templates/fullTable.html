@@ -9,16 +9,16 @@
     <th style ="border-style: hidden"></th>
     <th style="background-color: green"><img src="static/poketable.gif" width=50px></th>
     {% for type, colour in typeColour.items() %}
-    <th style="background-color: {{colour}}; font-weight: normal; width: 50px">
-        <div>{{type}}</div>
+    <th style="background-color: {{colour}}; font-weight: normal; margin:auto; text-align:center">
+        {{type}}
     </th>
     {% endfor %}
 </tr>
 </thead>
 <tbody id="tbody">
 <tr>
-    <th style ="border-style: hidden; background-color: #FFA12B; color: white; font-family: 'CubicFive12'; height:10px" class ="rotate" rowspan="20">
-        <div><span style="font-size: 20px">Attacking Types</span></div>
+    <th style ="border-style: hidden; background-color: #FFA12B; color: white; font-family: 'CubicFive12'; height:10px" rowspan="20">
+        <div style="font-size: 20px; transform: rotate(-90deg) translateY(-1px) translateX(-85px);white-space: nowrap; width: 30px">Attacking Types</div>
     </th>
 </tr>
 {% for typeName, typeData in typesData.items() %}

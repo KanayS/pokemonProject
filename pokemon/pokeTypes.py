@@ -25,27 +25,6 @@ class Damage:
                              'noDamageTo': 0}
         self.damage = 1
         self.damageDone = []
-
-        self.images = {'water': 'static/water.png',
-            'rock': 'static/rock.png',
-            'ground': 'static/ground.png',
-            'normal':'static/rock.png',
-            'fighting':'static/rock.png',
-            'flying':'static/rock.png',
-            'poison': 'static/rock.png',
-            'bug': 'static/rock.png',
-            'ghost': 'static/rock.png',
-            'steel': 'static/steel.png',
-            'electric': 'electric.png',
-            'psychic': 'static/rock.png',
-            'ice': 'static/rock.png',
-            'dragon': 'static/rock.png',
-            'fairy': 'static/rock.png',
-             'fire': 'static/rock.png',
-                       'grass': 'static/rock.png',
-                       'dark': 'static/rock.png'}
-
-
     def __fetchTypes(self):
 
         try:
@@ -167,8 +146,8 @@ class Damage:
                      "#6c5ce7",
                      "#a29bfe",
                      "coral",
-                        "#95afc0"
-                        ]
+                     "#95afc0"]
+
         for types in typeData[:-2]:
             typeList.append(types[0])
 

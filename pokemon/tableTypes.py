@@ -22,7 +22,4 @@ def getPokeType(pokeType):
 def showFullTable():
     damage = Damage()
     typesData, colourDict = damage.makeDamageTable()
-    imageDict = damage.images
-    print()
-
-    return render_template('fullTable.html', typesData=typesData, typeColour=colourDict, imageDict=imageDict)
+    return render_template('fullTable.html', typesData=typesData, typeColour=colourDict)
